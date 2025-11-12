@@ -5,7 +5,7 @@ const POKEMON_DATA = [
   {
     id: 1,
     name: "Bulbasaur",
-    type: "Planta,Veneno",
+    type: "Planta, Veneno",
     rarity: "Infrecuente",
     captureRate: 0.65,
     stats: {
@@ -75,7 +75,7 @@ const POKEMON_DATA = [
   },{
     id: 2,
     name: "Ivysaur",
-    type: "Planta","Veneno",
+    type: "Planta, Veneno",
     rarity: "Infrecuente",
     captureRate: 0.65,
     stats: {

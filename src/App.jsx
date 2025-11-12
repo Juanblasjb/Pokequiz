@@ -403,7 +403,7 @@ export default function PokemonQuiz() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center opacity-30">
                       <img 
-                        src={`/assets/Pokedex_silueta/${pokemon.id}.png`} 
+                        src={`${process.env.PUBLIC_URL}/assets/Pokedex_silueta/${pokemon.id}.png`} 
                         alt="Silueta de Pokémon" 
                         className="w-full h-full object-contain" 
                       />

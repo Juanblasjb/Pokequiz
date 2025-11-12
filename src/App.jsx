@@ -5,7 +5,7 @@ const POKEMON_DATA = [
   {
     id: 1,
     name: "Bulbasaur",
-    type: "Planta, Veneno",
+    type: ["Planta", "Veneno"],
     rarity: "Infrecuente",
     captureRate: 0.65,
     stats: {
@@ -75,7 +75,7 @@ const POKEMON_DATA = [
   },{
     id: 2,
     name: "Ivysaur",
-    type: "Planta, Veneno",
+    type: ["Planta", "Veneno"],
     rarity: "Infrecuente",
     captureRate: 0.65,
     stats: {
@@ -146,7 +146,7 @@ const POKEMON_DATA = [
   {
     id: 4,
     name: "Charmander",
-    type: "Fuego",
+    type: ["Fuego"],
     rarity: "Rara",
     captureRate: 0.40,
     stats: {
@@ -262,9 +262,9 @@ export default function PokemonQuiz() {
   const [showResult, setShowResult] = useState(false);
   const [captureAttempt, setCaptureAttempt] = useState(null);
 
-  const filteredPokemon = selectedType === "Todos" 
-    ? POKEMON_DATA 
-    : POKEMON_DATA.filter(p => p.type === selectedType);
+  const filteredPokemon = selectedType === "Todos"
+  ? POKEMON_DATA
+  : POKEMON_DATA.filter(p => p.type.includes(selectedType));
 
   const capturedCount = Object.keys(captured).length;
   const totalPokemon = POKEMON_DATA.length;
@@ -584,7 +584,7 @@ export default function PokemonQuiz() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-400">Tipo:</span>
-                          <span className="font-medium">{selectedPokemon.type}</span>
+                          <span className="font-medium">{selectedPokemon.type.join(' / ')}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-400">Rareza:</span>
@@ -603,7 +603,7 @@ export default function PokemonQuiz() {
                     <h2 className="text-3xl font-bold mb-1">{selectedPokemon.name}</h2>
                     <div className="flex items-center gap-2 text-sm text-gray-400">
                       <span className="text-blue-400">⚡</span>
-                      <span>{selectedPokemon.type}</span>
+                      <span>{selectedPokemon.type.join(' / ')}</span>
                     </div>
                     <div className="flex gap-2 mt-3">
                       {[...Array(5)].map((_, i) => (

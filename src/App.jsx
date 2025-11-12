@@ -19,7 +19,6 @@ const POKEMON_DATA = [
     description: "Este Pokémon nace con una semilla en el lomo, que brota con el paso del tiempo.",
     height: "0.7 m",
     weight: "6.9 kg",
-    silhouette: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 180 C70 180 50 160 50 130 L50 100 C50 70 70 50 90 40 C95 20 105 20 110 40 C130 50 150 70 150 100 L150 130 C150 160 130 180 100 180 Z' fill='%23000000'/%3E%3C/svg%3E",
     quiz: [
       { question: "¿De qué tipo es Bulbasaur?", options: ["Fuego", "Agua", "Planta", "Eléctrico"], correct: 2 },
       { question: "¿Cuál es el número de Bulbasaur en la Pokédex?", options: ["001", "002", "003", "004"], correct: 0 },
@@ -89,7 +88,6 @@ const POKEMON_DATA = [
     description: "Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras.",
     height: "1.0 m",
     weight: "13.0 kg",
-    silhouette: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 180 C70 180 50 160 50 130 L50 100 C50 70 70 50 90 40 C95 20 105 20 110 40 C130 50 150 70 150 100 L150 130 C150 160 130 180 100 180 Z' fill='%23000000'/%3E%3C/svg%3E",
     quiz: [
       { question: "¿De qué tipo es Bulbasaur?", options: ["Fuego", "Agua", "Planta", "Eléctrico"], correct: 2 },
       { question: "¿Cuál es el número de Bulbasaur en la Pokédex?", options: ["001", "002", "003", "004"], correct: 0 },
@@ -155,12 +153,11 @@ const POKEMON_DATA = [
       def: 43,
       spd: 65,
       critRate: 5.0,
-      critDmg: 50.0
+      critDmg: 50.0,
     },
     description: "Prefiere las cosas calientes. Dicen que cuando llueve le sale vapor de la punta de la cola.",
     height: "0.6 m",
     weight: "8.5 kg",
-    silhouette: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 180 C80 180 65 165 65 145 L65 100 C65 80 75 65 85 55 C90 45 95 30 105 35 C115 30 120 45 125 55 C135 65 145 80 145 100 L145 145 C145 165 120 180 100 180 Z M115 20 C120 15 125 20 125 30 C125 35 120 40 115 35 C110 30 110 25 115 20 Z' fill='%23000000'/%3E%3C/svg%3E",
     quiz: [
       { question: "¿De qué tipo es Charmander?", options: ["Agua", "Fuego", "Planta", "Normal"], correct: 1 },
       { question: "¿Qué parte de Charmander siempre está encendida?", options: ["Sus ojos", "Su boca", "Su cola", "Sus garras"], correct: 2 },
@@ -399,13 +396,17 @@ export default function PokemonQuiz() {
                 <div className="aspect-square p-4 flex items-center justify-center bg-gradient-to-br from-slate-700/50 to-slate-800/50">
                   {captured[pokemon.id] ? (
                     <img 
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-                      alt={pokemon.name}
-                      className="w-full h-full object-contain"
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+                        alt={pokemon.name}
+                        className="w-full h-full object-contain"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center opacity-30">
-                      <img src={pokemon.silhouette} alt="?" className="w-full h-full object-contain" />
+                      <img 
+                        src={`/assets/Pokedex_silueta/${pokemon.id}.png`} 
+                        alt="Silueta de Pokémon" 
+                        className="w-full h-full object-contain" 
+                      />
                     </div>
                   )}
                 </div>

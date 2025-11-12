@@ -396,9 +396,9 @@ export default function PokemonQuiz() {
                 <div className="aspect-square p-4 flex items-center justify-center bg-gradient-to-br from-slate-700/50 to-slate-800/50">
                   {captured[pokemon.id] ? (
                     <img 
-                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-                        alt={pokemon.name}
-                        className="w-full h-full object-contain"
+                      src={`/assets/Pokedex_silueta/${pokemon.id}.png`} 
+                      alt="Silueta de Pokémon" 
+                      className="w-full h-full object-contain" 
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center opacity-30">

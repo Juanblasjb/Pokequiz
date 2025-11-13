@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Award } from 'lucide-react';
+import ShinyAnimation from './ShinyAnimation';
 
 const POKEMON_DATA = [
   {
@@ -11,13 +12,34 @@ const POKEMON_DATA = [
       hp: 45,
       atk: 49,
       def: 49,
+      spAtk: 65,
+      spDef: 65,
       spd: 45,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Este Pokémon nace con una semilla en el lomo, que brota con el paso del tiempo.",
     height: "0.7 m",
     weight: "6.9 kg",
+    background: '/backgrounds/forest.png', // <-- NUEVO: Ruta a la imagen de fondo
+    locations: [                           // <-- NUEVO: Array de localizaciones
+    { top: '20%', left: '62%' }, // Ciudad Celeste (donde te lo regalan en Amarillo)
+    { top: '40%', left: '21%' }, // Bosque Verde (hábitat natural)
+  ],// --- NUEVA PROPIEDAD ---
+    gameLocations: [
+      { game: "Rojo/Azul", location: "Te lo da el Prof. Oak en Pueblo Paleta." },
+      { game: "Amarillo", location: "Te lo regala una chica en Ciudad Celeste." },
+      { game: "Oro/Plata/Cristal", location: "No aparece de forma salvaje." },
+      { game: "Rojo Fuego/Verde Hoja", location: "Te lo da el Prof. Oak en Pueblo Paleta." }
+    ],
+    // --- NUEVA PROPIEDAD ---
+    moves: [
+      "Látigo Cepa", "Gruñido", "Drenadoras", "Derribo",
+      "Hoja Afilada", "Polvo Veneno", "Somnífero", "Desarrollo",
+      "Bomba Germen", "Danza Pétalo", "Rayo Solar"
+    ],bonusQuestion: { // <-- AÑADE ESTA NUEVA PROPIEDAD
+    question: "¿Qué movimiento exclusivo de evento podía aprender Bulbasaur que no es de tipo Planta, Veneno o Normal?",
+    options: ["Meteorobola", "Falsotortazo", "Deseo", "Bomba Huevo"],
+    correct: 1 // La respuesta correcta es Falsotortazo (False Swipe)
+  },
     quiz: [
       { question: "¿De qué tipo es Bulbasaur?", options: ["Fuego", "Agua", "Planta", "Eléctrico"], correct: 2 },
       { question: "¿Cuál es el número de Bulbasaur en la Pokédex?", options: ["001", "002", "003", "004"], correct: 0 },
@@ -51,7 +73,7 @@ const POKEMON_DATA = [
       { question: "¿Bulbasaur es exclusivo de alguna versión?", options: ["Sí, Pokémon Verde", "Sí, Pokémon Rojo", "Sí, Pokémon Azul", "No"], correct: 3 },
       { question: "¿Qué habilidad normal tiene Bulbasaur?", options: ["Clorofila", "Espesura", "Hoja Guardia", "Absorbe Agua"], correct: 1 },
       { question: "¿Cuánto pesa Bulbasaur en libras?", options: ["13.2 lbs", "15.2 lbs", "17.6 lbs", "19.8 lbs"], correct: 1 },
-      { question: "¿En qué episodio del anime aparece por primera vez Bulbasaur?", options: ["Ep. 1", "Ep. 10", "Ep. 51", "Ep. 25"], correct: 1 },
+      { question: "¿En qué episodio del anime aparece por primera vez Bulbasaur?", options: ["Ep. 1", "Ep. 10", "Ep. 51", "Ep. 25"], correct: 0 },
       { question: "¿Qué Bulbasaur famoso se negó a evolucionar en el anime?", options: ["El de Ash", "El de Gary", "El de Misty", "El de Brock"], correct: 0 },
       { question: "¿Bulbasaur puede Megaevolucionar?", options: ["Sí", "No, pero Venusaur sí", "Sí, pero solo en Gen VII", "No"], correct: 1 },
       { question: "¿Qué movimiento Z puede usar Bulbasaur?", options: ["Aurorafloral Letal", "Ácido Mortífero", "Gigadrenado Atroz", "Ambos A y B"], correct: 3 },
@@ -79,13 +101,18 @@ const POKEMON_DATA = [
       hp: 60,
       atk: 62,
       def: 63,
-      spd: 60,
-      critRate: 5.0,
-      critDmg: 50.0
+      spAtk: 80,
+      spDef: 80,
+      spd: 58,
     },
     description: "Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras.",
     height: "1.0 m",
     weight: "13.0 kg",
+    bonusQuestion: {
+    question: "En Super Smash Bros. Brawl y Ultimate, ¿qué movimiento de Ivysaur es un ataque de agarre a distancia?",
+    options: ["Hoja Afilada", "Bomba Germen", "Síntesis", "Látigo Cepa"],
+    correct: 3 // Látigo Cepa funciona como un "tether grab".
+},
     quiz: [
       { question: "¿Cuál es el número de Ivysaur en la Pokédex Nacional?", options: ["001", "002", "003", "004"], correct: 1 },
       { question: "¿Qué empieza a florecer en la espalda de Ivysaur?", options: ["Una semilla", "Un brote", "Una flor", "Hojas"], correct: 2 },
@@ -147,13 +174,18 @@ const POKEMON_DATA = [
       hp: 80,
       atk: 82,
       def: 83,
+      spAtk: 100,
+      spDef: 100,
       spd: 80,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "La planta florece cuando absorbe energía solar. Ésta le obliga a ponerse en busca de la luz solar.",
     height: "2.0 m",
     weight: "100.0 kg",
+    bonusQuestion: {
+    question: "El movimiento Gigamax de Venusaur, Gigalianas, causa daño residual por 4 turnos a todos los Pokémon que no sean de tipo...",
+    options: ["Planta", "Veneno", "Fuego", "Tierra"],
+    correct: 0 // Gigalianas no daña a los Pokémon de tipo Planta.
+},
     quiz: [
       { question: "¿Cuál es el número de Venusaur en la Pokédex?", options: ["002", "003", "004", "005"], correct: 1 },
       { question: "¿Qué hay en la espalda de Venusaur?", options: ["Un árbol pequeño", "Un capullo gigante", "Una flor enorme", "Un arbusto"], correct: 2 },
@@ -216,13 +248,18 @@ const POKEMON_DATA = [
       hp: 39,
       atk: 52,
       def: 43,
+      spAtk: 60,
+      spDef: 50,
       spd: 65,
-      critRate: 5.0,
-      critDmg: 50.0,
     },
     description: "Prefiere las cosas calientes. Dicen que cuando llueve le sale vapor de la punta de la cola.",
     height: "0.6 m",
     weight: "8.5 kg",
+    bonusQuestion: {
+    question: "En la primera generación de juegos, ¿qué MT sorprendente podía aprender Charmander que no era de tipo Fuego o Normal?",
+    options: ["Sumisión", "Surf", "Psíquico", "Rayo Hielo"],
+    correct: 0 // Podía aprender el MT17, Sumisión (Submission), de tipo Lucha.
+},
     quiz: [
       { question: "¿De qué tipo es Charmander?", options: ["Agua", "Fuego", "Planta", "Normal"], correct: 1 },
       { question: "¿Qué parte de Charmander siempre está encendida?", options: ["Sus ojos", "Su boca", "Su cola", "Sus garras"], correct: 2 },
@@ -284,13 +321,18 @@ const POKEMON_DATA = [
       hp: 58,
       atk: 64,
       def: 58,
+      spAtk: 80,
+      spDef: 65,
       spd: 80,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Cuando balancea su ardiente cola, eleva la temperatura a niveles muy altos.",
     height: "1.1 m",
     weight: "19.0 kg",
+    bonusQuestion: {
+    question: "Según la Pokédex de Pokémon Stadium, ¿qué hace Charmeleon con sus garras si se encuentra un rival poderoso?",
+    options: ["Las esconde", "Las afila en las rocas", "Las enciende en llamas", "Las usa para cavar una trampa"],
+    correct: 2 // "En la emoción del combate, escupe llamas blanquiazules y prende fuego a sus afiladas garras".
+},
     quiz: [
       { question: "¿Cuál es el número de Charmeleon en la Pokédex?", options: ["004", "005", "006", "007"], correct: 1 },
       { question: "¿A qué nivel evoluciona Charmeleon a Charizard?", options: ["32", "34", "36", "38"], correct: 2 },
@@ -352,13 +394,18 @@ const POKEMON_DATA = [
       hp: 78,
       atk: 84,
       def: 78,
+      spAtk: 109,
+      spDef: 85,
       spd: 100,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Escupe fuego tan caliente que funde las rocas. Causa incendios forestales sin querer.",
     height: "1.7 m",
     weight: "90.5 kg",
+    bonusQuestion: {
+    question: "Mega-Charizard Y tiene la estadística de Ataque Especial más alta de todos los Pokémon iniciales no legendarios, con un valor de...",
+    options: ["145", "150", "154", "159"],
+    correct: 3 // Su Ataque Especial base es de 159.
+},
     quiz: [
       { question: "¿Cuál es el número de Charizard en la Pokédex?", options: ["005", "006", "007", "008"], correct: 1 },
       { question: "Al evolucionar de Charmeleon, Charizard adquiere un segundo tipo. ¿Cuál es?", options: ["Dragón", "Acero", "Siniestro", "Volador"], correct: 3 },
@@ -421,13 +468,18 @@ const POKEMON_DATA = [
       hp: 44,
       atk: 48,
       def: 65,
+      spAtk: 50,
+      spDef: 64,
       spd: 43,
-      critRate: 5.0,
-      critDmg: 50.0,
     },
     description: "Tras nacer, su espalda se hincha y endurece como una concha. Echa potente espuma por la boca.",
     height: "0.5 m",
     weight: "9.0 kg",
+    bonusQuestion: {
+    question: "En la primera generación, Squirtle y su línea evolutiva eran los únicos capaces de aprender un movimiento por MT que luego se convirtió en MO. ¿Cuál era?",
+    options: ["Corte", "Destello", "Fuerza", "Surf"],
+    correct: 3 // Originalmente era la MT47 y luego se convirtió en la MO03.
+},
     quiz: [
       { question: "¿Cuál es el número de Squirtle en la Pokédex Nacional?", options: ["006", "007", "008", "009"], correct: 1 },
       { question: "¿A qué nivel evoluciona Squirtle a Wartortle?", options: ["14", "16", "18", "20"], correct: 1 },
@@ -489,13 +541,18 @@ const POKEMON_DATA = [
       hp: 59,
       atk: 63,
       def: 80,
+      spAtk: 65,
+      spDef: 80,
       spd: 58,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Se oculta en el agua para cazar a sus presas. Al nadar rápidamente, mueve sus orejas para nivelarse.",
     height: "1.0 m",
     weight: "22.5 kg",
+    bonusQuestion: {
+    question: "Según la Pokédex, la cola de Wartortle es tan longeva que se ha convertido en un objeto de colección muy valioso, llegando a venderse en el mercado negro.",
+    options: ["Verdadero", "Falso", "Solo en el manga", "Solo en el anime"],
+    correct: 1 // Aunque es un símbolo de longevidad, la Pokédex no menciona que se venda en el mercado negro.
+},
     quiz: [
       { question: "¿Cuál es el número de Wartortle en la Pokédex?", options: ["007", "008", "009", "010"], correct: 1 },
       { question: "¿A qué nivel evoluciona Wartortle a Blastoise?", options: ["32", "34", "36", "38"], correct: 2 },
@@ -553,18 +610,22 @@ const POKEMON_DATA = [
     name: "Blastoise",
     type: ["Agua"],
     rarity: "Raro",
-    captureRate: 0.90,
     stats: {
       hp: 79,
       atk: 83,
       def: 100,
+      spAtk: 85,
+      spDef: 105,
       spd: 78,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Un brutal Pokémon con reactores de agua en su caparazón. Éstos son usados para rápidos placajes.",
     height: "1.6 m",
     weight: "85.5 kg",
+    bonusQuestion: {
+    question: "La habilidad de Mega-Blastoise, 'Mega Disparador', potencia movimientos de Pulso/Aura. ¿Cuál de estos movimientos NO es potenciado?",
+    options: ["Pulso Umbrío", "Esfera Aural", "Pulso Dragón", "Hidropulso"],
+    correct: 3 // Hidropulso no es un movimiento de "Pulso" a pesar de su nombre.
+},
     quiz: [
       { question: "¿Cuál es el número de Blastoise en la Pokédex?", options: ["008", "009", "010", "011"], correct: 1 },
       { question: "¿Qué tiene Blastoise en su caparazón que sus preevoluciones no tienen?", options: ["Púas", "Cañones de agua", "Propulsores", "Un timón"], correct: 1 },
@@ -627,13 +688,18 @@ const POKEMON_DATA = [
       hp: 45,
       atk: 30,
       def: 35,
+      spAtk: 20,
+      spDef: 20,
       spd: 45,
-      critRate: 5.0,
-      critDmg: 50.0,
     },
     description: "Sus cortas patas están recubiertas de ventosas que le permiten subir incansable por muros y cuestas.",
     height: "0.3 m",
     weight: "2.9 kg",
+    bonusQuestion: {
+    question: "La antena roja de Caterpie (osmeterium) emite un olor para repeler depredadores. ¿A qué se asemeja este órgano en el mundo real?",
+    options: ["A una flor venenosa", "A una serpiente", "A la lengua bífida de una serpiente", "A otro insecto más grande"],
+    correct: 2 // El osmeterium de las orugas mariposa imita una lengua de serpiente.
+},
     quiz: [
   { question: "¿Cuál es el número de Caterpie en la Pokédex?", options: ["009", "010", "011", "012"], correct: 1 },
   { question: "¿A qué nivel evoluciona Caterpie a Metapod?", options: ["5", "7", "9", "10"], correct: 1 },
@@ -695,13 +761,18 @@ const POKEMON_DATA = [
       hp: 50,
       atk: 20,
       def: 55,
+      spAtk: 25,
+      spDef: 25,
       spd: 30,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Este Pokémon es vulnerable al ataque cuando su concha es blanda, dejando expuesto su frágil cuerpo.",
     height: "0.7 m",
     weight: "9.9 kg",
+    bonusQuestion: {
+    question: "En el famoso duelo de Metapods del anime, ¿qué evento externo provoca que el Metapod de Ash finalmente gane la batalla de 'Fortaleza'?",
+    options: ["Un Beedrill lo pica y lo endurece", "Pikachu usa un pequeño Impactrueno", "Una lluvia repentina ablanda al rival", "El rival se cansa y se duerme"],
+    correct: 0 // El aguijón de un Beedrill hace que su coraza se endurezca aún más.
+},
     quiz: [
   { question: "¿Cuál es el número de Metapod en la Pokédex?", options: ["010", "011", "012", "013"], correct: 1 },
   { question: "¿A qué nivel evoluciona Metapod a Butterfree?", options: ["9", "10", "11", "12"], correct: 1 },
@@ -763,13 +834,18 @@ const POKEMON_DATA = [
       hp: 60,
       atk: 45,
       def: 50,
+      spAtk: 90,
+      spDef: 70,
       spd: 70,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "En combate, aletea a gran velocidad para lanzar al aire sus tóxicos polvillos.",
     height: "1.1 m",
     weight: "32.0 kg",
+    bonusQuestion: {
+    question: "En los juegos originales Rojo y Azul, ¿qué movimiento de tipo Psíquico aprendía Butterfree por nivel que su contraparte, Beedrill, no podía aprender?",
+    options: ["Psíquico", "Confusión", "Psicorrayo", "Telequinesis"],
+    correct: 1 // Butterfree aprende Confusión al nivel 10, dándole una ventaja temprana.
+},
     quiz: [
   { question: "¿Cuál es el número de Butterfree en la Pokédex?", options: ["011", "012", "013", "014"], correct: 1 },
   { question: "Al evolucionar, Butterfree gana un segundo tipo. ¿Cuáles son sus tipos?", options: ["Bicho/Normal", "Bicho/Psíquico", "Bicho/Volador", "Solo Bicho"], correct: 2 },
@@ -822,7 +898,7 @@ const POKEMON_DATA = [
   { question: "En Pokémon Snap, ¿cómo se puede hacer que Butterfree baile?", options: ["Tocando la Poké Flauta", "Lanzándole comida", "Usando el radar", "Fotografiándolo varias veces"], correct: 0 },
   { question: "El diseño de Butterfree está basado en una mariposa real, específicamente la...", options: ["Mariposa Monarca", "Mariposa Blanca de la Col", "Mariposa Pavo Real", "Mariposa Morfo Azul"], correct: 1 }
 ]
-  },{
+},{
     id: 13,
     name: "Weedle",
     type: ["Bicho", "Veneno"],
@@ -831,13 +907,18 @@ const POKEMON_DATA = [
       hp: 40,
       atk: 35,
       def: 30,
+      spAtk: 20,
+      spDef: 20,
       spd: 50,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Fácil de ver por los bosques comiendo hojas. Tiene un aguijón venenoso en la cabeza.",
     height: "0.3 m",
     weight: "3.2 kg",
+    bonusQuestion: {
+    question: "Weedle comparte su categoría de 'Pokémon Oruga Peluda' con otro Pokémon de la primera generación. ¿Cuál es?",
+    options: ["Caterpie", "Pinsir", "Wurmple", "Venonat"],
+    correct: 3 // Tanto Weedle como Venonat son de la categoría 'Oruga Peluda'.
+},
     quiz: [
   { question: "¿Cuál es el número de Weedle en la Pokédex?", options: ["012", "013", "014", "015"], correct: 1 },
   { question: "¿A qué nivel evoluciona Weedle a Kakuna?", options: ["5", "7", "9", "10"], correct: 1 },
@@ -890,8 +971,7 @@ const POKEMON_DATA = [
   { question: "En el anime, el primer intento de Ash de capturar un Weedle falla porque...", options: ["Weedle huye", "Ash se asusta", "Pikachu se niega a luchar", "Aparece un Samurái"], correct: 2 },
   { question: "El aguijón de su cabeza es de color...", options: ["Blanco", "Plateado", "Amarillo", "Del color de su piel"], correct: 0 }
 ]
-  },
-  {
+  },{
     id: 14,
     name: "Kakuna",
     type: ["Bicho", "Veneno"],
@@ -900,13 +980,18 @@ const POKEMON_DATA = [
       hp: 45,
       atk: 25,
       def: 50,
+      spAtk: 25,
+      spDef: 55,
       spd: 35,
-      critRate: 5.0,
-      critDmg: 50.0,
     },
     description: "Casi incapaz de moverse, este Pokémon sólo puede endurecer su caparazón para protegerse.",
     height: "0.6 m",
     weight: "10.0 kg",
+    bonusQuestion: {
+    question: "Si un Kakuna es atacado físicamente mientras usa Fortaleza, ¿qué puede hacer como último recurso según algunas entradas de la Pokédex?",
+    options: ["Explotar", "Soltar un gas somnífero", "Sacar su aguijón y envenenar", "Teletransportarse"],
+    correct: 2 // Puede extender su aguijón para defenderse, aunque rara vez lo hace.
+},
     quiz: [
   { question: "¿Cuál es el número de Kakuna en la Pokédex?", options: ["013", "014", "015", "016"], correct: 1 },
   { question: "¿A qué nivel evoluciona Kakuna a Beedrill?", options: ["9", "10", "11", "12"], correct: 1 },
@@ -968,13 +1053,18 @@ const POKEMON_DATA = [
       hp: 65,
       atk: 90,
       def: 40,
+      spAtk: 45,
+      spDef: 80,
       spd: 75,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Vuela muy deprisa y ataca con los venenosos y grandes aguijones de su cola y patas delanteras.",
     height: "1.0 m",
     weight: "29.5 kg",
+    bonusQuestion: {
+    question: "Mega-Beedrill tiene el Ataque base más alto de todos los Pokémon de tipo Veneno. ¿Qué estadística base de un Pokémon legendario iguala?",
+    options: ["El Ataque de Groudon", "La Velocidad de Deoxys-Velocidad", "El Ataque Especial de Mewtwo", "La Defensa de Regirock"],
+    correct: 0 // El Ataque base de Mega-Beedrill es 150, igual que el de Groudon y Rayquaza.
+},
     quiz: [
   { question: "¿Cuál es el número de Beedrill en la Pokédex?", options: ["014", "015", "016", "017"], correct: 1 },
   { question: "Además de Bicho/Veneno, ¿qué tipo gana Mega-Beedrill?", options: ["Acero", "Siniestro", "Dragón", "Ninguno, mantiene sus tipos"], correct: 3 },
@@ -1036,13 +1126,18 @@ const POKEMON_DATA = [
       hp: 40,
       atk: 45,
       def: 40,
+      spAtk: 35,
+      spDef: 35,
       spd: 56,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Muy común en bosques y selvas. Aletea al nivel del suelo para levantar la gravilla.",
     height: "0.3 m",
     weight: "1.8 kg",
+    bonusQuestion: {
+    question: "En la primera generación, Pidgey podía aprender un movimiento de tipo Volador que más tarde fue eliminado del juego por completo. ¿Cuál era?",
+    options: ["Ataque Ala", "Pico Taladro", "Tornado", "Ataque Aéreo (Sky Attack)"],
+    correct: 2 // Tornado fue eliminado y luego reintroducido, pero Pidgey ya no lo aprendía por nivel.
+},
     quiz: [
   { question: "¿Cuál es el número de Pidgey en la Pokédex?", options: ["015", "016", "017", "018"], correct: 1 },
   { question: "¿A qué nivel evoluciona Pidgey a Pidgeotto?", options: ["16", "18", "20", "22"], correct: 1 },
@@ -1104,13 +1199,18 @@ const POKEMON_DATA = [
       hp: 63,
       atk: 60,
       def: 55,
+      spAtk: 50,
+      spDef: 50,
       spd: 71,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Muy protector de su amplio territorio, este Pokémon picoteará ferozmente a todo intruso.",
     height: "1.1 m",
     weight: "30.0 kg",
+    bonusQuestion: {
+    question: "Según la Pokédex, el territorio que reclama un Pidgeotto es tan vasto que tiene un radio de casi...",
+    options: ["25 km", "50 km", "100 km", "150 km"],
+    correct: 2 // "Reclama una vasta zona como su territorio y la sobrevuela para vigilarla. Si alguien osa invadirla, no tendrá piedad."
+    },
     quiz: [
   { question: "¿Cuál es el número de Pidgeotto en la Pokédex?", options: ["016", "017", "018", "019"], correct: 1 },
   { question: "¿A qué nivel evoluciona Pidgeotto a Pidgeot?", options: ["32", "34", "36", "38"], correct: 2 },
@@ -1172,13 +1272,18 @@ const POKEMON_DATA = [
       hp: 83,
       atk: 80,
       def: 75,
-      spd: 91,
-      critRate: 5.0,
-      critDmg: 50.0
+      spAtk: 70,
+      spDef: 70,
+      spd: 101,
     },
     description: "Cuando caza, vuela muy deprisa a ras del agua, y sorprende a inocentes presas como Magikarp.",
     height: "1.5 m",
     weight: "39.5 kg",
+    bonusQuestion: {
+    question: "La habilidad de Mega-Pidgeot, 'Indefenso', garantiza que sus ataques acierten. ¿Qué movimiento de tipo Normal se beneficia enormemente de esto?",
+    options: ["Hiperrayo", "Vendaval", "Ciclón", "Vozarrón"],
+    correct: 1 // Vendaval (Hurricane) es de tipo Volador y con Indefenso nunca falla.
+},
     quiz: [
   { question: "¿Cuál es el número de Pidgeot en la Pokédex?", options: ["017", "018", "019", "020"], correct: 1 },
   { question: "¿Qué forma especial puede alcanzar Pidgeot en la Gen VI?", options: ["Forma Gigamax", "Forma Alola", "Megaevolución", "Forma Primigenia"], correct: 2 },
@@ -1240,13 +1345,18 @@ const POKEMON_DATA = [
       hp: 30,
       atk: 56,
       def: 35,
+      spAtk: 25,
+      spDef: 35,
       spd: 72,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Cuando ataca lo muerde todo. Pequeño y muy rápido, es muy fácil de ver en muchos sitios.",
     height: "0.3 m",
     weight: "3.5 kg",
+    bonusQuestion: {
+    question: "Además de la estrategia F.E.A.R., ¿qué movimiento de tipo Fantasma podía aprender Rattata por MT en la Gen I, a pesar de ser de tipo Normal?",
+    options: ["Sombra Vil", "Tinieblas", "Lengüetazo", "Rayo Confuso"],
+    correct: 1 // Podía aprender Tinieblas (Night Shade), que hace daño fijo igual al nivel del usuario.
+},
     quiz: [
   { question: "¿Cuál es el número de Rattata en la Pokédex?", options: ["018", "019", "020", "021"], correct: 1 },
   { question: "¿A qué nivel evoluciona Rattata a Raticate?", options: ["18", "20", "22", "24"], correct: 1 },
@@ -1308,13 +1418,18 @@ const POKEMON_DATA = [
       hp: 55,
       atk: 81,
       def: 60,
+      spAtk: 50,
+      spDef: 70,
       spd: 97,
-      critRate: 5.0,
-      critDmg: 50.0
     },
     description: "Utiliza sus bigotes para equilibrarse. Parece que si son cortados va más despacio.",
     height: "0.7 m",
     weight: "18.5 kg",
+    bonusQuestion: {
+    question: "En Pokémon Sol y Luna, el Raticate de Alola es el Pokémon Dominante de la prueba de Liam. ¿Qué Pokémon invoca como aliado en la batalla?",
+    options: ["Dos Rattata de Alola", "Un Gumshoos", "Un Rattata y un Yungoos", "Solo un Rattata"],
+    correct: 3 // En Sol invoca a un Rattata, en Ultrasol invoca a dos.
+},
     quiz: [
   { question: "¿Cuál es el número de Raticate en la Pokédex?", options: ["019", "020", "021", "022"], correct: 1 },
   { question: "Los colmillos de Raticate son lo suficientemente fuertes como para...", options: ["Romper madera", "Roer rocas", "Derribar edificios de hormigón", "Masticar acero"], correct: 2 },
@@ -1367,6 +1482,1476 @@ const POKEMON_DATA = [
   { question: "Raticate es más común en las rutas cercanas a ciudades.", "options": ["Verdadero", "Falso", "Solo en bosques", "Solo en cuevas"], "correct": 0 },
   { question: "Su cola es gruesa y fuerte.", "options": ["Verdadero", "Falso", "Es delgada y frágil", "No tiene cola"], "correct": 0 }
 ]
+  },{
+    id: 21,
+    name: "Spearow",
+    type: ["Normal", "Volador"],
+    rarity: "Común",
+    stats: {
+      hp: 40,
+      atk: 60,
+      def: 30,
+      spAtk: 31,
+      spDef: 31,
+      spd: 70,
+    },
+    description: "Come bichos en zona de hierba. Agita sus cortas alas muy rápido para mantenerse en el aire.",
+    height: "0.3 m",
+    weight: "2.0 kg",
+    bonusQuestion: {
+    question: "Si un Spearow usa el movimiento 'Persecución' contra un Pokémon que está cambiando, ¿qué sucede?",
+    options: ["El movimiento falla", "La potencia del movimiento se duplica", "El cambio del rival se anula", "Spearow ataca primero"],
+    correct: 1 // Persecución (Pursuit) golpea antes de que el rival cambie y con el doble de potencia.
+},
+    background: '/backgrounds/forest.png', // <-- NUEVO: Ruta a la imagen de fondo
+    locations: [                           // <-- NUEVO: Array de localizaciones
+    { top: '20%', left: '62%' }, // Ciudad Celeste (donde te lo regalan en Amarillo)
+    { top: '40%', left: '21%' }, // Bosque Verde (hábitat natural)
+  ],
+    quiz: [
+  { question: "¿Cuál es el número de Spearow en la Pokédex?", options: ["020", "021", "022", "023"], correct: 1 },
+  { question: "¿A qué nivel evoluciona Spearow a Fearow?", options: ["18", "20", "22", "24"], correct: 1 },
+  { question: "A diferencia de Pidgey, Spearow tiene una personalidad muy...", options: ["Dócil", "Tímida", "Agresiva y territorial", "Juguetona"], correct: 2 },
+  { question: "¿Cuál es la habilidad principal de Spearow?", options: ["Vista Lince", "Sacapecho", "Tumbos", "Agallas"], correct: 0 },
+  { question: "La habilidad 'Vista Lince' previene la reducción de...", options: ["Ataque", "Defensa", "Precisión", "Velocidad"], correct: 2 },
+  { question: "¿Cuál es la habilidad oculta de Spearow?", options: ["Francotirador", "Intrépido", "Alas Vendaval", "Ímpetu Arena"], correct: 0 },
+  { question: "La habilidad 'Francotirador' aumenta el daño de...", options: ["Los movimientos de tipo Volador", "Los golpes críticos", "Los ataques con STAB", "Los movimientos con baja precisión"], correct: 1 },
+  { question: "Spearow tiene alas cortas, por lo que debe...", options: ["Planean en lugar de volar", "Volar solo distancias cortas", "Aletear constantemente para mantenerse en el aire", "Correr para tomar impulso"], correct: 2 },
+  { question: "En el primer episodio del anime, Ash es atacado por una bandada de Spearow porque...", options: ["Le robó su comida", "Le lanzó una piedra a uno de ellos", "Pikachu los electrocutó", "Tropezó con su nido"], correct: 1 },
+  { question: "El líder de esa bandada de Spearow evoluciona y se convierte en el rival del... de Ash.", options: ["Pikachu", "Butterfree", "Pidgeot", "Charizard"], correct: 2 },
+  { question: "¿Cuál es la categoría de Pokémon de Spearow?", options: ["Pajarito", "Ave Pequeña", "Pájaro Diminuto", "Polluelo"], correct: 2 },
+  { question: "Su nombre, 'Spearow', es una combinación de 'Spear' (lanza) y...", options: ["Arrow (flecha)", "Sparrow (gorrión)", "Sorrow (pena)", "Narrow (estrecho)"], correct: 1 },
+  { question: "¿Cuál es la estadística base más alta de Spearow?", options: ["PS", "Ataque", "Defensa", "Velocidad"], correct: 3 },
+  { question: "¿Qué movimiento aprende que es característico de su naturaleza agresiva?", options: ["Ataque Rápido", "Picotazo", "Ataque Furia", "Persecución"], correct: 3 },
+  { question: "¿En qué grupo huevo se encuentra?", options: ["Campo", "Volador", "Monstruo", "Bicho"], correct: 1 },
+  { question: "¿Su tasa de captura es de?", options: ["255", "190", "120", "45"], correct: 0 },
+  { question: "¿Cuánto mide Spearow?", options: ["0.3 m", "0.4 m", "0.5 m", "0.6 m"], correct: 0 },
+  { question: "¿Cuánto pesa Spearow?", options: ["1.8 kg", "2.0 kg", "2.2 kg", "2.5 kg"], correct: 1 },
+  { question: "¿De qué color es un Spearow variocolor (shiny)?", options: ["Azul", "Rojo", "Verde", "Dorado"], correct: 3 },
+  { question: "Para proteger su territorio, Spearow emite gritos muy agudos.", options: ["Verdadero", "Falso", "Es silencioso", "Usa sus alas para hacer ruido"], correct: 0 },
+  { question: "En el TCG, la primera carta de Spearow apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 1 },
+  { question: "¿Qué tipo de ataque es súper efectivo contra Spearow?", options: ["Roca", "Agua", "Planta", "Tierra"], correct: 0 },
+  { question: "El nombre japonés de Spearow es 'Onisuzume', que significa...", options: ["Pájaro Lanza", "Gorrión Demonio", "Pájaro Rápido", "Pico Afilado"], correct: 1 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["60", "65", "70", "75"], correct: 2 },
+  { question: "El valor de experiencia base que otorga Spearow es:", options: ["52", "55", "58", "60"], correct: 0 },
+  { question: "Spearow es la contraparte de... en Kanto.", options: ["Pidgey", "Rattata", "Zubat", "Mankey"], correct: 0 },
+  { question: "¿Cuál es su PS base?", options: ["40", "45", "50", "55"], correct: 0 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["50", "55", "60", "65"], correct: 2 },
+  { question: "Se alimenta de insectos en zonas de hierba alta.", options: ["Verdadero", "Falso", "Come bayas", "Come peces"], correct: 0 },
+  { question: "En Pokémon GO, ¿cuántos caramelos cuesta evolucionar un Spearow?", options: ["12", "25", "50", "100"], correct: 2 },
+  { question: "Es inmune al tipo...", options: ["Fantasma", "Tierra", "Lucha", "Veneno"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Taladradora por tutor?", options: ["Sí", "No", "Solo como Fearow", "Solo en Alola"], correct: 0 },
+  { question: "Su pico es corto pero muy afilado y efectivo.", options: ["Verdadero", "Falso", "Su pico es romo", "No usa su pico para atacar"], correct: 0 },
+  { question: "¿Resiste Spearow ataques de tipo...?", options: ["Bicho y Planta", "Fuego y Agua", "Roca y Hielo", "Lucha y Veneno"], correct: 0 },
+  { question: "Es muy valiente y se enfrenta a oponentes mucho más grandes que él.", options: ["Verdadero", "Falso", "Es muy cobarde", "Solo ataca en grupo"], correct: 0 },
+  { question: "¿Qué movimiento aprende por nivel que baja el ataque del rival?", options: ["Malicioso", "Gruñido", "Encanto", "Placaje"], correct: 1 },
+  { question: "Aparece en la Zona Safari de Kanto.", options: ["Sí", "No", "Solo en la versión Amarilla", "Solo de mañana"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Ida y Vuelta por MT?", options: ["Sí", "No", "Solo Fearow", "Solo por tutor"], correct: 0 },
+  { question: "Su cresta despeinada es un signo de su naturaleza rebelde.", options: ["Verdadero", "Falso", "No tiene cresta", "Es muy pulcro"], correct: 0 },
+  { question: "¿Cuál es su estadística de Defensa base?", options: ["30", "35", "40", "45"], correct: 0 },
+  { question: "¿Puede nacer un Spearow con la habilidad Francotirador?", options: ["Sí, como habilidad oculta", "No", "Sí, como habilidad normal", "Solo si evoluciona"], correct: 0 },
+  { question: "Spearow es más común en rutas montañosas que en bosques.", options: ["Verdadero", "Falso", "Solo en bosques", "Solo en praderas"], correct: 0 },
+  { question: "¿Qué movimiento aprende por nivel que puede golpear a un oponente que usa Vuelo?", options: ["Tornado", "Vendaval", "Ataque Aéreo", "Golpe Aéreo"], correct: 3 },
+  { question: "En el TCG, Spearow es de tipo...", options: ["Normal", "Volador", "Incoloro", "Planta"], correct: 2 },
+  { question: "¿Es Spearow más rápido que Rattata?", options: ["Sí", "No", "Tienen la misma velocidad", "Solo en el aire"], correct: 1 },
+  { question: "¿Qué movimiento aprende que le permite atacar primero?", options: ["Ataque Rápido", "Golpe Aéreo", "Persecución", "Agilidad"], correct: 0 },
+  { question: "En el anime, el Spearow que ataca a Ash es de un color diferente.", options: ["Verdadero, es shiny", "Falso, es normal", "Es más grande, pero del mismo color", "Es de un color más oscuro"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Espejo para devolver ataques de estado?", options: ["Sí, por nivel", "No", "Sí, por tutor", "Solo Fearow"], correct: 0 },
+  { question: "Tiene una vista muy aguda.", options: ["Verdadero, por su habilidad Vista Lince", "Falso, su vista es pobre", "Solo de cerca", "Solo de noche"], correct: 0 },
+  { question: "A menudo roba comida de otros Pokémon.", options: ["Verdadero", "Falso", "Es muy generoso", "Solo come lo que caza"], correct: 0 }
+]
+  },{
+    id: 22,
+    name: "Fearow",
+    type: ["Normal", "Volador"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 65,
+      atk: 90,
+      def: 65,
+      spAtk: 61,
+      spDef: 61,
+      spd: 100,
+    },
+    description: "Con sus enormes y magníficas alas, puede seguir volando sin tener que aterrizar para descansar.",
+    height: "1.2 m",
+    weight: "38.0 kg",
+    bonusQuestion: {
+  question: "En la primera generación, el movimiento característico que Fearow aprendía al evolucionar era 'Perforador'. ¿Qué otro Pokémon lo aprendía por nivel?",
+  options: ["Nidoking", "Rhydon", "Goldeen", "Pinsir"],
+  correct: 1 // Rhydon también lo aprendía por nivel de forma natural.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Fearow en la Pokédex?", options: ["021", "022", "023", "024"], correct: 1 },
+  { question: "A diferencia de Spearow, las alas de Fearow son...", options: ["Pequeñas y débiles", "Grandes y magníficas, para volar alto y por mucho tiempo", "Decorativas", "Inútiles para volar"], correct: 1 },
+  { question: "Fearow puede permanecer en el aire durante... sin necesidad de aterrizar.", options: ["Una hora", "Medio día", "Un día entero", "Una semana"], correct: 2 },
+  { question: "Usa su largo y afilado pico para...", options: ["Construir nidos", "Atrapar presas en el suelo o en el agua", "Comunicarse", "Equilibrarse"], correct: 1 },
+  { question: "La habilidad 'Vista Lince' de Fearow le es útil para...", options: ["Evitar que su precisión baje", "Ver presas desde grandes alturas", "Atacar primero", "Las dos primeras opciones son correctas"], correct: 3 },
+  { question: "¿Cuál es la habilidad oculta de Fearow?", options: ["Francotirador", "Intrépido", "Alas Vendaval", "Ímpetu Arena"], correct: 0 },
+  { question: "Si ve a un entrenador en su territorio, lo atacará desde el cielo.", options: ["Verdadero", "Falso", "Lo ignorará", "Huirá"], correct: 0 },
+  { question: "En el anime, el Spearow que atacó a Ash evoluciona a Fearow y se convierte en el líder de...", options: ["El Escuadrón Pidgey", "Una bandada de Spearow y Fearow", "Los Pokémon de la Ruta 1", "Un grupo de élite"], correct: 1 },
+  { question: "¿Contra qué Pokémon lucha el Pidgeotto de Ash antes de evolucionar a Pidgeot?", options: ["Un Dragonite", "Un Aerodactyl", "El Fearow que lo molestaba de pequeño", "Un Gyarados"], correct: 2 },
+  { question: "¿Cuál es la categoría de Pokémon de Fearow?", options: ["Pájaro Pico", "Ave", "Depredador", "Pájaro"], correct: 3 },
+  { question: "¿Cuál es la estadística base más alta de Fearow?", options: ["Ataque", "Defensa", "PS", "Velocidad"], correct: 3 },
+  { question: "¿Cuánto mide Fearow?", options: ["1.0 m", "1.1 m", "1.2 m", "1.3 m"], correct: 2 },
+  { question: "¿Cuánto pesa Fearow?", options: ["35.0 kg", "38.0 kg", "40.0 kg", "42.0 kg"], correct: 1 },
+  { question: "El nombre 'Fearow' es una combinación de 'Fear' (miedo) y...", options: ["Arrow (flecha)", "Sparrow (gorrión)", "Sorrow (pena)", "Grow (crecer)"], correct: 1 },
+  { question: "¿Qué movimiento aprende Fearow al evolucionar?", options: ["Ala de Acero", "Picotazo", "Ataque Furia", "Perforador"], correct: 3 },
+  { question: "¿Es Fearow más rápido que Pidgeot?", options: ["Sí", "No", "Tienen la misma velocidad", "Solo en el anime"], correct: 1 },
+  { question: "¿Cuál es su PS base?", options: ["65", "70", "75", "80"], correct: 0 },
+  { question: "Se dice que si ves un Fearow volando, es señal de...", options: ["Buena suerte", "Mal tiempo", "Que hay presas cerca", "Que vas por buen camino"], correct: 3 },
+  { question: "El valor de experiencia base que otorga Fearow es:", options: ["155", "162", "170", "180"], correct: 0 },
+  { question: "¿De qué color es un Fearow variocolor (shiny)?", options: ["Dorado/Verdoso", "Plateado", "Rojo", "Azul"], correct: 0 },
+  { question: "En el TCG, la primera carta de Fearow apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 1 },
+  { question: "El nombre japonés de Fearow, 'Onidrill', combina 'Oni' (demonio) y...", options: ["Drill (taladro)", "Bird (pájaro)", "Kill (matar)", "Will (voluntad)"], correct: 0 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["90", "95", "100", "105"], correct: 2 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["80", "85", "90", "95"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Taladradora?", options: ["Sí, por MT", "No", "Sí, por tutor", "Solo por nivel"], correct: 2 },
+  { question: "En el manga, ¿qué personaje importante tiene un Fearow?", options: ["Red (Rojo)", "Green (Verde/chica)", "Blue (Azul/rival)", "Profesor Oak"], correct: 2 },
+  { question: "Tiene la costumbre de llevarse presas a su nido para comer tranquilamente.", options: ["Verdadero", "Falso", "Come mientras vuela", "No tiene nido"], correct: 0 },
+  { question: "¿Qué movimiento de tipo Normal potente aprende en niveles altos?", options: ["Hiperrayo", "Doble Filo", "Triataque", "Golpe Cuerpo"], correct: 2 },
+  { question: "¿Su tasa de captura es de?", options: ["45", "90", "120", "190"], correct: 1 },
+  { question: "El cuello largo de Fearow le es útil para atrapar presas sin aterrizar.", options: ["Verdadero", "Falso", "Su cuello es corto", "No caza de esa forma"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Ida y Vuelta por MT?", options: ["Sí", "No", "Solo Spearow", "Solo por tutor"], correct: 0 },
+  { question: "Fearow es inmune a los ataques de tipo...", options: ["Tierra y Fantasma", "Tierra y Lucha", "Tierra y Normal", "Tierra y Veneno"], correct: 0 },
+  { question: "¿Qué movimiento aprende que le permite curarse?", options: ["Luz Lunar", "Sol Matinal", "Recuperación", "Respiro"], correct: 3 },
+  { question: "Fearow es la evolución de:", options: ["Pidgey", "Taillow", "Starly", "Spearow"], correct: 3 },
+  { question: "Se le ha visto llevando Pokémon pequeños en su pico.", options: ["Verdadero", "Falso", "Usa sus garras", "No transporta a otros Pokémon"], correct: 0 },
+  { question: "Su cresta roja es más grande y llamativa en los machos.", options: ["Verdadero", "Falso", "No hay diferencia de género", "Las hembras no tienen cresta"], correct: 1 },
+  { question: "En la Zona Safari de Kanto, es un Pokémon común.", options: ["Verdadero", "Falso", "Es muy raro", "No aparece allí"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Ala de Acero por MT?", options: ["Sí", "No", "Solo Pidgeot", "Solo por tutor"], correct: 0 },
+  { question: "Fearow y Pidgeot a menudo luchan por el territorio.", options: ["Verdadero", "Falso", "Son indiferentes el uno al otro", "Son aliados"], correct: 0 },
+  { question: "Sus garras son afiladas, pero prefiere usar su pico para atacar.", options: ["Verdadero", "Falso", "Solo usa sus garras", "Usa ambos por igual"], correct: 0 },
+  { question: "La habilidad Francotirador es especialmente útil si el oponente...", options: ["Tiene la defensa alta", "Usa Foco Energía", "Es más rápido", "Usa Protección"], correct: 1 },
+  { question: "Resiste los ataques de tipo Bicho y...", options: ["Roca", "Eléctrico", "Hielo", "Planta"], correct: 3 },
+  { question: "En Pokémon Snap, ¿cómo se consigue una buena foto de Fearow?", options: ["Lanzándole una manzana", "Tocando la flauta", "Cuando ataca a otro Pokémon", "Fotografiando a un Spearow"], correct: 0 },
+  { question: "Tiene la suficiente fuerza como para llevar a un humano pequeño.", options: ["Verdadero, según la Pokédex", "Falso", "Solo a un bebé", "Es una leyenda"], correct: 1 },
+  { question: "¿Qué movimiento aprende que golpea al rival y lo obliga a cambiar?", options: ["Remolino", "Cola Dragón", "Círculo Ígneo", "Rugido"], correct: 0 },
+  { question: "La vista de Fearow es tan buena que puede ver a un Magikarp chapoteando desde muy alto.", options: ["Verdadero", "Falso", "Su vista es promedio", "Es casi ciego"], correct: 0 },
+  { question: "¿En qué grupo huevo se encuentra?", options: ["Campo", "Volador", "Monstruo", "Bicho"], correct: 1 },
+  { question: "¿Qué líder de gimnasio de Johto usa un Fearow?", options: ["Pegaso", "Antón", "Blanca", "Morti"], correct: 0 },
+  { question: "En los juegos originales, ¿qué entrenador usa a Fearow en la Calle Victoria?", options: ["Un Ornitólogo", "Un Karateka", "Un Domador", "Un Entrenador Guay"], correct: 3 },
+  { question: "A pesar de su nombre, no está relacionado con el miedo, sino con su ferocidad.", options: ["Verdadero", "Falso", "Su nombre viene de 'furrow' (surco)", "Su nombre es por sus plumas"], correct: 0 }
+]
+  },{
+    id: 23,
+    name: "Ekans",
+    type: ["Veneno"],
+    rarity: "Raro",
+    stats: {
+      hp: 35,
+      atk: 60,
+      def: 44,
+      spAtk: 40,
+      spDef: 54,
+      spd: 55,
+    },
+    description: "Es muy silencioso y sigiloso. Come huevos de pájaros como los de Pidgey y Spearow.",
+    height: "2.0 m",
+    weight: "6.9 kg",
+    bonusQuestion: {
+    question: "En los juegos originales, Ekans es el único Pokémon no legendario que aprende 'Deslumbrar' (Glare) por nivel. ¿Qué efecto tiene este movimiento?",
+    options: ["Baja la Precisión", "Confunde", "Paraliza", "Duerme"],
+    correct: 2 // Deslumbrar es un movimiento de tipo Normal que paraliza.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Ekans en la Pokédex?", options: ["022", "023", "024", "025"], correct: 1 },
+  { question: "¿A qué nivel evoluciona Ekans a Arbok?", options: ["20", "22", "24", "26"], correct: 1 },
+  { question: "¿Cuál es el tipo de Ekans?", options: ["Veneno", "Siniestro", "Tierra", "Dragón"], correct: 0 },
+  { question: "El nombre 'Ekans' es un anagrama de la palabra inglesa...", options: ["Poison (veneno)", "Rattle (cascabel)", "Snake (serpiente)", "Scale (escama)"], correct: 2 },
+  { question: "¿Qué habilidad principal tiene Ekans que puede bajar el Ataque del rival al entrar en batalla?", options: ["Mudar", "Intimidación", "Presión", "Nerviosismo"], correct: 1 },
+  { question: "Su segunda habilidad, 'Mudar' (Shed Skin), le permite...", options: ["Ser más rápido", "Curar sus problemas de estado", "Subir su defensa", "Cambiar de tipo"], correct: 1 },
+  { question: "¿Cuál es la habilidad oculta de Ekans?", options: ["Nerviosismo", "Punto Tóxico", "Tensión", "Toque Tóxico"], correct: 2 },
+  { question: "En el anime, el Ekans de... es uno de los Pokémon más icónicos del Equipo Rocket.", options: ["James", "Meowth", "Butch", "Jessie"], correct: 3 },
+  { question: "¿Qué Pokémon se come Ekans?", options: ["Rattata", "Pidgey", "Mankey", "Huevos de Pidgey y Spearow"], correct: 3 },
+  { question: "Ekans puede desencajar su... para tragarse presas muy grandes.", options: ["Cola", "Mandíbula", "Cuello", "Cráneo"], correct: 1 },
+  { question: "¿Cuál es la categoría de Pokémon de Ekans?", options: ["Serpiente", "Cobra", "Cascabel", "Serpiente Veneno"], correct: 3 },
+  { question: "Nace sin veneno, pero se vuelve venenoso a medida que crece.", options: ["Verdadero", "Falso, nace con veneno", "Su mordisco no es venenoso", "Solo las hembras son venenosas"], correct: 1 },
+  { question: "Usa la punta de su lengua para detectar... y la dirección de su presa.", options: ["El calor", "El movimiento", "El olor y la temperatura", "El sonido"], correct: 2 },
+  { question: "¿Cuál es la estadística base más alta de Ekans?", options: ["PS", "Ataque", "Defensa", "Velocidad"], correct: 3 },
+  { question: "¿Qué movimiento aprende que puede envenenar gravemente al rival?", options: ["Picotazo Venenoso", "Tóxico", "Bomba Lodo", "Niebla Clara"], correct: 1 },
+  { question: "¿En qué grupos huevo se encuentra?", options: ["Campo y Dragón", "Monstruo y Veneno", "Campo y Monstruo", "Dragón y Bicho"], correct: 0 },
+  { question: "¿Su tasa de captura es de?", options: ["255", "190", "120", "45"], correct: 0 },
+  { question: "¿Cuánto mide Ekans?", options: ["1.5 m", "1.8 m", "2.0 m", "2.2 m"], correct: 2 },
+  { question: "¿Cuánto pesa Ekans?", options: ["5.9 kg", "6.9 kg", "7.9 kg", "8.9 kg"], correct: 1 },
+  { question: "¿De qué color es un Ekans variocolor (shiny)?", options: ["Azul", "Rojo", "Verde", "Dorado"], correct: 2 },
+  { question: "Se mueve de forma sigilosa y silenciosa por la hierba.", options: ["Verdadero", "Falso", "Hace mucho ruido", "Solo se mueve bajo tierra"], correct: 0 },
+  { question: "En el TCG, la primera carta de Ekans apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 3 },
+  { question: "¿Qué tipo de ataque es súper efectivo contra Ekans?", options: ["Psíquico y Tierra", "Fuego y Hielo", "Agua y Eléctrico", "Lucha y Veneno"], correct: 0 },
+  { question: "El nombre japonés de Ekans es 'Arbo'. ¿Qué significa?", options: ["Es 'snake' al revés", "Es 'cobra' al revés", "Es 'poison' al revés", "No significa nada"], correct: 1 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["50", "55", "60", "65"], correct: 1 },
+  { question: "El valor de experiencia base que otorga Ekans es:", options: ["58", "62", "66", "70"], correct: 0 },
+  { question: "En Pokémon Rojo, Ekans es exclusivo de esa versión. ¿Cuál es su contraparte en Azul?", options: ["Zubat", "Grimer", "Koffing", "Sandshrew"], correct: 3 },
+  { question: "¿Cuál es su PS base?", options: ["35", "40", "45", "50"], correct: 0 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["55", "60", "65", "70"], correct: 1 },
+  { question: "Para descansar, Ekans se enrolla.", options: ["Verdadero", "Falso", "Duerme estirado", "Se entierra"], correct: 0 },
+  { question: "En Pokémon GO, ¿cuántos caramelos cuesta evolucionar un Ekans?", options: ["12", "25", "50", "100"], correct: 2 },
+  { question: "Muda su piel varias veces al año para crecer.", options: ["Verdadero", "Falso", "No muda la piel", "Solo una vez en su vida"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Terremoto por MT?", options: ["Sí", "No", "Solo como Arbok", "Solo en Gen I"], correct: 0 },
+  { question: "¿Qué movimiento aprende que baja la precisión del rival?", options: ["Deslumbrar", "Ataque Arena", "Niebla", "Pantalla de Humo"], correct: 0 },
+  { question: "Resiste ataques de tipo...", options: ["Lucha, Veneno, Bicho, Hada y Planta", "Fuego, Volador y Roca", "Agua, Eléctrico y Hielo", "Psíquico y Tierra"], correct: 0 },
+  { question: "En el anime, ¿qué le dice el Ekans de Jessie a Meowth que quiere ser?", options: ["Una cobra marina", "Un dragón", "Una serpiente de dos cabezas", "Un rey de las serpientes"], correct: 1 },
+  { question: "¿Aparece Ekans en la Zona Safari de Kanto?", options: ["Sí", "No", "Solo en la versión Amarilla", "Solo de noche"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Bomba Lodo por nivel?", options: ["Sí", "No, por MT", "No lo aprende", "Solo como Arbok"], correct: 3 },
+  { question: "Es más activo durante...", options: ["El día", "El atardecer", "La noche", "La lluvia"], correct: 2 },
+  { question: "¿Cuál es su estadística de Defensa base?", options: ["44", "49", "54", "59"], correct: 0 },
+  { question: "¿Puede nacer un Ekans con la habilidad Intimidación?", options: ["Sí, como habilidad normal", "No", "Sí, como habilidad oculta", "Solo si evoluciona"], correct: 0 },
+  { question: "El cascabel de su cola lo usa para advertir a sus enemigos.", options: ["Verdadero", "Falso, no tiene cascabel", "Lo usa para atraer presas", "Lo usa para comunicarse"], correct: 1 },
+  { question: "¿Qué movimiento aprende que envuelve y daña al oponente por varios turnos?", options: ["Atadura", "Constricción", "Repetición", "Bució"], correct: 0 },
+  { question: "En el TCG, Ekans es de tipo...", options: ["Siniestro", "Psíquico", "Planta", "Incoloro"], correct: 2 },
+  { question: "¿Es Ekans más largo que un humano promedio?", options: ["Sí", "No", "Miden lo mismo", "Depende del individuo"], correct: 0 },
+  { question: "El líder de gimnasio Koga, especialista en Veneno, usa un Ekans.", options: ["Verdadero", "Falso", "Usa un Arbok", "Usa un Weezing"], correct: 1 },
+  { question: "¿Qué movimiento aprende que puede hacer retroceder al oponente?", options: ["Mordisco", "Golpe Cabeza", "Cabezazo Zen", "Triturar"], correct: 0 },
+  { question: "Ekans es la contraparte de... en Johto.", options: ["No tiene una contraparte directa", "Gligar", "Dunsparce", "Wooper"], correct: 0 },
+  { question: "Cuanto más viejo es, más largo es su cuerpo.", options: ["Verdadero", "Falso", "Deja de crecer al evolucionar", "Se encoge con la edad"], correct: 0 },
+  { question: "El veneno de Ekans es más... que el de Arbok.", options: ["Potente", "Débil", "Rápido", "Lento"], correct: 1 }
+]
+  },
+  {
+    id: 24,
+    name: "Arbok",
+    type: ["Veneno"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 60,
+      atk: 95,
+      def: 69,
+      spAtk: 65,
+      spDef: 79,
+      spd: 80,
+    },
+    description: "Se dice que las feroces señales de alerta de su panza difieren de un área a otra.",
+    height: "3.5 m",
+    weight: "65.0 kg",
+    bonusQuestion: {
+    question: "Los diferentes patrones en el pecho de Arbok varían según la región. ¿Qué patrón se ve en la región de Hoenn (Rubí/Zafiro/Esmeralda)?",
+    options: ["Una cara sonriente", "Un patrón de ojos y cejas", "Un círculo con puntos", "Una espiral"],
+    correct: 2 // En la Gen 3, el patrón cambió a un círculo con cuatro puntos.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Arbok en la Pokédex?", options: ["023", "024", "025", "026"], correct: 1 },
+  { question: "El nombre 'Arbok' es 'Kobra' escrito al revés, con la 'K' cambiada por 'C'.", options: ["Verdadero, pero es 'Cobra'", "Falso, es 'Cobra' al revés", "Verdadero", "Falso, es 'Arboreal' y 'Bock'"], correct: 2 },
+  { question: "La característica más intimidante de Arbok es...", options: ["Su veneno", "Su velocidad", "El patrón en su pecho/capucha", "Su tamaño"], correct: 2 },
+  { question: "La Pokédex afirma que se han confirmado... patrones diferentes en el pecho de Arbok.", options: ["Dos", "Cuatro", "Seis", "Ocho"], correct: 2 },
+  { question: "La habilidad 'Intimidación' de Arbok es muy útil porque...", options: ["Baja la velocidad del rival", "Baja el ataque del rival", "Aumenta su propia defensa", "Evita los golpes críticos"], correct: 1 },
+  { question: "¿Cuál es la habilidad oculta de Arbok?", options: ["Nerviosismo", "Tensión", "Potencia", "Piel Tosca"], correct: 1 },
+  { question: "Arbok envuelve a sus presas con su cuerpo para...", options: ["Abrazarlas", "Jugara con ellas", "Asfixiarlas o aplastarlas", "Transportarlas"], correct: 2 },
+  { question: "En el anime, el Ekans de Jessie evoluciona a Arbok. ¿Por qué lo libera más tarde?", options: ["Porque era débil", "Para proteger a un grupo de Ekans de un cazador furtivo", "Para intercambiarlo por un Wobbuffet", "Porque se escapó"], correct: 1 },
+  { question: "Es extremadamente vengativo y perseguirá a su presa o enemigo sin descanso.", options: ["Verdadero", "Falso", "Es muy olvidadizo", "Huye si la batalla es difícil"], correct: 0 },
+  { question: "¿Cuál es la categoría de Pokémon de Arbok?", options: ["Cobra", "Serpiente", "Veneno", "Intimidante"], correct: 0 },
+  { question: "¿Cuál es la estadística base más alta de Arbok?", options: ["Velocidad", "Ataque", "Defensa", "PS"], correct: 1 },
+  { question: "¿Cuánto mide Arbok?", options: ["3.0 m", "3.2 m", "3.5 m", "3.8 m"], correct: 2 },
+  { question: "¿Cuánto pesa Arbok?", options: ["60.0 kg", "65.0 kg", "70.0 kg", "75.0 kg"], correct: 1 },
+  { question: "El patrón en su pecho no es solo para intimidar, también puede usarse para...", options: ["Hipnotizar", "Camuflarse", "Identificar a otros Arbok", "No tiene otra función"], correct: 2 },
+  { question: "¿Qué movimiento aprende Arbok al evolucionar?", options: ["Triturar", "Colmillo Hielo", "Colmillo Rayo", "Colmillo Ígneo"], correct: 0 },
+  { question: "¿Es Arbok más rápido que Raticate?", options: ["Sí", "No", "Tienen la misma velocidad", "Solo en el anime"], correct: 1 },
+  { question: "¿Cuál es su PS base?", options: ["60", "65", "70", "75"], correct: 0 },
+  { question: "Una vez que Arbok atrapa a su presa, no hay escapatoria.", options: ["Verdadero", "Falso", "A veces la presa escapa", "No atrapa presas, solo las envenena"], correct: 0 },
+  { question: "El valor de experiencia base que otorga Arbok es:", options: ["157", "162", "166", "171"], correct: 0 },
+  { question: "¿De qué color es un Arbok variocolor (shiny)?", options: ["Azul", "Rojo", "Verde", "Dorado/Amarillo"], correct: 3 },
+  { question: "En el TCG, la primera carta de Arbok apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 3 },
+  { question: "El nombre japonés de Arbok es 'Arbok'.", options: ["Verdadero", "Falso", "Es 'Arbo'", "Es 'Dokukobra'"], correct: 2 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["70", "75", "80", "85"], correct: 2 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["85", "90", "95", "100"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Terremoto por MT?", options: ["Sí", "No", "Solo en Gen I", "Solo si es shiny"], correct: 0 },
+  { question: "En el manga, ¿qué líder de gimnasio tiene un Arbok que puede cambiar su patrón?", options: ["Koga", "Sabrina", "Janine", "Lt. Surge"], correct: 0 },
+  { question: "¿Qué movimiento aprende que puede bajar la precisión del rival?", options: ["Deslumbrar", "Niebla", "Bomba Lodo", "Constricción"], correct: 0 },
+  { question: "El veneno de Arbok es muy potente y neurotóxico.", options: ["Verdadero", "Falso", "No es muy fuerte", "No tiene veneno, solo muerde"], correct: 0 },
+  { question: "Su tasa de captura es de:", options: ["45", "90", "120", "190"], correct: 1 },
+  { question: "¿El patrón en su pecho cambia dependiendo de la región?", options: ["Sí, según la Pokédex", "No, siempre es el mismo", "Solo en el anime", "Es una teoría de fans"], correct: 0 },
+  { question: "Arbok es la evolución de:", options: ["Seviper", "Ekans", "Sandaconda", "Onix"], correct: 1 },
+  { question: "Es inmune a ataques que bajan estadísticas si tiene la habilidad 'Niebla Clara' (no la aprende).", options: ["Verdadero", "Falso", "No es inmune", "Esa habilidad no existe"], correct: 0 },
+  { question: "¿Qué movimiento de tipo Siniestro puede aprender que tiene más potencia contra un rival que va a cambiar?", options: ["Persecución", "Golpe Bajo", "Vendetta", "Buena Baza"], correct: 0 },
+  { question: "El líder del Equipo Rocket, Giovanni, ha usado un Arbok.", options: ["Verdadero", "Falso", "Usa un Persian", "Usa un Nidoking"], correct: 1 },
+  { question: "Resiste ataques de tipo...", options: ["Lucha, Veneno, Bicho, Hada y Planta", "Fuego, Volador y Roca", "Agua, Eléctrico y Hielo", "Psíquico y Tierra"], correct: 0 },
+  { question: "En Pokémon Amarillo, es un Pokémon común en las rutas.", options: ["Verdadero", "Falso, es exclusivo de Rojo", "Falso, solo en la Zona Safari", "Falso, no aparece"], correct: 1 },
+  { question: "¿Aparece Arbok salvaje en la Calle Victoria?", options: ["Sí", "No", "Solo en la versión Roja", "Solo en la entrada"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Lanza Mugre?", options: ["Sí, por nivel", "No", "Sí, por tutor", "Solo en ciertos juegos"], correct: 0 },
+  { question: "Arbok es conocido por regenerar cualquier parte de su cuerpo si es cortada, excepto la cabeza.", options: ["Verdadero", "Falso", "Solo regenera la cola", "No se regenera"], correct: 0 },
+  { question: "¿Cuál es su estadística de Defensa base?", options: ["69", "74", "79", "84"], correct: 0 },
+  { question: "La habilidad 'Tensión' evita que el oponente...", options: ["Use movimientos de estado", "Use bayas", "Cambie de Pokémon", "Use movimientos de prioridad"], correct: 1 },
+  { question: "Es un Pokémon muy silencioso, ideal para emboscadas.", options: ["Verdadero", "Falso", "Hace mucho ruido al moverse", "Advierte a su presa antes de atacar"], correct: 0 },
+  { question: "¿Qué movimiento aprende que puede envenenar y atrapar al mismo tiempo?", options: ["Tóxico", "Enrosque", "Atadura Tóxica", "No existe tal movimiento"], correct: 2 },
+  { question: "En el TCG, Arbok es de tipo...", options: ["Siniestro", "Psíquico", "Planta", "Incoloro"], correct: 2 },
+  { question: "¿Qué personaje de la saga de juegos usa a Arbok como su Pokémon principal?", options: ["Agatha del Alto Mando", "Koga del Alto Mando", "Jessie del Equipo Rocket", "Ariana de los Ejecutivos Rocket"], correct: 3 },
+  { question: "¿Puede aprender el movimiento Acua Cola por tutor?", options: ["Sí", "No", "Solo si es shiny", "Solo si es hembra"], correct: 0 },
+  { question: "El patrón de Arbok está basado en una cara amenazante para asustar a los enemigos.", options: ["Verdadero", "Falso", "Es solo decorativo", "Es para el camuflaje"], correct: 0 },
+  { question: "¿En qué grupo huevo se encuentra?", options: ["Campo y Dragón", "Monstruo y Veneno", "Campo y Monstruo", "Dragón y Bicho"], correct: 0 },
+  { question: "¿Qué hace el movimiento 'Enrosque'?", options: ["Atrapa al rival", "Sube el Ataque, la Defensa y la Precisión", "Sube la Defensa y la Defensa Especial", "Duerme al usuario y recupera PS"], correct: 1 },
+  { question: "La mordedura de Arbok es venenosa, pero prefiere usar la constricción.", options: ["Verdadero", "Falso", "Solo usa su veneno", "No es venenoso, solo constriñe"], correct: 0 }
+]
+  },{
+    id: 25,
+    name: "Pikachu",
+    type: ["Eléctrico"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 35,
+      atk: 55,
+      def: 40,
+      spAtk: 50,
+      spDef: 50,
+      spd: 90,
+    },
+    description: "Cuando varios de estos Pokémon se juntan, su energía puede causar fuertes tormentas.",
+    height: "0.4 m",
+    weight: "6.0 kg",
+    bonusQuestion: {
+    question: "¿Cuál fue el primer juego de la saga principal donde Pikachu pudo aprender el movimiento 'Vuelo' (Fly) a través de un evento especial?",
+    options: ["Rojo Fuego/Verde Hoja", "Diamante/Perla", "Blanco/Negro", "X/Y"],
+    correct: 2 // El 'Pikachu Volador' se distribuyó por evento para Pokémon Blanco y Negro.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Pikachu en la Pokédex?", options: ["024", "025", "026", "027"], correct: 1 },
+  { question: "¿Cuál es el tipo de Pikachu?", options: ["Normal", "Eléctrico", "Acero", "Tierra"], correct: 1 },
+  { question: "Pikachu evoluciona a Raichu usando un objeto. ¿Cuál?", options: ["Piedra Solar", "Piedra Trueno", "Cable Link", "Mejora"], correct: 1 },
+  { question: "¿Qué parte del cuerpo de Pikachu almacena electricidad?", options: ["Sus orejas", "Su cola", "Sus mejillas rojas", "Su nariz"], correct: 2 },
+  { question: "En el anime, ¿por qué el Pikachu de Ash se niega a evolucionar?", options: ["Porque le teme a Raichu", "Porque quiere demostrar que puede ganar sin evolucionar", "Porque no le gusta la Piedra Trueno", "Porque Ash no quiere que evolucione"], correct: 1 },
+  { question: "¿Cuál es la habilidad principal de Pikachu?", options: ["Pararrayos", "Elec. Estática", "Absorbe Elec.", "Velocidad"], correct: 1 },
+  { question: "¿Cuál es la habilidad oculta de Pikachu?", options: ["Pararrayos", "Elec. Estática", "Ímpetu Tóxico", "Fuga"], correct: 0 },
+  { question: "La habilidad 'Pararrayos' redirige los ataques de tipo... hacia Pikachu y sube su Ataque Especial.", options: ["Agua", "Fuego", "Eléctrico", "Acero"], correct: 2 },
+  { question: "¿Cuál es la categoría de Pokémon de Pikachu?", options: ["Ratón", "Roedor Eléctrico", "Chispa", "Mejilla"], correct: 0 },
+  { question: "En Super Smash Bros., Pikachu es un personaje jugable desde...", options: ["Melee", "Brawl", "La primera entrega (N64)", "La edición de Wii U"], correct: 2 },
+  { question: "¿Cómo se puede diferenciar un Pikachu hembra de un macho?", options: ["La hembra es más pequeña", "El macho tiene las mejillas más grandes", "La punta de la cola de la hembra tiene forma de corazón", "No hay diferencia"], correct: 2 },
+  { question: "¿Qué movimiento exclusivo aprende el Pikachu Cosplay/Libre en los remakes de Gen III?", options: ["Placaje Eléctrico", "Rayo Meteórico", "Chispazo", "Sorpresa"], correct: 1 },
+  { question: "Pikachu es la mascota oficial de la franquicia Pokémon.", options: ["Verdadero", "Falso", "Lo fue, ahora es Eevee", "Comparte el puesto con Charizard"], correct: 0 },
+  { question: "El nombre 'Pikachu' es una combinación de onomatopeyas japonesas: 'pika' (chispa) y...", options: ["'Chu' (sonido de ratón)", "'Kachu' (explosión)", "'Chuu' (beso)", "'Shu' (rápido)"], correct: 0 },
+  { question: "¿Cuál es la estadística base más alta de Pikachu?", options: ["Ataque", "Ataque Especial", "Defensa", "Velocidad"], correct: 3 },
+  { question: "En Pokémon Amarillo, ¿cómo consigues a Pikachu?", options: ["Lo capturas en el Bosque Verde", "Es tu Pokémon inicial", "Te lo regalan en Ciudad Celeste", "Lo intercambias por un Clefairy"], correct: 1 },
+  { question: "¿Cuál es la preevolución de Pikachu, introducida en la Gen II?", options: ["Plusle", "Minun", "Pichu", "Pachirisu"], correct: 2 },
+  { question: "En la Gen VIII, Pikachu puede alcanzar una forma especial llamada:", options: ["Megaevolución", "Forma Alola", "Gigamax", "Forma Primigenia"], correct: 2 },
+  { question: "El movimiento Gigamax de Pikachu se llama:", options: ["Giga Impacto", "Giga Chispazo", "Gigatronada", "Giga Rayo"], correct: 2 },
+  { question: "¿Qué objeto aumenta el Ataque y Ataque Especial de Pikachu, pero no el de Raichu?", options: ["Piedra Trueno", "Banda Focus", "Bolaluminosa (Light Ball)", "Pañuelo Elección"], correct: 2 },
+  { question: "¿Qué movimiento característico de la familia de Pikachu se introdujo en la Gen III?", options: ["Rayo", "Trueno", "Placaje Eléctrico (Volt Tackle)", "Chispazo"], correct: 2 },
+  { question: "En el anime, ¿qué le pasó al primer Kétchup de Pikachu?", options: ["Se lo bebió", "Se lo robó un Meowth", "Fue cortado por un Scyther", "Caducó"], correct: 2 },
+  { question: "¿Cuál es su PS base?", options: ["35", "40", "45", "50"], correct: 0 },
+  { question: "¿Cuánto mide Pikachu?", options: ["0.3 m", "0.4 m", "0.5 m", "0.6 m"], correct: 1 },
+  { question: "¿Cuánto pesa Pikachu?", options: ["5.0 kg", "6.0 kg", "7.0 kg", "8.0 kg"], correct: 1 },
+  { question: "¿De qué color es un Pikachu variocolor (shiny)?", options: ["Más claro", "Azul", "Naranja/Dorado", "Verde"], correct: 2 },
+  { question: "En el TCG, ¿qué tipo de carta es 'Pikachu Vuelo' y 'Pikachu Surf'?", options: ["Cartas de Entrenador", "Cartas de Energía", "Cartas Promocionales/Especiales", "No existen"], correct: 2 },
+  { question: "¿Qué tipo de ataque es súper efectivo contra Pikachu?", options: ["Agua", "Acero", "Volador", "Tierra"], correct: 3 },
+  { question: "El nombre japonés de Pikachu es 'Pikachu'.", options: ["Verdadero", "Falso", "Es 'Pikachuu'", "Es 'Denki Nezumi'"], correct: 0 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["80", "85", "90", "95"], correct: 2 },
+  { question: "En Pokémon GO, ¿cuál fue el primer Pokémon en aparecer con un disfraz de evento?", options: ["Charmander", "Pikachu (con gorro de Santa)", "Eevee", "Bulbasaur"], correct: 1 },
+  { question: "Pikachu es inmune a los ataques de tipo...", options: ["Acero", "Fantasma", "No es inmune a ninguno", "Es una pregunta trampa"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Surf?", options: ["No, nunca", "Sí, pero solo en eventos o juegos específicos", "Sí, por MT", "Solo en su forma de Alola"], correct: 1 },
+  { question: "En la película 'Detective Pikachu', ¿quién le da voz al personaje principal?", options: ["Dwayne Johnson", "Chris Pratt", "Ryan Reynolds", "Tom Holland"], correct: 2 },
+  { question: "El valor de experiencia base que otorga Pikachu es:", options: ["112", "122", "132", "142"], correct: 0 },
+  { question: "El Pikachu con gorra de Ash es un evento recurrente en los juegos. ¿Cuántas gorras diferentes existen?", options: ["3", "5", "7", "Más de 8"], correct: 3 },
+  { question: "¿En qué grupo huevo se encuentra?", options: ["Campo y Monstruo", "Campo y Hada", "Solo Hada", "No puede criar"], correct: 1 },
+  { question: "Usa su cola para examinar su entorno y también como...", options: ["Pararrayos", "Látigo", "Antena", "Tercera pata"], correct: 0 },
+  { question: "A menudo se ven grupos de Pikachu comunicándose a través de descargas eléctricas.", options: ["Verdadero", "Falso", "Son solitarios", "Solo se comunican con chillidos"], correct: 0 },
+  { question: "¿Cuál es su estadística de Ataque Especial base?", options: ["50", "55", "60", "65"], correct: 0 },
+  { question: "En el Bosque Verde, la probabilidad de encontrar un Pikachu es...", options: ["Muy alta", "Alta", "Baja", "Imposible"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Hierba Lazo por MT?", options: ["Sí", "No", "Solo si es hembra", "Solo en juegos de Sinnoh"], correct: 0 },
+  { question: "El movimiento Z exclusivo de Pikachu se llama:", options: ["Gigarrayo Fulminante", "Gigavoltio Destructor", "Pikavoltio Letal", "Trueno Infinito"], correct: 1 },
+  { question: "Su diseño original era más... que el actual.", options: ["Delgado", "Redondo y robusto", "Alto", "Oscuro"], correct: 1 },
+  { question: "¿Qué personaje de la saga tiene un Pikachu llamado 'Puka' que puede surfear?", options: ["Ash", "Red", "Victor", "Misty"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Cola Férrea por tutor?", options: ["Sí", "No", "Solo en el anime", "Solo Raichu"], correct: 0 },
+  { question: "La Pokédex advierte que no se debe tirar de su cola.", options: ["Verdadero", "Falso", "Dice que es inofensivo", "No menciona su cola"], correct: 0 },
+  { question: "¿En qué ciudad se celebra anualmente el 'Pikachu Outbreak'?", options: ["Tokio", "Kioto", "Osaka", "Yokohama"], correct: 3 },
+  { question: "Pikachu resiste los ataques de tipo...", options: ["Acero, Eléctrico y Volador", "Tierra, Agua y Hielo", "Fuego, Lucha y Veneno", "Normal, Psíquico y Siniestro"], correct: 0 },
+  { question: "La primera aparición de Pikachu en un juego fue en:", options: ["Pokémon Amarillo", "Super Smash Bros.", "Pokémon Rojo y Verde", "Hey You, Pikachu!"], correct: 2 }
+]
+  },{
+    id: 26,
+    name: "Raichu",
+    type: ["Eléctrico"],
+    rarity: "Raro",
+    stats: {
+      hp: 60,
+      atk: 90,
+      def: 55,
+      spAtk: 90,
+      spDef: 80,
+      spd: 110,
+    },
+    description: "Su larga cola le sirve para protegerse a sí mismo de su potente y alto voltaje.",
+    height: "0.8 m",
+    weight: "30.0 kg",
+    bonusQuestion: {
+    question: "El Raichu de Alola es el único Pokémon con una combinación de tipos única (Eléctrico/Psíquico).",
+    options: ["Verdadero", "Falso", "La comparte con un legendario", "La comparte con un Ultraente"],
+    correct: 1 // Falso, el Pokémon legendario Victini es Fuego/Psíquico, pero otros como Indeedee también son Psíquico/Normal.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Raichu en la Pokédex?", options: ["025", "026", "027", "028"], correct: 1 },
+  { question: "Raichu es la evolución de Pikachu. ¿Cómo evoluciona?", options: ["Por nivel", "Con una Piedra Trueno", "Por amistad", "Con un intercambio"], correct: 1 },
+  { question: "La forma de Alola de Raichu tiene un segundo tipo. ¿Cuál es?", options: ["Hada", "Agua", "Psíquico", "Volador"], correct: 2 },
+  { question: "La cola de Raichu funciona como... para protegerse de su propia electricidad.", options: ["Látigo", "Antena", "Toma de tierra", "Timón"], correct: 2 },
+  { question: "En el anime, el Raichu del Teniente Surge es famoso por derrotar al Pikachu de Ash debido a su...", options: ["Velocidad superior", "Mayor poder y experiencia", "Estrategia defensiva", "Tipo secundario"], correct: 1 },
+  { question: "La habilidad del Raichu de Alola, 'Cola Surf', hace que su... se duplique en Campo Eléctrico.", options: ["Ataque", "Defensa", "Velocidad", "Ataque Especial"], correct: 2 },
+  { question: "¿Qué usa el Raichu de Alola para levitar y moverse?", options: ["Sus orejas", "Poderes psíquicos en su cola", "Corrientes de aire", "Campos magnéticos"], correct: 1 },
+  { question: "Las descargas eléctricas de Raichu pueden alcanzar los... voltios.", options: ["1,000", "10,000", "100,000", "1,000,000"], correct: 2 },
+  { question: "¿Cuál es la categoría de Pokémon de Raichu?", options: ["Ratón", "Roedor Eléctrico", "Trueno", "Cola Larga"], correct: 0 },
+  { question: "¿Cómo se diferencia un Raichu hembra de un macho?", options: ["La hembra es más clara", "El macho tiene orejas más grandes", "La punta de la cola de la hembra es más pequeña o recortada", "No hay diferencia"], correct: 2 },
+  { question: "¿Cuál es la estadística base más alta de Raichu?", options: ["Ataque", "Ataque Especial", "Velocidad", "Defensa"], correct: 2 },
+  { question: "Raichu de Kanto es más rápido que Raichu de Alola.", options: ["Verdadero", "Falso", "Tienen la misma velocidad", "Solo en Campo Eléctrico"], correct: 0 },
+  { question: "El nombre 'Raichu' combina 'Rai' (trueno en japonés) y...", options: ["'Chu' (sonido de ratón)", "'Shu' (rápido)", "'Kyu' (lindo)", "'Ju' (bestia)"], correct: 0 },
+  { question: "Si Raichu almacena demasiada electricidad, se vuelve...", options: ["Más lento", "Más amigable", "Agresivo e irritable", "Se duerme"], correct: 2 },
+  { question: "¿Qué movimiento de tipo Psíquico aprende el Raichu de Alola al evolucionar?", options: ["Confusión", "Psicorrayo", "Psíquico", "Paz Mental"], correct: 2 },
+  { question: "¿Cuál es su PS base?", options: ["55", "60", "65", "70"], correct: 1 },
+  { question: "¿Cuánto mide Raichu (forma Kanto)?", options: ["0.7 m", "0.8 m", "0.9 m", "1.0 m"], correct: 1 },
+  { question: "¿Cuánto pesa Raichu?", options: ["25.0 kg", "30.0 kg", "35.0 kg", "40.0 kg"], correct: 1 },
+  { question: "¿De qué color es un Raichu variocolor (shiny)?", options: ["Marrón más oscuro/rojizo", "Azul", "Verde", "Plateado"], correct: 0 },
+  { question: "En el TCG, la primera carta de Raichu apareció en el set:", options: ["Jungle", "Fossil", "Base Set", "Team Rocket"], correct: 2 },
+  { question: "El Raichu de Alola es débil a Tierra, Bicho, Fantasma y...", options: ["Hada", "Siniestro", "Veneno", "Hielo"], correct: 1 },
+  { question: "Su nombre japonés es 'Raichu'.", options: ["Verdadero", "Falso", "Es 'Raichuu'", "Es 'Raijin'"], correct: 0 },
+  { question: "¿Cuál es su estadística de Velocidad base (forma Kanto)?", options: ["100", "105", "110", "115"], correct: 2 },
+  { question: "En Pokémon GO, ¿se necesita un objeto especial para evolucionar a Raichu de Alola?", options: ["Sí, una Piedra Solar", "No, evoluciona de un Pikachu de Alola", "No, evoluciona de un Pichu de Alola", "No, evoluciona de un Pikachu normal en incursiones"], correct: 3 },
+  { question: "¿Cuál de estos movimientos puede aprender Raichu por MT, pero Pikachu no?", options: ["Rayo", "Hiperrayo", "Trueno", "Onda Trueno"], correct: 1 },
+  { question: "El movimiento Z exclusivo de Raichu de Alola se llama:", options: ["Gigavoltio Destructor", "Pikavoltio Letal", "Surfeo Galvánico", "Electrocañón"], correct: 2 },
+  { question: "Se dice que el Raichu de Alola adquirió su tipo Psíquico por comer...", options: ["Bayas especiales", "Pancakes dulces y esponjosos", "Peces psíquicos", "Flores de Comfey"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Demolición por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo el de Kanto"], correct: 0 },
+  { question: "La cola de Raichu de Alola le sirve como...", options: ["Tabla de surf", "Pararrayos", "Arma", "Antena"], correct: 0 },
+  { question: "El valor de experiencia base que otorga Raichu es:", options: ["218", "225", "232", "240"], correct: 0 },
+  { question: "Las orejas de Raichu son... que las de Pikachu.", options: ["Más cortas", "Más largas y curvadas", "Iguales", "Más puntiagudas"], correct: 1 },
+  { question: "Si se agrupan varios Raichu, pueden causar tormentas eléctricas.", options: ["Verdadero", "Falso", "Solo si son de Alola", "Es un mito"], correct: 0 },
+  { question: "En el anime, ¿qué le regala el Lt. Surge a Ash tras su victoria?", options: ["Una Piedra Trueno", "Una Medalla Trueno", "Un autógrafo", "Un Raichu bebé"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Hierba Lazo por MT?", options: ["Sí", "No", "Solo Pikachu", "Solo en Sinnoh"], correct: 0 },
+  { question: "A pesar de su poder, Raichu es menos popular que Pikachu como mascota.", options: ["Verdadero", "Falso", "Son igual de populares", "Raichu es más popular en Japón"], correct: 0 },
+  { question: "Las bolsas eléctricas de Raichu contienen más electricidad que las de Pikachu.", options: ["Verdadero", "Falso", "Contienen la misma cantidad", "Son más pequeñas"], correct: 0 },
+  { question: "¿En qué grupo huevo se encuentra?", options: ["Campo y Monstruo", "Campo y Hada", "Solo Hada", "No puede criar"], correct: 1 },
+  { question: "La habilidad 'Elec. Estática' tiene un 30% de probabilidad de... al contacto.", options: ["Quemar", "Paralizar", "Confundir", "Bajar velocidad"], correct: 1 },
+  { question: "Un Raichu puede criar para obtener un huevo de:", options: ["Pikachu", "Raichu", "Pichu", "No puede criar"], correct: 2 },
+  { question: "¿Cuál es su estadística de Ataque base (forma Kanto)?", options: ["80", "85", "90", "95"], correct: 2 },
+  { question: "Aparece salvaje en la Cueva Celeste en los juegos originales.", options: ["Verdadero", "Falso", "Solo en el Bosque Verde", "No aparece salvaje"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Foco Resplandor por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo el de Kanto"], correct: 0 },
+  { question: "El Raichu de Alola emite un dulce aroma.", options: ["Verdadero", "Falso", "Huele a quemado", "No tiene olor"], correct: 0 },
+  { question: "En el manga, el Pikachu de Red (Rojo) evoluciona a Raichu.", options: ["Verdadero", "Falso", "Nunca evoluciona", "Se lo intercambia a Blue"], correct: 1 },
+  { question: "¿Qué hace el movimiento 'Moflete Estático'?", options: ["Sube la defensa especial", "Paraliza al rival y recupera PS si llevas una baya", "Golpea y siempre paraliza", "Golpea y sube la velocidad"], correct: 1 },
+  { question: "Raichu puede correr más rápido si usa su cola como apoyo.", options: ["Verdadero", "Falso", "Su cola le estorba", "Solo en Alola"], correct: 0 },
+  { question: "La evolución a Raichu aumenta todas las estadísticas de Pikachu excepto...", options: ["Ninguna, todas aumentan", "El Ataque Especial", "La Velocidad", "Los PS"], correct: 0 },
+  { question: "En Super Smash Bros., ¿cuál es el Smash Final de Pikachu?", options: ["Gigavoltio Destructor", "Placaje Eléctrico", "Trueno", "No tiene"], correct: 1 },
+  { question: "Resiste los ataques de tipo Acero, Eléctrico y...", options: ["Agua", "Planta", "Hada", "Volador"], correct: 3 },
+  { question: "¿Qué líder de gimnasio de Kanto se especializa en el tipo Eléctrico?", options: ["Blanca", "Lt. Surge", "Erika", "Koga"], correct: 1 }
+]
+  },
+  {
+    id: 27,
+    name: "Sandshrew",
+    type: ["Tierra"],
+    rarity: "Común",
+    stats: {
+      hp: 50,
+      atk: 75,
+      def: 85,
+      spAtk: 20,
+      spDef: 30,
+      spd: 40,
+    },
+    description: "Se oculta bajo tierra, en zonas áridas y alejadas del agua. Sólo emerge para cazar su comida.",
+    height: "0.6 m",
+    weight: "12.0 kg",
+    bonusQuestion: {
+    question: "En la primera generación, Sandshrew podía aprender un movimiento por MT que no encajaba con su tipo. ¿Cuál era?",
+    options: ["Surf", "Mega Patada", "Cuchillada", "Sumisión"],
+    correct: 3 // Al igual que Charmander, podía aprender el MT17, Sumisión (Submission).
+},
+    quiz: [
+  { question: "¿Cuál es el número de Sandshrew en la Pokédex?", options: ["026", "027", "028", "029"], correct: 1 },
+  { question: "¿A qué nivel evoluciona Sandshrew a Sandslash?", options: ["20", "22", "24", "26"], correct: 1 },
+  { question: "¿Cuál es el tipo del Sandshrew de Kanto?", options: ["Roca", "Normal", "Tierra", "Lucha"], correct: 2 },
+  { question: "La forma de Alola de Sandshrew tiene dos tipos. ¿Cuáles son?", options: ["Hielo/Agua", "Hielo/Tierra", "Hielo/Acero", "Hielo puro"], correct: 2 },
+  { question: "La habilidad principal del Sandshrew de Kanto es 'Velo Arena'. ¿Qué hace?", options: ["Aumenta su velocidad en tormentas de arena", "Aumenta su evasión en tormentas de arena", "Lo cura en tormentas de arena", "Le hace inmune a las tormentas de arena"], correct: 1 },
+  { question: "¿Cuál es la habilidad oculta del Sandshrew de Kanto?", options: ["Ímpetu Arena", "Absorbe Agua", "Piel Tosca", "Antídoto"], correct: 0 },
+  { question: "La habilidad del Sandshrew de Alola, 'Manto Níveo', aumenta su evasión en...", options: ["Lluvia", "Día Soleado", "Granizo", "Campo de Niebla"], correct: 2 },
+  { question: "La habilidad oculta del Sandshrew de Alola, 'Quitanieves' (Slush Rush), duplica su... en Granizo.", options: ["Ataque", "Defensa", "Velocidad", "Evasión"], correct: 2 },
+  { question: "¿Qué hace Sandshrew para protegerse del peligro?", options: ["Se entierra", "Dispara arena", "Se enrolla formando una bola", "Corre muy rápido"], correct: 2 },
+  { question: "El cuerpo de Sandshrew está adaptado para vivir en zonas áridas y secas, ya que...", options: ["Puede beber agua salada", "Apenas pierde líquidos", "Come cactus", "Duerme de día"], correct: 1 },
+  { question: "¿Cuál es la categoría de Pokémon de Sandshrew?", options: ["Ratón", "Armadillo", "Pangolín", "Excavador"], correct: 0 },
+  { question: "Su diseño está basado en un...", options: ["Erizo", "Topo", "Pangolín", "Armadillo"], correct: 2 },
+  { question: "El nombre 'Sandshrew' es una combinación de 'Sand' (arena) y...", options: ["Screw (tornillo)", "Shrew (musaraña)", "Shell (concha)", "Show (espectáculo)"], correct: 1 },
+  { question: "¿Cuál es la estadística base más alta de Sandshrew?", options: ["PS", "Ataque", "Defensa", "Velocidad"], correct: 2 },
+  { question: "Sandshrew es inmune a los ataques de tipo...", options: ["Veneno", "Normal", "Roca", "Eléctrico"], correct: 3 },
+  { question: "¿En qué grupos huevo se encuentra?", options: ["Monstruo", "Campo", "Tierra", "Bicho"], correct: 1 },
+  { question: "¿Su tasa de captura es de?", options: ["255", "190", "120", "90"], correct: 0 },
+  { question: "¿Cuánto mide Sandshrew?", options: ["0.5 m", "0.6 m", "0.7 m", "0.8 m"], correct: 1 },
+  { question: "¿Cuánto pesa Sandshrew?", options: ["10.0 kg", "12.0 kg", "14.0 kg", "16.0 kg"], correct: 1 },
+  { question: "¿De qué color es un Sandshrew variocolor (shiny)?", options: ["Azul", "Rojo", "Verde", "Dorado"], correct: 2 },
+  { question: "El Sandshrew de Alola tiene un caparazón de hielo tan duro como el acero.", options: ["Verdadero", "Falso", "Es de acero puro", "Es frágil"], correct: 0 },
+  { question: "En el TCG, la primera carta de Sandshrew apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+  { question: "El Sandshrew de Kanto es débil a Agua, Planta y...", options: ["Fuego", "Hielo", "Lucha", "Volador"], correct: 1 },
+  { question: "El Sandshrew de Alola es débil x4 (cuádruple) a los tipos Lucha y...", options: ["Acero", "Tierra", "Fuego", "Roca"], correct: 2 },
+  { question: "El nombre japonés de Sandshrew es 'Sand'.", options: ["Verdadero", "Falso", "Es 'Sando'", "Es 'Tsuchinezumi'"], correct: 2 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["40", "45", "50", "55"], correct: 0 },
+  { question: "El valor de experiencia base que otorga Sandshrew es:", options: ["60", "65", "70", "75"], correct: 0 },
+  { question: "En Pokémon Rojo, Sandshrew es exclusivo de esa versión. ¿Cuál es su contraparte en Azul?", options: ["Ekans", "Vulpix", "Meowth", "Oddish"], correct: 0 },
+  { question: "¿Cuál es su PS base?", options: ["50", "55", "60", "65"], correct: 0 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["70", "75", "80", "85"], correct: 1 },
+  { question: "Si cae desde una gran altura, puede salvarse haciéndose una bola.", options: ["Verdadero", "Falso", "No puede hacerse una bola", "Se lastimaría igual"], correct: 0 },
+  { question: "En Pokémon GO, ¿cuántos caramelos cuesta evolucionar un Sandshrew?", options: ["12", "25", "50", "100"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Terremoto por MT?", options: ["Sí", "No", "Solo como Sandslash", "Solo en Gen I"], correct: 0 },
+  { question: "El Sandshrew de Alola vive en...", options: ["Volcanes", "Playas", "Montañas nevadas", "Junglas"], correct: 2 },
+  { question: "¿Qué movimiento aprende por nivel que baja la velocidad del rival?", options: ["Ataque Arena", "Bofetón Lodo", "Disparo Lodo", "Terratemblor"], correct: 1 },
+  { question: "En el anime, un entrenador llamado A.J. tiene un Sandshrew que es extremadamente fuerte.", options: ["Verdadero", "Falso", "Es un Sandslash", "No tiene un Sandshrew"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Puya Nociva por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo por tutor"], correct: 0 },
+  { question: "¿Qué movimiento aprende para rodar y golpear al rival?", options: ["Giro Bola", "Rodar", "Rizo Defensa", "Placaje"], correct: 1 },
+  { question: "Su piel es extremadamente seca y dura.", options: ["Verdadero", "Falso", "Es suave y húmeda", "Es elástica"], correct: 0 },
+  { question: "¿Cuál es su estadística de Defensa base?", options: ["80", "85", "90", "95"], correct: 1 },
+  { question: "¿Puede nacer un Sandshrew con la habilidad Ímpetu Arena?", options: ["Sí, como habilidad oculta", "No", "Sí, como habilidad normal", "Solo si evoluciona"], correct: 0 },
+  { question: "Para cazar, se entierra en la arena y espera a que la presa pase por encima.", options: ["Verdadero", "Falso", "Caza activamente", "No caza, come raíces"], correct: 0 },
+  { question: "El Sandshrew de Alola es más... que el de Kanto.", options: ["Rápido", "Ligero", "Pesado", "Pequeño"], correct: 2 },
+  { question: "¿Puede aprender el movimiento Garra Umbría por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo el de Kanto"], correct: 0 },
+  { question: "El líder de gimnasio Brock usa un Sandshrew en el anime.", options: ["Verdadero", "Falso", "Usa un Geodude y un Onix", "Usa un Rhyhorn"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Danza Espada por MT?", options: ["Sí", "No", "Solo Sandslash", "Solo por nivel"], correct: 0 },
+  { question: "A menudo se le confunde con...", options: ["Diglett", "Cubone", "Rhyhorn", "Sandile"], correct: 0 },
+  { question: "No le gusta el agua y vive lejos de ella.", options: ["Verdadero", "Falso", "Le encanta el agua", "Es indiferente"], correct: 0 },
+  { question: "El Sandshrew de Alola no puede enrollarse completamente por el hielo de su espalda.", options: ["Verdadero", "Falso, se enrolla perfectamente", "Solo puede enrollar la mitad de su cuerpo", "Es una bola de hielo perfecta"], correct: 1 },
+  { question: "¿Qué movimiento aprende por nivel que le permite golpear primero?", options: ["Ataque Rápido", "Velocidad Extrema", "Sorpresa", "Agilidad"], correct: 0 }
+]
+  },{
+    id: 28,
+    name: "Sandslash",
+    type: ["Tierra"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 75,
+      atk: 100,
+      def: 110,
+      spAtk: 45,
+      spDef: 55,
+      spd: 65,
+    },
+    description: "Ante el peligro se acurruca en un espinoso ovillo. De esta forma puede rodar para atacar o escapar.",
+    height: "1.0 m",
+    weight: "29.5 kg",
+    bonusQuestion: {
+    question: "El movimiento 'Chuzos' (Icicle Spear) del Sandslash de Alola es multigolpe. ¿Qué objeto haría que siempre golpee 5 veces?",
+    options: ["Banda Focus", "Dado Trucado", "Garra Rápida", "Lupa"],
+    correct: 1 // El Dado Trucado (Loaded Dice) asegura que los movimientos multigolpe tengan más probabilidad de golpear más veces.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Sandslash en la Pokédex?", options: ["027", "028", "029", "030"], correct: 1 },
+  { question: "Las púas de la espalda de Sandslash están hechas de...", options: ["Hueso", "Partes endurecidas de su piel", "Roca", "Acero"], correct: 1 },
+  { question: "¿Qué le sucede a Sandslash si una de sus púas se rompe?", options: ["Queda indefenso", "Le crece una nueva al día siguiente", "Le duele mucho", "Se debilita"], correct: 1 },
+  { question: "Para atacar, Sandslash se enrolla en una bola de púas y...", options: ["Espera a ser atacado", "Dispara sus púas", "Rueda a gran velocidad", "Salta sobre el enemigo"], correct: 2 },
+  { question: "El Sandslash de Alola tiene púas cubiertas de...", options: ["Nieve", "Acero", "Hielo", "Cristal"], correct: 2 },
+  { question: "La habilidad oculta del Sandslash de Kanto es 'Ímpetu Arena'. ¿Qué hace en una tormenta de arena?", options: ["Sube su evasión", "Lo cura", "Duplica su velocidad", "Sube su ataque"], correct: 2 },
+  { question: "Gracias a sus grandes garras, Sandslash es muy bueno para...", options: ["Nadar", "Trepar árboles", "Volar", "Excavar"], correct: 3 },
+  { question: "¿Cuál es la categoría de Pokémon de Sandslash?", options: ["Ratón", "Armadillo", "Puercoespín", "Pangolín"], correct: 0 },
+  { question: "El Sandslash de Alola usa sus garras para...", options: ["Excavar en la nieve", "Escalar montañas heladas", "Luchar", "Todas las anteriores"], correct: 3 },
+  { question: "En el anime, un Sandslash de Alola era el Pokémon dominante de una de las pruebas.", options: ["Verdadero", "Falso", "Era un Crabominable", "Era un Ninetales"], correct: 0 },
+  { question: "¿Cuál es la estadística base más alta de Sandslash (forma Kanto)?", options: ["Ataque", "Defensa", "Velocidad", "PS"], correct: 1 },
+  { question: "¿Qué estadística es mucho mayor en el Sandslash de Alola en comparación con el de Kanto?", options: ["Velocidad", "Ataque Especial", "Defensa", "PS"], correct: 2 },
+  { question: "El nombre 'Sandslash' combina 'Sand' (arena) y...", options: ["Slash (cuchillada)", "Flash (destello)", "Smash (aplastar)", "Clash (choque)"], correct: 0 },
+  { question: "¿Cuál de estos movimientos es característico de Sandslash?", options: ["Terremoto", "Garra Dragón", "Cuchillada", "Garra Brutal (Crush Claw)"], correct: 3 },
+  { question: "El Sandslash de Kanto es inmune al tipo...", options: ["Veneno", "Normal", "Roca", "Eléctrico"], correct: 3 },
+  { question: "¿En qué grupos huevo se encuentra?", options: ["Monstruo", "Campo", "Tierra", "Bicho"], correct: 1 },
+  { question: "¿Su tasa de captura es de?", options: ["45", "90", "120", "190"], correct: 1 },
+  { question: "¿Cuánto mide Sandslash?", options: ["0.8 m", "1.0 m", "1.2 m", "1.4 m"], correct: 1 },
+  { question: "¿Cuánto pesa Sandslash (forma Kanto)?", options: ["29.5 kg", "35.5 kg", "40.5 kg", "45.5 kg"], correct: 0 },
+  { question: "¿De qué color es un Sandslash variocolor (shiny)?", options: ["Púas azules", "Púas rojas", "Púas verdes", "Púas doradas"], correct: 1 },
+  { question: "El Sandslash de Alola es débil x4 (cuádruple) a Lucha y...", options: ["Acero", "Tierra", "Fuego", "Roca"], correct: 2 },
+  { question: "En el TCG, la primera carta de Sandslash apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 2 },
+  { question: "Su nombre japonés es 'Sandpan'. ¿A qué hace referencia?", options: ["A una sartén", "A un pangolín", "Al dios Pan", "A un panal"], correct: 1 },
+  { question: "¿Cuál es su estadística de Velocidad base (forma Kanto)?", options: ["60", "65", "70", "75"], correct: 1 },
+  { question: "El valor de experiencia base que otorga Sandslash es:", options: ["158", "163", "168", "175"], correct: 0 },
+  { question: "¿Qué movimiento aprende por nivel que causa más daño cuanto más pesado es el usuario?", options: ["Golpe Cuerpo", "Giro Bola", "Cuerpo Pesado", "Pisotón"], correct: 1 },
+  { question: "¿Cuál es su PS base?", options: ["70", "75", "80", "85"], correct: 1 },
+  { question: "¿Cuál es su estadística de Ataque base (forma Kanto)?", options: ["90", "95", "100", "105"], correct: 2 },
+  { question: "El Sandslash de Alola levanta cortinas de nieve para esconderse y atacar.", options: ["Verdadero", "Falso", "No puede hacer eso", "Solo en el anime"], correct: 0 },
+  { question: "En Pokémon GO, para evolucionar al Sandslash de Alola necesitas...", options: ["Una Piedra Hielo", "Caramelos de Sandshrew de Alola", "Caramelos normales y estar cerca de una Glacio-Poképarada", "Un objeto especial"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Roca Afilada por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo por tutor"], correct: 0 },
+  { question: "Se enrolla para protegerse de las altas temperaturas del desierto durante el día.", options: ["Verdadero", "Falso", "No le afecta el calor", "Solo se protege del frío"], correct: 0 },
+  { question: "¿Puede aprender el movimiento Puño Hielo por tutor?", options: ["Sí", "No", "Solo el de Alola", "Solo Sandshrew"], correct: 0 },
+  { question: "El líder de gimnasio Giovanni usa un Sandslash en algunos juegos.", options: ["Verdadero", "Falso", "Usa un Sandshrew", "Usa un Rhyhorn"], correct: 1 },
+  { question: "Resiste los ataques de tipo Veneno y...", options: ["Roca", "Fuego", "Acero", "Eléctrico"], correct: 0 },
+  { question: "Las púas del Sandslash de Alola son más pesadas, haciéndolo más lento que su contraparte.", options: ["Verdadero", "Falso", "Son más ligeras", "Tienen la misma velocidad"], correct: 0 },
+  { question: "En la Zona Safari de Kanto, ¿es posible encontrar un Sandslash salvaje?", options: ["Sí", "No", "Solo en la versión Roja", "Solo en la entrada"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Danza Espada por MT?", options: ["Sí", "No", "Solo por nivel", "Solo por tutor"], correct: 0 },
+  { question: "Sandslash es la evolución de:", options: ["Sandile", "Cubone", "Sandshrew", "Diglett"], correct: 2 },
+  { question: "¿Cuál es su estadística de Defensa base (forma Kanto)?", options: ["100", "105", "110", "115"], correct: 2 },
+  { question: "Si se moja, su piel de arena se vuelve pesada y le dificulta moverse.", options: ["Verdadero", "Falso", "Es inmune al agua", "No le afecta"], correct: 0 },
+  { question: "El movimiento 'Chuzos' es característico del Sandslash de Alola. ¿Qué lo hace especial?", options: ["Siempre congela", "Golpea de 2 a 5 veces", "Tiene alta probabilidad de crítico", "Baja la defensa del rival"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Tijera X por MT?", options: ["Sí", "No", "Solo el de Kanto", "Solo el de Alola"], correct: 0 },
+  { question: "En el manga, ¿qué personaje usa un Sandslash?", options: ["Red (Rojo)", "Green (Verde)", "Blue (Azul)", "Brock"], correct: 0 },
+  { question: "Es un Pokémon solitario y prefiere no vivir en grupos.", options: ["Verdadero", "Falso", "Vive en grandes colonias", "Solo vive en parejas"], correct: 0 },
+  { question: "El Sandslash de Alola usa sus púas para moverse por el hielo.", options: ["Verdadero, como crampones", "Falso, resbala", "No se mueve por el hielo", "Usa sus garras"], correct: 3 },
+  { question: "¿Qué movimiento aprende por nivel que le permite excavar y evitar ataques por un turno?", options: ["Bucle Arena", "Bofetón Lodo", "Excavar", "Arenas Ardientes"], correct: 2 },
+  { question: "Sus garras son lo suficientemente fuertes como para romper rocas.", options: ["Verdadero", "Falso", "Solo rompen tierra", "Son frágiles"], correct: 0 },
+  { question: "El Sandslash de Kanto es resistente a los movimientos de tipo Veneno y...", options: ["Roca", "Fuego", "Agua", "Planta"], correct: 0 },
+  { question: "En la Calle Victoria, a menudo se encuentra junto a...", options: ["Graveler", "Machoke", "Onix", "Todos los anteriores"], correct: 3 }
+]
+  },{
+    id: 29,
+    name: "Nidoran♀",
+    type: ["Veneno"],
+    rarity: "Común",
+    stats: {
+      hp: 55,
+      atk: 47,
+      def: 52,
+      spAtk: 40,
+      spDef: 40,
+      spd: 41,
+    },
+    description: "Aunque pequeñas, sus venenosas púas son muy peligrosas. La hembra tiene pequeños cuernos.",
+    height: "0.4 m",
+    weight: "7.0 kg",
+    bonusQuestion: {
+    question: "Nidoran♀ es especial porque es el único de su línea evolutiva que puede...",
+    options: ["Aprender Rayo Hielo", "Ser shiny", "Tener una habilidad oculta", "Criar y producir huevos"],
+    correct: 3 // Nidorina y Nidoqueen están en el grupo huevo 'No Descubierto' y no pueden criar.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Blastoise en la Pokédex?", options: ["008", "009", "010", "011"], correct: 1 },
+      { question: "¿Qué tiene Blastoise en su caparazón que sus preevoluciones no tienen?", options: ["Púas", "Cañones de agua", "Propulsores", "Un timón"], correct: 1 },
+      { question: "Los chorros de agua de Blastoise pueden perforar...", options: ["Madera", "Roca", "Acero grueso", "Diamante"], correct: 2 },
+      { question: "¿Qué forma especial puede alcanzar Blastoise en la Gen VI?", options: ["Forma Primigenia", "Gigamax", "Megaevolución", "Forma Kanto"], correct: 2 },
+      { question: "¿Qué habilidad obtiene Mega-Blastoise?", options: ["Torrente", "Chorro Arena", "Mega Disparador", "Potencia"], correct: 2 },
+      { question: "La habilidad 'Mega Disparador' potencia los movimientos de...", options: ["Agua", "Tipo Pulso y Aura", "Con alta probabilidad de crítico", "Contacto"], correct: 1 },
+      { question: "¿Qué forma especial puede alcanzar Blastoise en la Gen VIII?", options: ["Megaevolución", "Forma Galar", "Dinamax", "Gigamax"], correct: 3 },
+      { question: "El movimiento Gigamax de Blastoise se llama:", options: ["Giga Chorro", "Giga Tsunami", "Giga Cañonazo", "Giga Tormenta"], correct: 2 },
+      { question: "Blastoise es la mascota del juego:", options: ["Pokémon Rojo", "Pokémon Azul", "Pokémon Verde", "Pokémon Agua"], correct: 1 },
+      { question: "Para realizar ataques de alta velocidad, Blastoise puede usar sus cañones como...", options: ["Anclas", "Propulsores de cohete", "Alas", "Equilibrio"], correct: 1 },
+      { question: "¿Cuál es la categoría de Pokémon de Blastoise?", options: ["Armazón", "Tortuga", "Cañón", "Tanque"], correct: 0 },
+      { question: "¿Cuál es la estadística base más alta de Blastoise (sin megaevolucionar)?", options: ["Defensa", "Ataque", "Defensa Especial", "PS"], correct: 2 },
+      { question: "Mega-Blastoise tiene un gran cañón en su espalda y dos más pequeños en...", options: ["Sus hombros", "Su cabeza", "Sus brazos/patas delanteras", "Su cola"], correct: 2 },
+      { question: "¿Qué movimiento de tipo Aura puede aprender Blastoise que se ve potenciado por su Mega-Habilidad?", options: ["Pulso Dragón", "Esfera Aural", "Pulso Umbrío", "Todos los anteriores"], correct: 3 },
+      { question: "En el anime, ¿quién es el primer rival de Ash que tiene un Blastoise?", options: ["Paul", "Richie", "Gary Oak", "Trip"], correct: 2 },
+      { question: "¿Cuánto mide Blastoise?", options: ["1.5 m", "1.6 m", "1.7 m", "1.8 m"], correct: 1 },
+      { question: "¿Cuánto pesa Blastoise?", options: ["85.5 kg", "90.5 kg", "95.5 kg", "101.1 kg"], correct: 0 },
+      { question: "¿Cuál es su PS base?", options: ["75", "79", "83", "85"], correct: 1 },
+      { question: "El movimiento Giga Cañonazo de Blastoise Gigamax, ¿qué efecto secundario tiene?", options: ["Baja la velocidad del rival", "Hace daño residual a Pokémon que no son de tipo Agua", "Confunde al rival", "Sube su defensa"], correct: 1 },
+      { question: "El nombre 'Blastoise' es una combinación de 'Blast' (explosión) y...", options: ["Poise", "Tortoise", "Noise", "Moisture"], correct: 1 },
+      { question: "En la primera película, ¿quién lidera al grupo de Pokémon clonados junto a Mewtwo?", options: ["Charizardtwo", "Blastoisetwo", "Venusaurtwo", "Los tres por igual"], correct: 3 },
+      { question: "¿Puede Blastoise aprender el movimiento Terremoto por MT?", options: ["Sí", "No", "Solo en Gen I", "Solo en su forma Mega"], correct: 0 },
+      { question: "¿Cuál es su estadística de Defensa base?", options: ["95", "100", "105", "110"], correct: 1 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Monstruo y Agua 1", "Solo Agua 1", "Campo y Agua 1", "Monstruo y Campo"], correct: 0 },
+      { question: "Blastoise es intencionadamente pesado para poder...", options: ["Nadar más profundo", "Resistir el retroceso de sus propios cañones", "Atraer presas más grandes", "Romper rocas al caer"], correct: 1 },
+      { question: "El nombre japonés de Blastoise, 'Kamex', probablemente viene de 'Kame' (tortuga) y...", options: ["Excellent", "Max", "Extra", "Complex"], correct: 1 },
+      { question: "¿Cuál es su tasa de captura?", options: ["45", "90", "120", "30"], correct: 0 },
+      { question: "¿Qué estadística de Mega-Blastoise alcanza los 135 puntos base?", options: ["Ataque", "Defensa", "Ataque Especial", "Velocidad"], correct: 2 },
+      { question: "En el anime, un Blastoise famoso era el líder de la Isla de los Pokémon Gigantes.", options: ["Verdadero", "Falso", "Era un Dragonite", "Era un Wartortle"], correct: 1 },
+      { question: "El caparazón de Blastoise Gigamax se asemeja a...", options: ["Una fortaleza", "Un submarino", "Un acorazado con 31 cañones", "Una isla"], correct: 2 },
+      { question: "¿Puede aprender el movimiento Destello por MT en Gen I?", options: ["Sí", "No, pero sí Foco Resplandor", "No", "Solo por tutor"], correct: 2 },
+      { question: "En Super Smash Bros., ¿aparece Blastoise como personaje jugable?", options: ["Sí", "No, solo Squirtle", "Aparece como un espíritu", "Sí, en el Smash Final del Entrenador"], correct: 2 },
+      { question: "¿Qué movimiento aprende por nivel que puede golpear a ambos oponentes en batallas dobles?", options: ["Hidropulso", "Surf", "Agua Lodosa", "Salpicar"], correct: 1 },
+      { question: "Blastoise puede disparar balas de agua con la suficiente precisión para golpear latas a... de distancia.", options: ["20 metros", "35 metros", "50 metros", "100 metros"], correct: 2 },
+      { question: "¿Quién es el miembro del Alto Mando de Kanto que usa un Blastoise?", options: ["Agatha", "Bruno", "Lorelei", "Ninguno, pero sí Azul (Blue)"], correct: 3 },
+      { question: "¿Cuál es el valor de experiencia base que otorga Blastoise?", options: ["239", "255", "265", "270"], correct: 2 },
+      { question: "¿Puede aprender el movimiento Cola Férrea por MT?", options: ["Sí", "No", "Solo en ciertas generaciones", "Solo por movimiento huevo"], correct: 0 },
+      { question: "La altura de Blastoise Gigamax es de:", options: ["20 m", "Más de 25 m", "30 m", "15 m"], correct: 1 },
+      { question: "¿Cuál es la estadística de Defensa de Mega-Blastoise?", options: ["115", "120", "125", "130"], correct: 1 },
+      { question: "El Pokémon inicial de Kanto que tiene ventaja sobre Blastoise es:", options: ["Charmander", "Pikachu", "Bulbasaur", "Eevee"], correct: 2 },
+      { question: "¿Qué movimiento aprende que es el ataque de tipo Agua más potente?", options: ["Acua Cola", "Surf", "Salpicar", "Hidrocañón"], correct: 3 },
+      { question: "El Blastoise de Green (Blue en el manga) tiene una particularidad en sus cañones. ¿Cuál?", options: ["Puede guardarlos", "Son extraíbles", "Disparan de forma independiente", "Disparan fuego a veces"], correct: 0 },
+      { question: "¿Blastoise es más pesado que Venusaur?", options: ["Sí", "No", "Pesan lo mismo", "Depende de la forma"], correct: 1 },
+      { question: "Para usar Hidrocañón, Blastoise necesita descansar el siguiente turno.", options: ["Verdadero", "Falso", "Solo si falla", "Solo en su forma Mega"], correct: 0 },
+      { question: "¿Puede Blastoise aprender el movimiento Foco Resplandor?", options: ["Sí, por MT", "No", "Solo por tutor", "Solo Mega-Blastoise"], correct: 0 },
+      { question: "En el TCG, ¿fue Blastoise del Base Set famoso por su Habilidad Pokémon?", options: ["Sí, 'Danza Lluvia'", "No, por su ataque", "No tenía habilidad", "Sí, 'Propagar'"], correct: 0 },
+      { question: "¿A qué se parece el diseño de Blastoise?", options: ["A una tortuga marina", "A un tanque de guerra y una tortuga", "A un submarino", "A un dinosaurio acuático"], correct: 1 },
+      { question: "¿Cuál de estos movimientos NO puede aprender Blastoise?", options: ["Giga Impacto", "Avalancha", "Voto Agua", "Rayo"], correct: 3 },
+      { question: "¿Cuál es la estadística de Ataque Especial de Mega-Blastoise?", options: ["130", "135", "140", "145"], correct: 1 },
+      { question: "En la película 'Detective Pikachu', los Blastoise son usados por la policía para:", options: ["Transporte", "Control de multitudes", "Investigación", "Batallas clandestinas"], correct: 3 }
+    ]
+  },
+  {
+    id: 30,
+    name: "Nidorina",
+    type: ["Veneno"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 70,
+      atk: 62,
+      def: 67,
+      spAtk: 55,
+      spDef: 55,
+      spd: 56,
+    },
+    description: "El cuerno de la hembra crece lentamente. Prefiere ataques físicos como arañar o morder",
+    height: "0.8 m",
+    weight: "20.0 kg",
+    bonusQuestion: {
+    question: "A pesar de ser la etapa intermedia, Nidorina es incapaz de hacer algo que sí pueden hacer Nidoran♀ y Nidoqueen. ¿Qué es?",
+    options: ["Evolucionar", "Aprender Terremoto", "Criar", "Usar el movimiento Atracción"],
+    correct: 2 // Nidorina y Nidoqueen pertenecen al grupo huevo 'No Descubierto' y no pueden poner huevos.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Caterpie en la Pokédex?", options: ["009", "010", "011", "012"], correct: 1 },
+  { question: "¿A qué nivel evoluciona Caterpie a Metapod?", options: ["5", "7", "9", "10"], correct: 1 },
+  { question: "¿Cuál es el tipo de Caterpie?", options: ["Planta", "Bicho", "Veneno", "Normal"], correct: 1 },
+  { question: "¿Qué parte del cuerpo de Caterpie libera un olor fétido para repeler a los depredadores?", options: ["Su boca", "Su cola", "Sus patas", "Su antena roja (osmaterium)"], correct: 3 },
+  { question: "En el anime, Caterpie fue el... Pokémon que Ash capturó.", options: ["Primer", "Segundo", "Tercer", "Cuarto"], correct: 0 },
+  { question: "¿Cuál es la habilidad principal de Caterpie, que lo protege de efectos secundarios de ataques?", options: ["Efecto Espora", "Ojo Compuesto", "Polvo Escudo", "Fuga"], correct: 2 },
+  { question: "¿Cuál es la habilidad oculta de Caterpie?", options: ["Cromolente", "Fuga", "Nerviosismo", "Punto Tóxico"], correct: 1 },
+  { question: "Las patas de Caterpie tienen... en sus extremos para adherirse a superficies.", options: ["Garras", "Ventosas", "Pegamento", "Púas"], correct: 1 },
+  { question: "¿Cuál es el principal alimento de Caterpie?", options: ["Bayas", "Hojas", "Otros insectos", "Tierra"], correct: 1 },
+  { question: "¿Qué Pokémon es el depredador natural de Caterpie?", options: ["Pikachu", "Rattata", "Pidgey", "Zubat"], correct: 2 },
+  { question: "¿Cuál es la categoría de Pokémon de Caterpie?", options: ["Insecto", "Oruga", "Gusano", "Larva"], correct: 2 },
+  { question: "En el anime, ¿qué personaje le tenía un miedo terrible a Caterpie?", options: ["Ash", "Brock", "Misty", "Jessie"], correct: 2 },
+  { question: "Su nombre, 'Caterpie', es una derivación de la palabra inglesa para oruga:", options: ["Worm", "Caterpillar", "Insect", "Larva"], correct: 1 },
+  { question: "¿Cuál es la estadística base más alta de Caterpie?", options: ["Ataque", "Defensa", "Velocidad", "PS"], correct: 3 },
+  { question: "¿Qué dos únicos movimientos aprende Caterpie por nivel en la mayoría de los juegos?", options: ["Placaje y Fortaleza", "Picadura y Disparo Demora", "Placaje y Disparo Demora", "Malicioso y Placaje"], correct: 2 },
+  { question: "¿En qué grupo huevo se encuentra Caterpie?", options: ["Campo", "Planta", "Monstruo", "Bicho"], correct: 3 },
+  { question: "¿Su tasa de captura es de?", options: ["120", "190", "255", "45"], correct: 2 },
+  { question: "La antena de Caterpie está inspirada en un órgano real de las orugas mariposa llamado:", options: ["Antenapalpus", "Osmaterium", "Flagelo", "Sensilia"], correct: 1 },
+  { question: "¿Cuánto mide Caterpie?", options: ["0.2 m", "0.3 m", "0.4 m", "0.5 m"], correct: 1 },
+  { question: "¿Cuánto pesa Caterpie?", options: ["2.9 kg", "3.2 kg", "3.5 kg", "4.0 kg"], correct: 0 },
+  { question: "¿De qué color es un Caterpie variocolor (shiny)?", options: ["Azul", "Rojo", "Verde", "Dorado"], correct: 3 },
+  { question: "¿Es Caterpie uno de los Pokémon que evoluciona en el nivel más bajo?", options: ["Sí", "No", "Evoluciona a nivel medio", "Es el que evoluciona más tarde"], correct: 0 },
+  { question: "Para crecer, Caterpie muda su piel muchas veces.", options: ["Verdadero", "Falso", "Solo una vez", "Nunca muda la piel"], correct: 0 },
+  { question: "En el anime, el Caterpie de Ash evoluciona después de una batalla contra:", options: ["Un Pidgey", "El Equipo Rocket", "Un Weedle", "Brock"], correct: 1 },
+  { question: "¿Cuál es su PS base?", options: ["30", "35", "40", "45"], correct: 3 },
+  { question: "¿Puede Caterpie aprender algún movimiento por MT?", options: ["Sí, Corte", "No", "Sí, Tóxico", "Solo en Gen I"], correct: 1 },
+  { question: "En el TCG, la primera carta de Caterpie apareció en:", options: ["Jungle", "Fossil", "Base Set", "Team Rocket"], correct: 2 },
+  { question: "¿Qué tipo de ataque es súper efectivo contra Caterpie?", options: ["Agua", "Planta", "Volador", "Tierra"], correct: 2 },
+  { question: "El nombre japonés de Caterpie es 'Caterpie'.", options: ["Verdadero", "Falso", "Es 'Kyatapī'", "Es 'Gusano'"], correct: 2 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["30", "35", "45", "50"], correct: 2 },
+  { question: "Caterpie puede devorar hojas más grandes que él mismo.", options: ["Verdadero", "Falso", "Solo si están mojadas", "Solo de ciertos árboles"], correct: 0 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["30", "35", "40", "45"], correct: 0 },
+  { question: "La habilidad 'Fuga' le permite a Caterpie...", options: ["Ser más rápido", "Huir siempre de batallas salvajes", "Evitar ataques de estado", "Subir su evasión"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Electrotela por tutor?", options: ["Sí", "No", "Solo como Metapod", "Solo en ciertos juegos"], correct: 0 },
+  { question: "¿Cuántas patas tiene Caterpie?", options: ["8", "12", "16", "Muchas"], correct: 2 },
+  { question: "En Pokémon GO, ¿cuántos caramelos cuesta evolucionar un Caterpie?", options: ["12", "25", "50", "100"], correct: 0 },
+  { question: "¿Es Caterpie exclusivo de alguna versión en los juegos originales?", options: ["Sí, de Pokémon Rojo", "Sí, de Pokémon Azul", "No", "Sí, de Pokémon Verde"], correct: 2 },
+  { question: "El apetito de Caterpie es...", options: ["Pequeño", "Normal", "Insaciable", "Selectivo"], correct: 2 },
+  { question: "El valor de experiencia base que otorga Caterpie es:", options: ["30", "39", "45", "50"], correct: 1 },
+  { question: "En el Bosque Verde, Caterpie es un Pokémon muy...", options: ["Raro", "Común", "Agresivo", "Difícil de encontrar"], correct: 1 },
+  { question: "¿Su diseño está basado en la oruga de qué mariposa real?", options: ["Monarca", "Mariposa tigre del este", "Almirante Rojo", "Mariposa de la col"], correct: 1 },
+  { question: "¿Qué resiste Caterpie?", options: ["Lucha, Tierra y Planta", "Fuego, Volador y Roca", "Agua, Eléctrico y Hielo", "Psíquico, Fantasma y Siniestro"], correct: 0 },
+  { question: "En el anime, ¿qué le dice Caterpie a Pikachu en un sueño?", options: ["Que quiere volar", "Que quiere ser fuerte", "Que le teme a Misty", "Que quiere ser un Charizard"], correct: 0 },
+  { question: "¿Cuál es su estadística de Defensa base?", options: ["30", "35", "40", "45"], correct: 1 },
+  { question: "¿Puede un Caterpie nacer con un movimiento huevo?", options: ["Sí, como Disparo Demora", "No, no puede tener movimientos huevo", "Sí, como Placaje", "Depende de los padres"], correct: 1 },
+  { question: "Para evolucionar, Caterpie se envuelve en...", options: ["Hojas", "Seda", "Barro", "Su propia piel"], correct: 1 },
+  { question: "Su llanto en el anime es muy característico y agudo.", options: ["Verdadero", "Falso", "No tiene llanto", "Suena como un rugido"], correct: 0 },
+  { question: "¿Aparece Caterpie en la Zona Safari de Kanto?", options: ["Sí", "No", "Solo en Pokémon Amarillo", "Solo de noche"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Picadura Venenosa?", options: ["Sí, por nivel", "No", "Sí, por MT", "No, ese es Weedle"], correct: 3 },
+  { question: "En la Pokédex se afirma que su antena es un...", options: ["Órgano sensorial", "Arma defensiva", "Atrayente de pareja", "Indicador de salud"], correct: 1 }
+]
+  },{
+    id: 31,
+    name: "Nidoqueen",
+    type: ["Veneno", "Tierra"],
+    rarity: "Raro",
+    stats: {
+      hp: 90,
+      atk: 92,
+      def: 87,
+      spAtk: 75,
+      spDef: 85,
+      spd: 76,
+    },
+    description: "Sus duras escamas lo protegen. Usa su gran corpulencia para ejecutar potentes movimientos.",
+    height: "1.3 m",
+    weight: "60.0 kg",
+    bonusQuestion: {
+    question: "Nidoqueen y Nidoking tienen estadísticas casi idénticas pero intercambiadas. ¿En qué estadística base Nidoqueen supera a Nidoking?",
+    options: ["Ataque", "Defensa", "Velocidad", "Ataque Especial"],
+    correct: 1 // Nidoqueen tiene más PS, Defensa y Defensa Especial, mientras que Nidoking tiene más Ataque, Ataque Especial y Velocidad.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Metapod en la Pokédex?", options: ["010", "011", "012", "013"], correct: 1 },
+  { question: "¿A qué nivel evoluciona Metapod a Butterfree?", options: ["9", "10", "11", "12"], correct: 1 },
+  { question: "El único movimiento que Metapod aprende por nivel es:", options: ["Placaje", "Protección", "Fortaleza", "No aprende ninguno"], correct: 2 },
+  { question: "La habilidad de Metapod, 'Mudar', le permite...", options: ["Ser más rápido", "Curar sus problemas de estado al final del turno", "Subir su defensa", "Cambiar de tipo"], correct: 1 },
+  { question: "¿Qué hace Metapod principalmente en su etapa de capullo?", options: ["Dormir", "Comer", "Endurecer su coraza", "Cazar"], correct: 2 },
+  { question: "La coraza de Metapod es tan dura como...", options: ["La madera", "Una roca", "El acero", "El diamante"], correct: 2 },
+  { question: "En el anime, hubo una famosa batalla de 'Fortaleza' entre el Metapod de Ash y el de...", options: ["Misty", "Brock", "Un Samurái", "Gary"], correct: 2 },
+  { question: "¿Qué le sucede a Metapod si recibe un golpe muy fuerte?", options: ["Explota", "Su interior blando puede quedar expuesto", "Evoluciona al instante", "Se entierra"], correct: 1 },
+  { question: "¿Cuál es la categoría de Pokémon de Metapod?", options: ["Capullo", "Crisálida", "Coraza", "Evolución"], correct: 0 },
+  { question: "Dentro de su coraza, el cuerpo de Metapod es...", options: ["Hueco", "Líquido y blando", "Musculoso", "Igual de duro"], correct: 1 },
+  { question: "¿Puede Metapod moverse?", options: ["No, es completamente inmóvil", "Sí, puede saltar", "Sí, pero solo ligeramente", "Sí, puede rodar"], correct: 2 },
+  { question: "¿Cuál es la estadística base más alta de Metapod?", options: ["PS", "Ataque", "Defensa", "Velocidad"], correct: 2 },
+  { question: "En el anime, ¿qué Pokémon secuestra al Metapod de Ash?", options: ["Un Fearow", "Un grupo de Beedrill", "El Equipo Rocket", "Un Primeape"], correct: 1 },
+  { question: "El nombre 'Metapod' es una combinación de 'Metamorfosis' y...", options: ["Pod (vaina)", "Pad (almohadilla)", "Hard (duro)", "Shield (escudo)"], correct: 0 },
+  { question: "¿Cuál es su PS base?", options: ["40", "45", "50", "55"], correct: 2 },
+  { question: "¿Es Metapod más pesado que Caterpie?", options: ["Sí", "No", "Pesan lo mismo", "Depende del individuo"], correct: 0 },
+  { question: "¿Cuánto mide Metapod?", options: ["0.6 m", "0.7 m", "0.8 m", "0.9 m"], correct: 1 },
+  { question: "¿Cuánto pesa Metapod?", options: ["9.9 kg", "10.9 kg", "11.9 kg", "12.9 kg"], correct: 0 },
+  { question: "El valor de experiencia base que otorga Metapod es:", options: ["68", "72", "75", "80"], correct: 1 },
+  { question: "¿De qué color es un Metapod variocolor (shiny)?", options: ["Dorado", "Plateado", "Naranja", "Azul"], correct: 2 },
+  { question: "En la mayoría de los juegos, si un Caterpie evoluciona a Metapod, ¿qué movimiento reemplaza a Placaje?", options: ["Ninguno, lo conserva", "Fortaleza", "Protección", "Disparo Demora"], correct: 1 },
+  { question: "¿En qué grupo huevo se encuentra Metapod?", options: ["Bicho", "Planta", "Monstruo", "Campo"], correct: 0 },
+  { question: "¿Puede Metapod aprender algún movimiento por MT?", options: ["Sí, Fortaleza", "No", "Sí, Tóxico", "Solo en Gen I"], correct: 1 },
+  { question: "Su tasa de captura es de:", options: ["255", "190", "120", "90"], correct: 2 },
+  { question: "El nombre japonés de Metapod es 'Transe'l. ¿A qué hace referencia?", options: ["Trance", "Transformación", "Tranquilidad", "Transición"], correct: 0 },
+  { question: "En el Bosque Verde, Metapod es... que Caterpie.", options: ["Más común", "Igual de común", "Menos común", "Imposible de encontrar"], correct: 2 },
+  { question: "¿Qué tipo de ataque es súper efectivo contra Metapod?", options: ["Fuego", "Agua", "Planta", "Tierra"], correct: 0 },
+  { question: "Para conservar energía para la evolución, Metapod apenas se mueve.", options: ["Verdadero", "Falso", "Se mueve constantemente", "Solo se mueve para buscar sol"], correct: 0 },
+  { question: "¿Cuál es su estadística de Defensa base?", options: ["50", "55", "60", "65"], correct: 1 },
+  { question: "En el anime, ¿cómo evoluciona el Metapod de Ash?", options: ["Por entrenamiento", "Por una Piedra Hoja", "Para salvar a Ash de un Beedrill", "Por accidente"], correct: 2 },
+  { question: "¿Cuál es su estadística de Ataque base?", options: ["20", "25", "30", "35"], correct: 0 },
+  { question: "En el TCG, las cartas de Metapod a menudo tienen un alto costo de retirada.", options: ["Verdadero", "Falso", "No tienen costo de retirada", "Tienen un costo bajo"], correct: 0 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["20", "25", "30", "35"], correct: 2 },
+  { question: "El cuerpo de Metapod se está reconstruyendo a nivel celular para su evolución.", options: ["Verdadero", "Falso", "El cambio es solo externo", "La reconstrucción ya terminó"], correct: 0 },
+  { question: "¿A qué se parece la forma de Metapod?", options: ["A una roca", "A una hoja", "A una luna creciente", "A una semilla"], correct: 2 },
+  { question: "¿Puede Metapod aprender Electrotela por tutor?", options: ["Sí", "No", "Solo como Caterpie", "Solo como Butterfree"], correct: 0 },
+  { question: "Un Metapod salvaje solo usará Fortaleza hasta quedarse sin PP.", options: ["Verdadero", "Falso", "Usará Combate", "Huirá"], correct: 0 },
+  { question: "Si su coraza se daña, ¿puede repararla?", options: ["Sí, rápidamente", "No, queda vulnerable", "Sí, pero tarda mucho", "Se endurece aún más"], correct: 1 },
+  { question: "Metapod resiste ataques de tipo...", options: ["Fuego y Roca", "Lucha y Planta", "Agua y Hielo", "Eléctrico y Volador"], correct: 1 },
+  { question: "¿Cuántos días dura la etapa de Metapod en la vida real?", options: ["1-2 días", "Alrededor de una semana", "Un mes", "Un año"], correct: 1 },
+  { question: "En Pokémon GO, ¿se puede encontrar a Metapod en estado salvaje?", options: ["Sí", "No, solo por evolución", "Solo durante eventos", "Solo en incursiones"], correct: 0 },
+  { question: "¿Cuál es su estadística de Ataque Especial base?", options: ["20", "25", "30", "35"], correct: 1 },
+  { question: "¿Qué Pokémon tiene una etapa de capullo similar a Metapod?", options: ["Weedle", "Wurmple", "Venonat", "Spinarak"], correct: 1 },
+  { question: "Su diseño es minimalista y muy reconocible.", options: ["Verdadero", "Falso", "Es un diseño complejo", "A menudo se confunde con otros Pokémon"], correct: 0 },
+  { question: "La única forma de dañar a un Metapod que solo usa Fortaleza es con:", options: ["Ataques de estado (veneno, quemadura)", "Golpes críticos", "Movimientos de daño fijo", "Todas las anteriores"], correct: 3 },
+  { question: "En el manga, ¿el Caterpie de Red evoluciona a Metapod?", options: ["Sí", "No, lo libera antes", "No, Red no tiene un Caterpie", "Sí, pero es de Yellow"], correct: 3 },
+  { question: "¿Aparece Metapod en la Zona Safari?", options: ["Sí", "No", "Solo en la versión Amarilla", "Solo si llevas un Caterpie"], correct: 1 },
+  { question: "Su estrategia de batalla es puramente...", options: ["Ofensiva", "Defensiva y de desgaste", "Rápida", "Equilibrada"], correct: 1 },
+  { question: "¿Puede Metapod aprender Picadura de alguna forma?", options: ["Sí, si Caterpie lo sabía al evolucionar", "No, nunca", "Sí, por MT", "Sí, por tutor"], correct: 0 },
+  { question: "Al estar cerca de evolucionar, su capullo se vuelve ligeramente...", options: ["Más pesado", "Más blando", "Transparente", "Brillante"], correct: 1 }
+]
+  },{
+    id: 32,
+    name: "Nidoran♂",
+    type: ["Veneno"],
+    rarity: "Común",
+    stats: {
+      hp: 60,
+      atk: 50,
+      def: 40,
+      spAtk: 40,
+      spDef: 45,
+      spd: 50,
+    },
+    description: "Estira sus orejas para sentir el peligro. Cuanto mayores sean sus cuernos, más fuerte su veneno.",
+    height: "0.5 m",
+    weight: "9.0 kg",
+    bonusQuestion: {
+    question: "En el episodio 'La Zona Safari', dos Nidoran se enamoran. ¿Qué personaje captura al Nidoran♂?",
+    options: ["Ash", "Gary", "Todd", "Ralph"],
+    correct: 3 // Ralph, el entrenador del Nidoran♀ llamado María, captura al Nidoran♂ llamado Tony para que puedan estar juntos.
+},
+    quiz: [
+  { question: "¿Cuál es el número de Butterfree en la Pokédex?", options: ["011", "012", "013", "014"], correct: 1 },
+  { question: "Al evolucionar, Butterfree gana un segundo tipo. ¿Cuáles son sus tipos?", options: ["Bicho/Normal", "Bicho/Psíquico", "Bicho/Volador", "Solo Bicho"], correct: 2 },
+  { question: "Su habilidad principal, Ojos Compuestos, aumenta la... de sus movimientos.", options: ["Potencia", "Precisión", "Velocidad", "Probabilidad de Crítico"], correct: 1 },
+  { question: "¿Qué movimiento de tipo Psíquico aprende Butterfree justo al evolucionar?", options: ["Psicorrayo", "Psíquico", "Confusión", "Teletransporte"], correct: 2 },
+  { question: "Las alas de Butterfree están cubiertas de un polvo que...", options: ["Es inflamable", "Brilla en la oscuridad", "Repele el agua", "Atrae la lluvia"], correct: 2 },
+  { question: "En el famoso episodio del anime 'Adiós Butterfree', ¿por qué Ash lo libera?", options: ["Para que se uniera a un circo", "Porque era muy débil", "Para que pudiera aparearse y migrar con otros Butterfree", "Para intercambiarlo por un Raticate"], correct: 2 },
+  { question: "¿Cuál es la habilidad oculta de Butterfree?", options: ["Cromolente", "Nerviosismo", "Efecto Espora", "Polvo Escudo"], correct: 0 },
+  { question: "La habilidad 'Cromolente' hace que los movimientos 'no muy eficaces'...", options: ["Fallen", "Hagan daño normal", "Sean súper eficaces", "Hagan el doble de daño"], correct: 1 },
+  { question: "En la Gen VIII, Butterfree puede alcanzar una forma especial llamada:", options: ["Megaevolución", "Forma Alola", "Gigamax", "Forma Primigenia"], correct: 2 },
+  { question: "El movimiento Gigamax de Butterfree, Gigaestupor, puede causar...", options: ["Solo daño", "Parálisis, veneno o sueño al azar", "Bajar todas las estadísticas del rival", "Invocar Día Soleado"], correct: 1 },
+  { question: "¿Cuál es la estadística base más alta de Butterfree?", options: ["Velocidad", "Ataque", "Defensa Especial", "Ataque Especial"], correct: 3 },
+  { question: "Existe una famosa teoría de fans que sugiere que Butterfree y... intercambiaron sus evoluciones durante el desarrollo del juego.", options: ["Beedrill", "Venonat", "Scyther", "Venomoth"], correct: 3 },
+  { question: "¿Cómo se puede diferenciar un Butterfree hembra de un macho?", options: ["La hembra es más grande", "El macho tiene antenas más largas", "La hembra tiene una mancha negra en sus alas inferiores", "No hay diferencia visible"], correct: 2 },
+  { question: "¿Qué busca Butterfree constantemente?", options: ["Néctar de las flores", "Oponentes fuertes", "Cuevas oscuras", "Ríos"], correct: 0 },
+  { question: "¿A qué velocidad bate sus alas?", options: ["Lentamente", "Moderadamente", "A gran velocidad", "No las bate, planea"], correct: 2 },
+  { question: "En el anime, el interés amoroso del Butterfree de Ash era un Butterfree de color...", options: ["Azul", "Rosa", "Dorado", "Blanco"], correct: 1 },
+  { question: "¿Puede Butterfree aprender el movimiento Rayo Solar?", options: ["Sí, por MT", "No", "Solo en su forma Gigamax", "Solo por tutor"], correct: 0 },
+  { question: "¿Cuál es su PS base?", options: ["60", "65", "70", "75"], correct: 0 },
+  { question: "¿Cuánto mide Butterfree?", options: ["1.0 m", "1.1 m", "1.2 m", "1.3 m"], correct: 1 },
+  { question: "¿Cuánto pesa Butterfree?", options: ["30.0 kg", "32.0 kg", "35.0 kg", "38.0 kg"], correct: 1 },
+  { question: "¿De qué color es un Butterfree variocolor (shiny)?", options: ["Cuerpo morado, alas verdes y extremidades rosas", "Cuerpo azul, alas naranjas", "Completamente dorado", "Completamente plateado"], correct: 0 },
+  { question: "Butterfree es débil x4 (cuádruple) al tipo...", options: ["Fuego", "Volador", "Roca", "Hielo"], correct: 2 },
+  { question: "¿En qué grupos huevo se encuentra?", options: ["Bicho", "Volador", "Bicho y Volador", "Bicho y Hada"], correct: 0 },
+  { question: "¿Qué trío de movimientos de polvo son característicos de Butterfree?", options: ["Polvo Ira, Polvo Nocivo, Polvo Sueño", "Somnífero, Paralizador, Polvo Veneno", "Polvo Escudo, Polvo Nieve, Polvo Arena", "Polvo Deslumbrante, Polvo Furia, Polvo Cura"], correct: 1 },
+  { question: "La altura de Butterfree Gigamax es de:", options: ["15 m", "17 m", "19 m", "21 m"], correct: 1 },
+  { question: "En el TCG, la primera carta de Butterfree apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 1 },
+  { question: "Su nombre en japonés es 'Butterfree', igual que en inglés.", options: ["Verdadero", "Falso", "Es 'Batafurai'", "Es 'Chou'"], correct: 2 },
+  { question: "¿Qué movimiento de tipo Aire aprende por nivel?", options: ["Tornado", "Viento Aciago", "Aire Afilado", "Vendaval"], correct: 2 },
+  { question: "El valor de experiencia base que otorga Butterfree es:", options: ["160", "178", "185", "192"], correct: 1 },
+  { question: "¿Cuál es su estadística de Velocidad base?", options: ["60", "70", "80", "90"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Psíquico por MT?", options: ["Sí", "No", "Solo en Gen I", "Solo en su forma Gigamax"], correct: 0 },
+  { question: "¿Qué hace Butterfree durante la temporada de apareamiento?", options: ["Busca pareja cruzando el mar", "Lucha contra otros Butterfree", "Construye un nido", "Cambia de color"], correct: 0 },
+  { question: "Las alas de Butterfree Gigamax son de un color...", options: ["Azul brillante", "Verde esmeralda", "Naranja rojizo", "Blanco puro"], correct: 1 },
+  { question: "¿Cuál es su estadística de Ataque Especial base?", options: ["80", "90", "100", "110"], correct: 1 },
+  { question: "¿Es Butterfree más rápido que Beedrill?", options: ["Sí", "No", "Tienen la misma velocidad", "Solo si hay viento a favor"], correct: 1 },
+  { question: "En Pokémon GO, ¿es Butterfree un buen atacante para incursiones?", options: ["Sí, de los mejores", "No, es bastante frágil", "Solo en su forma shiny", "Solo contra tipo Planta"], correct: 1 },
+  { question: "¿Puede aprender el movimiento Energibola por MT?", options: ["Sí", "No", "Solo por tutor", "Solo en ciertos juegos"], correct: 0 },
+  { question: "Butterfree resiste ataques de tipo...", options: ["Lucha, Planta y Tierra", "Fuego, Volador y Roca", "Bicho, Lucha y Planta", "Agua, Eléctrico y Hielo"], correct: 2 },
+  { question: "¿Qué movimiento aprende que puede proteger a todo el equipo del daño por un turno?", options: ["Detección", "Vastaguardia", "Aguante", "Anticipo"], correct: 1 },
+  { question: "La categoría de Butterfree es 'Pokémon...'", options: ["Mariposa", "Polvo", "Ala", "Néctar"], correct: 0 },
+  { question: "En el Bosque Verde, ¿se puede encontrar a Butterfree salvaje?", options: ["Sí, pero es muy raro", "No, solo por evolución", "Solo en la versión Amarilla", "Solo de día"], correct: 1 },
+  { question: "El movimiento 'Danza Aleteo' sube el Ataque Especial, la Defensa Especial y...", options: ["El Ataque", "La Defensa", "La Velocidad", "La Precisión"], correct: 2 },
+  { question: "¿Puede Butterfree aprender Danza Aleteo por nivel?", options: ["Sí", "No, es de Volcarona", "Solo como movimiento huevo", "Solo por tutor"], correct: 0 },
+  { question: "El polvo que suelta de sus alas es tóxico.", options: ["Verdadero", "Falso", "Solo el de los machos", "Solo si está enfadado"], correct: 0 },
+  { question: "¿Qué objeto puede potenciar la precisión de sus movimientos de estado?", options: ["Lupa", "Telescopio", "Gema Voladora", "Polvo Brillo"], correct: 0 },
+  { question: "¿Cuál es su estadística de Defensa Especial base?", options: ["70", "80", "90", "100"], correct: 1 },
+  { question: "Butterfree necesita recolectar miel todos los días.", options: ["Verdadero", "Falso", "Solo necesita agua", "Prefiere la savia"], correct: 0 },
+  { question: "¿Qué movimiento aprende que puede intercambiar habilidades con el oponente?", options: ["Danza Amiga", "Cede Paso", "Cambia Almas", "Intercambio"], correct: 3 },
+  { question: "En Pokémon Snap, ¿cómo se puede hacer que Butterfree baile?", options: ["Tocando la Poké Flauta", "Lanzándole comida", "Usando el radar", "Fotografiándolo varias veces"], correct: 0 },
+  { question: "El diseño de Butterfree está basado en una mariposa real, específicamente la...", options: ["Mariposa Monarca", "Mariposa Blanca de la Col", "Mariposa Pavo Real", "Mariposa Morfo Azul"], correct: 1 }
+]
+  },{
+    id: 33,
+    name: "Nidorino",
+    type: ["Veneno"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 61,
+      atk: 72,
+      def: 57,
+      spAtk: 55,
+      spDef: 64,
+      spd: 65,
+    },
+    description: "Un Pokémon agresivo, siempre listo para atacar. El cuerno de la cabeza segrega un potente veneno.",
+    height: "0.9 m",
+    weight: "19.5 kg",
+    bonusQuestion: {
+    question: "En la intro de los juegos Rojo y Azul, y en el primer episodio del anime, Nidorino lucha contra Gengar. ¿Qué sonido característico hace Nidorino en el anime?",
+    options: ["Un rugido agudo", "Un gruñido bajo", "El mismo grito que Gengar", "Un chillido similar al de Nidorina"],
+    correct: 2 // El Nidorino de la intro usaba una versión modificada del grito de Gengar.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Nidorino en la Pokédex?", options: ["032", "033", "034", "035"], correct: 1 },
+      { question: "¿Con qué objeto evoluciona Nidorino a Nidoking?", options: ["Piedra Solar", "Piedra Noche", "Piedra Lunar", "Subiendo de nivel"], correct: 2 },
+      { question: "La personalidad de Nidorino se describe como:", options: ["Pacífica y tímida", "Juguetona y curiosa", "Independiente y agresiva", "Perezosa y tranquila"], correct: 2 },
+      { question: "El cuerno de Nidorino es más duro que un...", options: ["Acero", "Diamante", "Hueso", "Cristal"], correct: 1 },
+      { question: "Una de sus habilidades principales es 'Punto Tóxico'. ¿Qué puede causar al contacto?", options: ["Bajar el ataque", "Envenenar al atacante", "Paralizar al atacante", "Confundir al atacante"], correct: 1 },
+      { question: "¿Cuál es su segunda habilidad, que aumenta su ataque contra Pokémon del mismo género?", options: ["Intimidación", "Agallas", "Potencia", "Rivalidad"], correct: 3 },
+      { question: "¿Cuál es la habilidad oculta de Nidorino?", options: ["Potencia Bruta", "Ímpetu Tóxico", "Entusiasmo", "Intrépido"], correct: 2 },
+      { question: "La habilidad 'Entusiasmo' (Hustle) sube el Ataque a cambio de bajar la...", options: ["Velocidad", "Defensa", "Precisión", "Defensa Especial"], correct: 2 },
+      { question: "¿Cuál es la estadística base más alta de Nidorino?", options: ["PS", "Defensa", "Ataque", "Velocidad"], correct: 2 },
+      { question: "¿A qué nivel evoluciona Nidoran♂ a Nidorino?", options: ["16", "18", "20", "22"], correct: 0 },
+      { question: "En el primer episodio del anime, Nidorino es uno de los Pokémon que aparece en la televisión luchando contra:", options: ["Pikachu", "Onix", "Gengar", "Machamp"], correct: 2 },
+      { question: "Las púas de su espalda segregan un potente veneno si se siente amenazado.", options: ["Verdadero", "Falso", "Solo el cuerno es venenoso", "Sus púas no son venenosas"], correct: 0 },
+      { question: "¿En qué grupos huevo se encuentra Nidorino?", options: ["Campo y Monstruo", "Solo Monstruo", "Campo y Dragón", "No puede criar"], correct: 0 },
+      { question: "Su categoría Pokémon es:", options: ["Pin Veneno", "Taladro", "Monstruo", "Cuerno"], correct: 0 },
+      { question: "¿Cuánto mide Nidorino?", options: ["0.8 m", "0.9 m", "1.0 m", "1.1 m"], correct: 1 },
+      { question: "¿Cuánto pesa Nidorino?", options: ["19.5 kg", "20.5 kg", "22.5 kg", "25.0 kg"], correct: 0 },
+      { question: "¿Cuál es el color de un Nidorino variocolor (shiny)?", options: ["Rosa", "Verde", "Azul", "Dorado"], correct: 2 },
+      { question: "¿Qué movimiento aprende por nivel que puede golpear varias veces?", options: ["Ataque Furia", "Doble Patada", "Golpes Furia", "Picotazo"], correct: 1 },
+      { question: "En los juegos originales, ¿qué líder de gimnasio usa un Nidorino?", options: ["Brock", "Misty", "Lt. Surge", "Koga"], correct: 3 },
+      { question: "Nidorino es débil a los tipos Tierra y...", options: ["Agua", "Hielo", "Psíquico", "Roca"], correct: 2 },
+      { question: "El nombre 'Nidorino' podría derivar de 'needle' (aguja) y 'rhino' (rinoceronte).", options: ["Verdadero", "Falso", "Viene de 'nidor' (olor fuerte)", "Es una palabra inventada"], correct: 0 },
+      { question: "En el TCG, la primera carta de Nidorino apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+      { question: "El valor de experiencia base que otorga Nidorino es:", options: ["120", "128", "135", "142"], correct: 1 },
+      { question: "¿Cuál es su PS base?", options: ["61", "65", "68", "70"], correct: 0 },
+      { question: "¿Cuál es su estadística de Ataque base?", options: ["65", "68", "72", "75"], correct: 2 },
+      { question: "Es conocido por ser muy fácil de enfadar y se vuelve violento rápidamente.", options: ["Verdadero", "Falso", "Es muy calmado", "Solo se enfada si atacan a Nidorina"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Rayo por MT?", options: ["Sí", "No", "Solo como Nidoking", "Solo en Gen I"], correct: 0 },
+      { question: "¿Qué movimiento aprende que baja la defensa del oponente?", options: ["Malicioso", "Látigo", "Gruñido", "Refuerzo"], correct: 3 },
+      { question: "Sus grandes orejas le sirven para escuchar a sus presas bajo tierra.", options: ["Verdadero", "Falso", "Son para el equilibrio", "Son solo decorativas"], correct: 0 },
+      { question: "En Pokémon GO, ¿cuántos caramelos cuesta evolucionar un Nidoran♂?", options: ["12", "25", "50", "100"], correct: 1 },
+      { question: "El cuerno de Nidorino es más pequeño que el de Nidoran♂.", options: ["Verdadero", "Falso", "Es mucho más grande y desarrollado", "Son del mismo tamaño"], correct: 1 },
+      { question: "¿Qué movimiento de tipo Normal aprende por nivel?", options: ["Placaje", "Golpe Cuerpo", "Ataque Rápido", "Arañazo"], correct: 0 },
+      { question: "Resiste los tipos Lucha, Bicho, Hada, Planta y...", options: ["Fuego", "Agua", "Eléctrico", "Veneno"], correct: 3 },
+      { question: "En el manga, ¿qué personaje principal tiene un Nidorino que evoluciona?", options: ["Red", "Blue", "Green", "Yellow"], correct: 0 },
+      { question: "Su tasa de captura es de:", options: ["45", "90", "120", "190"], correct: 2 },
+      { question: "Las púas de su espalda pueden erizarse cuando se prepara para atacar.", options: ["Verdadero", "Falso", "No tiene púas", "No puede moverlas"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Megacuerno?", options: ["Sí, por nivel", "No, solo por movimiento huevo", "Sí, pero solo como Nidoking", "No lo aprende"], correct: 1 },
+      { question: "Su coloración es una advertencia de su toxicidad.", options: ["Verdadero", "Falso", "Es para camuflaje", "No tiene un significado"], correct: 0 },
+      { question: "Nidorino y Nidorina son considerados Pokémon diferentes, con números de Pokédex distintos.", options: ["Verdadero", "Falso", "Son el mismo Pokémon", "Solo en el anime"], correct: 0 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["55", "60", "65", "70"], correct: 2 },
+      { question: "En la Zona Safari, es un Pokémon común.", options: ["Verdadero", "Falso", "Es muy raro", "No aparece ahí"], correct: 0 },
+      { question: "¿Qué movimiento aprende que envenena al rival?", options: ["Picotazo Venenoso", "Tóxico", "Bomba Lodo", "Carga Tóxica"], correct: 0 },
+      { question: "En la primera película, un Nidorino es clonado por Mewtwo.", options: ["Verdadero", "Falso", "Es un Nidoking", "No aparece"], correct: 1 },
+      { question: "Prefiere vivir en...", options: ["Cuevas", "Praderas y sabanas", "Bosques", "Zonas acuáticas"], correct: 1 },
+      { question: "El veneno de su cuerno es más potente que el de sus púas.", options: ["Verdadero", "Falso", "Tienen la misma potencia", "Sus púas no son venenosas"], correct: 0 },
+      { question: "Si su cuerno se rompe, tarda mucho en volver a crecer.", options: ["Verdadero", "Falso", "Crece al instante", "No vuelve a crecer"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Cornada?", options: ["Sí, por nivel", "No", "Solo como Nidoran♂", "Sí, por tutor"], correct: 0 },
+      { question: "Nidorino es más grande y pesado que Nidorina.", options: ["Verdadero", "Falso", "Son del mismo tamaño", "Nidorina es más pesada"], correct: 0 },
+      { question: "En la batalla de gimnasio contra Koga, su Nidorino evoluciona en el manga.", options: ["Verdadero, a Nidoking", "Falso, no evoluciona", "Falso, Koga no tiene un Nidorino", "Falso, evoluciona el Nidoran de Red"], correct: 1 },
+      { question: "¿A qué tipo de ataque es débil?", options: ["Tierra", "Psíquico", "Ambos", "Ninguno"], correct: 2 }
+    ]
+  },
+  {
+    id: 34,
+    name: "Nidoking",
+    type: ["Veneno", "Tierra"],
+    rarity: "Raro",
+    stats: {
+      hp: 81,
+      atk: 102,
+      def: 77,
+      spAtk: 85,
+      spDef: 75,
+      spd: 85,
+    },
+    description: "Usa su potente cola en combate para aplastar y oprimir a su presa. Después le rompe los huesos.",
+    height: "1.4 m",
+    weight: "62.0 kg",
+    bonusQuestion: {
+    question: "La habilidad 'Potencia Bruta' de Nidoking aumenta el poder de los movimientos con efectos secundarios a cambio de anularlos. ¿Cuál de estos movimientos NO recibe el aumento de poder?",
+    options: ["Rayo Hielo (puede congelar)", "Llamarada (puede quemar)", "Terremoto (sin efecto secundario)", "Bomba Lodo (puede envenenar)"],
+    correct: 2 // Terremoto no tiene efectos secundarios que Potencia Bruta pueda anular.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Nidoking en la Pokédex?", options: ["033", "034", "035", "036"], correct: 1 },
+      { question: "Al evolucionar, Nidoking gana un segundo tipo. ¿Cuál es?", options: ["Roca", "Lucha", "Acero", "Tierra"], correct: 3 },
+      { question: "La piel de Nidoking es tan dura como...", options: ["El acero", "Una roca", "El diamante", "Sus escamas son como el acero"], correct: 3 },
+      { question: "¿Qué parte de su cuerpo puede usar para derribar torres de alta tensión?", options: ["Su cuerno", "Sus garras", "Su cola", "Su cabeza"], correct: 2 },
+      { question: "La habilidad oculta de Nidoking, 'Potencia Bruta' (Sheer Force), es muy codiciada porque...", options: ["Aumenta su velocidad", "Aumenta el poder de muchos de sus ataques", "Lo hace inmune a estados", "Anula las habilidades rivales"], correct: 1 },
+      { question: "Cuando Nidoking se enfurece, ¿qué ocurre?", options: ["Su veneno se vuelve más débil", "Se calma rápidamente", "Va arrasando con todo a su paso sin control", "Huye de la batalla"], correct: 2 },
+      { question: "¿Cuál es la estadística base más alta de Nidoking?", options: ["Ataque", "Defensa", "PS", "Velocidad"], correct: 0 },
+      { question: "En los juegos originales, ¿qué famoso líder de una organización malvada usaba un Nidoking?", options: ["Magno del Equipo Magma", "Aquiles del Equipo Aqua", "Helio del Equipo Galaxia", "Giovanni del Equipo Rocket"], correct: 3 },
+      { question: "Nidoking tiene una contraparte femenina. ¿Quién es?", options: ["Nidorina", "Nidoqueen", "Kangaskhan", "Chansey"], correct: 1 },
+      { question: "Su cuerno es capaz de perforar el cuero más duro e inyectar veneno.", options: ["Verdadero", "Falso", "Su cuerno no es venenoso", "No puede perforar cuero"], correct: 0 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Campo y Monstruo", "Solo Monstruo", "Campo y Dragón", "No puede criar"], correct: 0 },
+      { question: "Nidoking es famoso por tener un 'movepool' (lista de movimientos que puede aprender) increíblemente variado.", options: ["Verdadero", "Falso", "Solo aprende movimientos de Veneno y Tierra", "Solo aprende movimientos físicos"], correct: 0 },
+      { question: "¿Cuál de estos movimientos de tipo especial puede aprender Nidoking por MT?", options: ["Rayo Hielo", "Lanzallamas", "Rayo", "Todos los anteriores"], correct: 3 },
+      { question: "Su categoría Pokémon es:", options: ["Monstruo", "Rey Veneno", "Taladro", "Bestia"], correct: 2 },
+      { question: "¿Cuánto mide Nidoking?", options: ["1.3 m", "1.4 m", "1.5 m", "1.6 m"], correct: 1 },
+      { question: "¿Cuánto pesa Nidoking?", options: ["60.0 kg", "62.0 kg", "65.0 kg", "68.0 kg"], correct: 1 },
+      { question: "¿De qué color es un Nidoking variocolor (shiny)?", options: ["Rosa", "Verde", "Azul", "Morado"], correct: 2 },
+      { question: "¿Qué movimiento de tipo Tierra aprende por nivel?", options: ["Magnitud", "Bofetón Lodo", "Terratemblor", "Fuerza Equina"], correct: 3 },
+      { question: "En la Liga Pokémon de Kanto, ¿qué miembro del Alto Mando usa un Nidoking?", options: ["Lorelei", "Bruno", "Agatha", "Lance"], correct: 1 },
+      { question: "Nidoking es débil a Agua, Tierra, Hielo y...", options: ["Volador", "Psíquico", "Roca", "Eléctrico"], correct: 1 },
+      { question: "El objeto 'Vidasfera' (Life Orb) funciona muy bien con la habilidad Potencia Bruta porque...", options: ["Aumenta la velocidad", "Anula el daño de retroceso de Vidasfera", "Aumenta la defensa", "Garantiza un golpe crítico"], correct: 1 },
+      { question: "En el TCG, la primera carta de Nidoking apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+      { question: "El valor de experiencia base que otorga Nidoking es:", options: ["220", "227", "235", "240"], correct: 1 },
+      { question: "¿Cuál es su PS base?", options: ["75", "81", "85", "90"], correct: 1 },
+      { question: "¿Cuál es su estadística de Ataque base?", options: ["95", "102", "105", "110"], correct: 1 },
+      { question: "Aunque es corpulento, Nidoking es sorprendentemente rápido.", options: ["Verdadero", "Falso", "Es extremadamente lento", "Su velocidad es promedio"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Surf por MO/MT?", options: ["Sí", "No", "Solo en ciertos juegos", "Solo Nidoqueen"], correct: 0 },
+      { question: "¿Qué movimiento aprende al evolucionar?", options: ["Megacuerno", "Fuerza Bruta", "Terremoto", "Puya Nociva"], correct: 0 },
+      { question: "Su principal método de ataque es usar su cola para constreñir y aplastar.", options: ["Verdadero", "Falso", "Prefiere usar su cuerno", "Usa una combinación de todo"], correct: 2 },
+      { question: "Nidoking es inmune al tipo...", options: ["Veneno", "Tierra", "Eléctrico", "Normal"], correct: 2 },
+      { question: "Comparado con Nidoqueen, Nidoking es más...", options: ["Defensivo y con más PS", "Rápido y ofensivo", "Equilibrado", "Lento pero más fuerte"], correct: 1 },
+      { question: "Las púas de su espalda contienen un veneno que paraliza.", options: ["Verdadero", "Falso", "No es paralizante, es letal", "Sus púas no son venenosas"], correct: 1 },
+      { question: "Resiste los tipos Lucha, Bicho, Hada, Roca y es doblemente resistente a...", options: ["Planta", "Eléctrico", "Fuego", "Veneno"], correct: 3 },
+      { question: "En el anime, el rival de Ash, Gary Oak, tiene un Nidoking muy poderoso.", options: ["Verdadero", "Falso", "Es de Paul", "Es de Richie"], correct: 0 },
+      { question: "Su tasa de captura es de:", options: ["45", "90", "120", "30"], correct: 0 },
+      { question: "Una vez que Nidoking marca su territorio, luchará a muerte para defenderlo.", options: ["Verdadero", "Falso", "Prefiere huir", "Comparte su territorio"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Puño Fuego por tutor?", options: ["Sí", "No", "Solo Puño Hielo", "Solo Puño Trueno"], correct: 0 },
+      { question: "Su grito puede intimidar a cualquier Pokémon cercano.", options: ["Verdadero", "Falso", "Es silencioso", "Su grito es débil"], correct: 0 },
+      { question: "Para encontrar una Piedra Lunar, Nidoking usa sus orejas para escuchar su eco.", options: ["Verdadero, según la Pokédex", "Falso", "No busca Piedras Lunares", "Es una leyenda"], correct: 1 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["80", "85", "90", "95"], correct: 1 },
+      { question: "En la Calle Victoria, es un Pokémon que a menudo usan los entrenadores de élite.", options: ["Verdadero", "Falso", "Solo lo usan los Cazabichos", "No aparece en la Calle Victoria"], correct: 0 },
+      { question: "¿Qué movimiento de tipo Veneno poderoso aprende en niveles altos?", options: ["Bomba Lodo", "Puya Nociva", "Lanza Mugre", "Carga Tóxica"], correct: 2 },
+      { question: "En la primera película, el Nidoking de Mewtwo se enfrenta al de otro entrenador.", options: ["Verdadero, al de Gary", "Verdadero, al de Corey", "Falso, no hay Nidoking clonado", "Falso, lucha contra un Gyarados"], correct: 1 },
+      { question: "Su nombre japonés es 'Nidoking'.", options: ["Verdadero", "Falso", "Es 'Nidokingu'", "Es 'Doriru Ō'"], correct: 0 },
+      { question: "Usa su cuerno para excavar en busca de comida o refugio.", options: ["Verdadero", "Falso", "Solo usa sus garras", "No excava"], correct: 1 },
+      { question: "Si su pareja Nidoqueen está en peligro, su poder se multiplica.", options: ["Verdadero", "Falso", "No le importa", "Se esconde"], correct: 0 },
+      { question: "Puede aprender el movimiento Enfado por tutor.", options: ["Sí", "No", "Solo como movimiento huevo", "Solo Nidoqueen"], correct: 0 },
+      { question: "Es más alto que un humano promedio.", options: ["Verdadero", "Falso, es más bajo", "Miden lo mismo", "Depende del Nidoking"], correct: 1 },
+      { question: "¿A qué tipo de ataque es débil?", options: ["Agua", "Hielo", "Tierra", "Todos los anteriores"], correct: 3 },
+      { question: "Su diseño está inspirado en una combinación de rinoceronte, gorila y...", options: ["Conejo", "Dinosaurio", "Dragón", "Erizo"], correct: 0 }
+    ]
+  },{
+    id: 35,
+    name: "Clefairy",
+    type: ["Hada"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 70,
+      atk: 45,
+      def: 48,
+      spAtk: 60,
+      spDef: 65,
+      spd: 35,
+    },
+    description: "Su mágico y adorable aspecto atrae a la gente. Es raro y solo aparece en ciertas áreas.",
+    height: "0.6 m",
+    weight: "7.5 kg",
+    bonusQuestion: {
+    question: "En Pokémon Rojo y Azul, un NPC en Saffron City te da la MT de un movimiento y afirma que fue él quien se lo enseñó a un Pokémon específico. ¿De qué Pokémon se trataba?",
+    options: ["Abra", "Mr. Mime", "Clefairy", "Jigglypuff"],
+    correct: 2 // El NPC del Copycat te da la MT31 (Mimic) y dice que se la enseñó a su Clefairy.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Clefairy en la Pokédex?", options: ["034", "035", "036", "037"], correct: 1 },
+      { question: "¿Cuál era el tipo de Clefairy antes de la Generación VI?", options: ["Psíquico", "Normal", "Luz", "Siempre fue Hada"], correct: 1 },
+      { question: "¿Con qué objeto evoluciona Clefairy a Clefable?", options: ["Piedra Solar", "Piedra Lunar", "Piedra Alba", "Piedra Día"], correct: 1 },
+      { question: "¿Cuál es la pre-evolución de Clefairy, introducida en la Gen II?", options: ["Igglybuff", "Togepi", "Cleffa", "Pichu"], correct: 2 },
+      { question: "Clefairy es famoso por aparecer en un lugar específico de Kanto. ¿Cuál es?", options: ["Cueva Celeste", "Túnel Roca", "Monte Moon", "Islas Espuma"], correct: 2 },
+      { question: "Una de sus habilidades principales, 'Gran Encanto' (Cute Charm), puede...", options: ["Enamorar al atacante si es del género opuesto", "Subir su defensa", "Hacer que el rival huya", "Prevenir la confusión"], correct: 0 },
+      { question: "Su habilidad oculta, 'Compiescolta' (Friend Guard), es útil en batallas dobles porque...", options: ["Sube el ataque del aliado", "Reduce el daño que recibe su aliado", "Cura al aliado", "Atrae los ataques hacia Clefairy"], correct: 1 },
+      { question: "¿Qué habilidad le permite ser inmune al daño de hazards como Púas o Trampa Rocas?", options: ["Muro Mágico (Magic Guard)", "Funda", "Filtro", "Ignorante"], correct: 0 },
+      { question: "Se cree que Clefairy vino del espacio exterior.", options: ["Verdadero", "Falso", "Viene de otra dimensión", "Es una leyenda urbana"], correct: 0 },
+      { question: "En noches de luna llena, los Clefairy salen a...", options: ["Cantar", "Luchar", "Buscar comida", "Bailar en círculos"], correct: 3 },
+      { question: "¿Qué movimiento característico puede usar casi cualquier otro movimiento del juego al azar?", options: ["Deseo", "Ayuda", "Metrónomo", "Transformación"], correct: 2 },
+      { question: "La luz de la luna que almacena en sus alas le permite...", options: ["Volar", "Brillar en la oscuridad", "Flotar ligeramente", "Atacar"], correct: 2 },
+      { question: "Su categoría Pokémon es:", options: ["Estrella", "Lunar", "Hada", "Mágico"], correct: 2 },
+      { question: "¿Cuál es la estadística base más alta de Clefairy?", options: ["Ataque Especial", "Defensa Especial", "Velocidad", "PS"], correct: 3 },
+      { question: "Originalmente, Clefairy iba a ser la mascota principal de Pokémon en lugar de Pikachu.", options: ["Verdadero", "Falso", "Era Eevee", "Era Meowth"], correct: 0 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Campo", "Monstruo", "Hada", "No puede criar"], correct: 2 },
+      { question: "Su tasa de captura es de:", options: ["255", "190", "150", "75"], correct: 2 },
+      { question: "¿Cuánto mide Clefairy?", options: ["0.5 m", "0.6 m", "0.7 m", "0.8 m"], correct: 1 },
+      { question: "¿Cuánto pesa Clefairy?", options: ["6.5 kg", "7.5 kg", "8.5 kg", "9.5 kg"], correct: 1 },
+      { question: "¿De qué color son las puntas de las orejas de un Clefairy variocolor (shiny)?", options: ["Rosas", "Azules", "Verdes", "Marrones"], correct: 2 },
+      { question: "En el anime, un grupo de Clefairy era liderado por un científico llamado...", options: ["Profesor Oak", "Seymour", "Bill", "Profesor Elm"], correct: 1 },
+      { question: "En el TCG, la primera carta de Clefairy apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+      { question: "Como tipo Hada, Clefairy es débil a Acero y...", options: ["Fuego", "Tierra", "Psíquico", "Veneno"], correct: 3 },
+      { question: "El nombre japonés de Clefairy es 'Pippi'.", options: ["Verdadero", "Falso", "Es 'Pikushi'", "Es 'Yousei'"], correct: 0 },
+      { question: "El valor de experiencia base que otorga Clefairy es:", options: ["113", "120", "129", "135"], correct: 0 },
+      { question: "¿Cuál es su PS base?", options: ["60", "65", "70", "75"], correct: 2 },
+      { question: "Es un Pokémon muy tímido y huye de los humanos.", options: ["Verdadero", "Falso", "Es muy sociable", "Es agresivo"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Rayo Hielo por MT?", options: ["Sí", "No", "Solo como Clefable", "Solo en Gen I"], correct: 0 },
+      { question: "¿Qué movimiento aprende por nivel que cura al Pokémon que entra en su lugar?", options: ["Deseo", "Amortiguador", "Luz Lunar", "Campana Cura"], correct: 0 },
+      { question: "En Pokémon GO, ¿se necesita un objeto para evolucionar a Cleffa?", options: ["Sí, una Piedra Lunar", "No, solo caramelos", "No, evoluciona por amistad", "Sí, un Módulo Cebo"], correct: 1 },
+      { question: "Es inmune al tipo...", options: ["Lucha", "Fantasma", "Siniestro", "Dragón"], correct: 3 },
+      { question: "¿Qué movimiento de estado aprende que redirige los ataques hacia él en batallas dobles?", options: ["Señuelo", "Protección", "Vastaguardia", "Anticipo"], correct: 0 },
+      { question: "Resiste los tipos Lucha, Bicho y...", options: ["Hada", "Normal", "Siniestro", "Psíquico"], correct: 2 },
+      { question: "En el manga, ¿qué personaje principal tiene un Clefairy?", options: ["Red", "Green", "Blue", "Yellow"], correct: 1 },
+      { question: "El rizo de su cabeza es muy sensible.", options: ["Verdadero", "Falso", "Es solo pelo", "No tiene rizo"], correct: 0 },
+      { question: "¿Qué movimiento aprende por nivel que siempre va último pero tiene gran poder?", options: ["Sorpresa", "Vendetta", "Inversión", "Cede Paso"], correct: 1 },
+      { question: "El sonido de su llanto es muy melodioso.", options: ["Verdadero", "Falso", "Es muy estridente", "No llora"], correct: 0 },
+      { question: "Su silueta se parece a una...", options: ["Estrella", "Luna", "Nube", "Gota"], correct: 0 },
+      { question: "Para evolucionar a Cleffa, necesita un alto nivel de...", options: ["Ataque", "Velocidad", "Amistad", "Belleza"], correct: 2 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["35", "40", "45", "50"], correct: 0 },
+      { question: "En el Monte Moon, los Clefairy adoran las Piedras Lunares.", options: ["Verdadero", "Falso", "Les tienen miedo", "Son indiferentes"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Lanzallamas por MT?", options: ["Sí", "No", "Solo en juegos recientes", "Solo Clefable"], correct: 0 },
+      { question: "Su oído es tan agudo que puede escuchar la caída de un alfiler a 1 km de distancia.", options: ["Verdadero, según la Pokédex", "Falso, su oído es normal", "Es sordo", "Es una exageración"], correct: 0 },
+      { question: "¿Qué movimiento aprende que pone a dormir al oponente?", options: ["Bostezo", "Canto", "Hipnosis", "Somnífero"], correct: 1 },
+      { question: "Su dieta consiste principalmente en...", options: ["Insectos", "Bayas", "Luz de luna", "Néctar"], correct: 2 },
+      { question: "¿Puede aprender el movimiento Masa Cósmica?", options: ["Sí, por nivel", "No, solo Clefable", "Sí, como movimiento huevo", "No lo aprende"], correct: 2 },
+      { question: "Se le considera un Pokémon que trae buena suerte.", options: ["Verdadero", "Falso", "Trae mala suerte", "No se le asocia con la suerte"], correct: 0 },
+      { question: "Las alas de Clefairy son demasiado pequeñas para volar largas distancias.", options: ["Verdadero", "Falso", "Puede volar como Pidgeot", "No tiene alas"], correct: 0 },
+      { question: "¿Qué movimiento aprende que reduce a la mitad los PS del oponente?", options: ["Superdiente", "Sacrificio", "Divide Dolor", "Esfuerzo"], correct: 3 },
+      { question: "En Super Smash Bros. Melee, Clefairy aparece de las Poké Balls y usa el movimiento...", options: ["Destello", "Deseo", "Metrónomo", "No aparece"], correct: 2 }
+    ]
+  },{
+    id: 36,
+    name: "Clefable",
+    type: ["Hada"],
+    rarity: "Raro",
+    stats: {
+      hp: 95,
+      atk: 70,
+      def: 73,
+      spAtk: 95,
+      spDef: 90,
+      spd: 60,
+    },
+    description: "Un encantador y tímido Pokémon muy raro de ver. Corre y se oculta en cuanto siente que viene gente.",
+    height: "1.3 m",
+    weight: "40.0 kg",
+    bonusQuestion: {
+    question: "La habilidad oculta de Clefable, 'Ignorante' (Unaware), es muy potente. ¿Qué ignora exactamente esta habilidad?",
+    options: ["Los cambios de stats del propio Clefable, como los de Masa Cósmica", "Los cambios de stats del oponente al calcular el daño que Clefable RECIBE", "Los cambios de stats del oponente al calcular el daño que Clefable HACE", "Tanto B como C son correctas"],
+    correct: 3 // Ignorante ignora los boosts del rival tanto en el cálculo de daño propio como en el del rival.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Clefable en la Pokédex?", options: ["035", "036", "037", "038"], correct: 1 },
+      { question: "El oído de Clefable es tan sensible que puede...", options: ["Predecir el clima", "Escuchar conversaciones a 10 km", "Oír la caída de un alfiler a 1 km", "Detectar mentiras"], correct: 2 },
+      { question: "Clefable es extremadamente tímido y rara vez se deja ver por los humanos.", options: ["Verdadero", "Falso", "Es muy sociable", "Busca activamente a los humanos"], correct: 0 },
+      { question: "Usa sus alas para dar saltos largos y ligeros, como si caminara sobre el agua.", options: ["Verdadero", "Falso", "No puede hacer eso", "Sus alas no sirven para nada"], correct: 0 },
+      { question: "Una de sus habilidades, 'Muro Mágico' (Magic Guard), lo protege de...", options: ["Golpes críticos", "Daño directo de ataques", "Daño indirecto (veneno, hazards, etc.)", "Cambios de estado"], correct: 2 },
+      { question: "Su habilidad oculta, 'Ignorante' (Unaware), es temida en competitivo porque...", options: ["Aumenta su ataque", "Ignora los aumentos de estadísticas del oponente", "Copia la habilidad del rival", "Anula los objetos del rival"], correct: 1 },
+      { question: "¿Cuál es la estadística base más alta de Clefable?", options: ["Ataque", "Defensa", "PS y Ataque Especial", "Velocidad"], correct: 2 },
+      { question: "¿En qué se diferencia principalmente Clefable de Clefairy?", options: ["Es más pequeño", "Tiene alas mucho más grandes", "No tiene rizo", "Es de un color más oscuro"], correct: 1 },
+      { question: "Clefable prefiere los lugares...", options: ["Ruidosos y concurridos", "Montañosos y silenciosos", "Cálidos y soleados", "Fríos y oscuros"], correct: 1 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Campo y Monstruo", "Solo Hada", "Hada y Humanoide", "No puede criar"], correct: 1 },
+      { question: "Al igual que Nidoqueen, una vez que Clefairy evoluciona a Clefable, ya no puede...", options: ["Aprender movimientos por nivel", "Luchar en batallas", "Criar", "Usar objetos"], correct: 2 },
+      { question: "Su categoría Pokémon es:", options: ["Estrella", "Lunar", "Hada", "Mágico"], correct: 2 },
+      { question: "¿Cuánto mide Clefable?", options: ["1.2 m", "1.3 m", "1.4 m", "1.5 m"], correct: 1 },
+      { question: "¿Cuánto pesa Clefable?", options: ["35.0 kg", "40.0 kg", "45.0 kg", "50.0 kg"], correct: 1 },
+      { question: "¿Cuál es el color de un Clefable variocolor (shiny)?", options: ["Rosa más oscuro", "Completamente blanco", "Las puntas de las orejas son verdes", "Es azul claro"], correct: 2 },
+      { question: "¿Qué movimiento aprende por nivel que sube mucho su Defensa y Defensa Especial?", options: ["Paz Mental", "Rizo Defensa", "Masa Cósmica", "Reflejo"], correct: 2 },
+      { question: "En la Liga Pokémon de Kanto, ¿qué miembro del Alto Mando usa un Clefable?", options: ["Lorelei", "Bruno", "Agatha", "Lance"], correct: 0 },
+      { question: "Clefable es la evolución final de...", options: ["Jigglypuff", "Togepi", "Cleffa", "Happiny"], correct: 2 },
+      { question: "El valor de experiencia base que otorga Clefable es:", options: ["210", "217", "225", "230"], correct: 1 },
+      { question: "¿Cuál es su PS base?", options: ["85", "90", "95", "100"], correct: 2 },
+      { question: "¿Cuál es su estadística de Ataque Especial base?", options: ["85", "90", "95", "100"], correct: 2 },
+      { question: "En el TCG, la primera carta de Clefable apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+      { question: "Como tipo Hada, es inmune a los ataques de tipo...", options: ["Fantasma", "Siniestro", "Lucha", "Dragón"], correct: 3 },
+      { question: "Su nombre japonés es 'Pixy' (Pikushī), relacionado con las hadas 'pixies'.", options: ["Verdadero", "Falso", "Es 'Pippitto'", "Es 'Yousei Ō'"], correct: 0 },
+      { question: "Su tasa de captura es de:", options: ["45", "30", "25", "15"], correct: 2 },
+      { question: "En competitivo, Clefable con la habilidad 'Ignorante' es un 'counter' perfecto para Pokémon que...", options: ["Son muy rápidos", "Se potencian con Danza Espada o Paz Mental", "Ponen trampas en el campo", "Atacan a distancia"], correct: 1 },
+      { question: "¿Puede aprender el movimiento Terremoto por MT?", options: ["Sí", "No", "Solo en Gen I", "Solo si es macho"], correct: 1 },
+      { question: "¿Qué movimiento de curación es muy común en los sets de Clefable?", options: ["Recuperación", "Amortiguador", "Deseo o Luz Lunar", "Respiro"], correct: 2 },
+      { question: "Clefable es conocido por atraer a otros Pokémon con su canto.", options: ["Verdadero", "Falso", "Eso es Jigglypuff", "Usa su baile"], correct: 1 },
+      { question: "En Pokémon GO, es un buen atacante para incursiones de tipo...", options: ["Acero", "Veneno", "Fuego", "Dragón"], correct: 3 },
+      { question: "El movimiento 'Fuerza Lunar' (Moonblast) es su ataque de Hada más característico. ¿Qué efecto secundario tiene?", options: ["Puede bajar el Ataque del rival", "Puede bajar el Ataque Especial del rival", "Puede subir su propia Defensa", "No tiene efecto secundario"], correct: 1 },
+      { question: "Clefable es más... que Clefairy.", options: ["Rápido", "Ligero", "Alto y pesado", "Agresivo"], correct: 2 },
+      { question: "Resiste los tipos Lucha, Bicho y...", options: ["Hada", "Normal", "Siniestro", "Psíquico"], correct: 2 },
+      { question: "En el anime, ¿qué personaje importante tiene un Clefable?", options: ["Cynthia", "Lusamine (Samina)", "Diantha (Dianta)", "Profesor Oak"], correct: 1 },
+      { question: "Se dice que su hogar está en cráteres de meteoritos.", options: ["Verdadero", "Falso", "Vive en bosques", "Vive bajo el agua"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Bola Sombra por MT?", options: ["Sí", "No", "Solo si es de tipo Normal", "Solo en ciertos juegos"], correct: 0 },
+      { question: "La gente que ve a un Clefable bailar bajo la luna llena obtiene...", options: ["Riqueza", "Mala suerte", "Felicidad", "Poderes psíquicos"], correct: 2 },
+      { question: "A pesar de su apariencia, Clefable puede aprender una gran variedad de ataques potentes.", options: ["Verdadero", "Falso", "Solo aprende movimientos de estado", "Su poder de ataque es muy bajo"], correct: 0 },
+      { question: "El objeto 'Restos' (Leftovers) es muy común en Clefable para...", options: ["Aumentar su ataque", "Recuperar PS pasivamente", "Aumentar su velocidad", "Evitar el sueño"], correct: 1 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["50", "55", "60", "65"], correct: 2 },
+      { question: "En el Monte Moon, si usas un Poké Flauta cerca de un Clefable, este...", options: ["Huirá", "Bailará", "Te atacará", "Se dormirá"], correct: 1 },
+      { question: "¿Qué movimiento de estado aprende que protege al equipo de problemas de estado?", options: ["Velo Sagrado", "Aromaterapia", "Campana Cura", "Todos los anteriores"], correct: 3 },
+      { question: "Su diseño está basado en un hada o un...", options: ["Duende", "Gnomo", "Pixie", "Ángel"], correct: 2 },
+      { question: "¿Puede aprender el movimiento Psíquico por MT?", options: ["Sí", "No", "Solo en Gen I", "Solo si conoce a Alakazam"], correct: 0 },
+      { question: "Debido a su timidez, hay muy pocos entrenadores que hayan logrado capturar uno.", options: ["Verdadero", "Falso", "Es muy fácil de capturar", "No es tímido, es agresivo"], correct: 0 },
+      { question: "El movimiento 'Teletransporte' ahora tiene una utilidad en combate. ¿Cuál es?", options: ["Hace daño", "Permite cambiar a otro Pokémon a salvo", "Sube la evasión", "Baja la velocidad del rival"], correct: 1 },
+      { question: "En la primera generación, era uno de los Pokémon más fuertes del 'metagame'.", options: ["Verdadero", "Falso", "Era considerado muy débil", "No existía en la Gen I"], correct: 1 },
+      { question: "Usa sus alas para almacenar la luz de la luna, que es su fuente de energía.", options: ["Verdadero", "Falso", "Su energía viene de las bayas", "No necesita energía"], correct: 0 },
+      { question: "¿Qué movimiento aprende que daña al rival y cura a Clefable?", options: ["Absorber", "Drenadoras", "Beso Drenaje", "Gigadrenado"], correct: 2 },
+      { question: "Si su hogar es amenazado, mostrará una faceta sorprendentemente feroz.", options: ["Verdadero", "Falso", "Siempre huye", "Pide ayuda a otros Pokémon"], correct: 0 }
+    ]
+  },{
+    id: 37,
+    name: "Vulpix",
+    type: ["Fuego"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 38,
+      atk: 41,
+      def: 40,
+      spAtk: 50,
+      spDef: 65,
+      spd: 65,
+    },
+    description: "Cuando nace sólo tiene una cola, pero a medida que crece, ésta se va dividiendo desde la punta.",
+    height: "0.6 m",
+    weight: "9.9 kg",
+    bonusQuestion: {
+    question: "En el anime, Brock cuida de un Vulpix que le entrega una criadora llamada Suzie. ¿Cuál era el apodo de Suzie?",
+    options: ["La Dama del Fuego", "La Maestra del Fuego", "La Princesa Pokémon", "La Estilista Pokémon N°1"],
+    correct: 3 // Suzie era una famosa Estilista Pokémon.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Vulpix en la Pokédex?", options: ["036", "037", "038", "039"], correct: 1 },
+      { question: "¿Con qué objeto evoluciona Vulpix a Ninetales?", options: ["Piedra Solar", "Piedra Noche", "Piedra Fuego", "Piedra Alba"], correct: 2 },
+      { question: "En Alola, Vulpix tiene una forma regional. ¿De qué tipo es?", options: ["Agua", "Hielo", "Hada", "Psíquico"], correct: 1 },
+      { question: "¿Cuál es la habilidad principal del Vulpix de Kanto?", options: ["Absorbe Fuego", "Sequía", "Cuerpo Llama", "Mar Llamas"], correct: 0 },
+      { question: "¿Cuál es la habilidad oculta del Vulpix de Kanto?", options: ["Poder Solar", "Ímpetu Tóxico", "Sequía", "Intrépido"], correct: 2 },
+      { question: "La habilidad 'Absorbe Fuego' (Flash Fire) hace a Vulpix inmune al tipo Fuego y...", options: ["Sube su velocidad", "Potencia sus propios ataques de Fuego", "Cura sus PS", "Baja el ataque del rival"], correct: 1 },
+      { question: "La habilidad oculta del Vulpix de Alola es 'Nevada' (Snow Warning). ¿Qué hace?", options: ["Sube su evasión", "Invoca el clima de Granizo", "Duplica su velocidad", "Congela al rival"], correct: 1 },
+      { question: "Al nacer, ¿cuántas colas tiene un Vulpix?", options: ["Seis", "Nueve", "Tres", "Una"], correct: 3 },
+      { question: "En el anime, ¿qué personaje principal es conocido por tener un Vulpix?", options: ["Ash", "Misty", "Brock", "Jessie"], correct: 2 },
+      { question: "Dentro de su cuerpo arde una llama que nunca se extingue.", options: ["Verdadero", "Falso", "Solo cuando duerme", "Es una exageración"], correct: 0 },
+      { question: "Para evitar que su cuerpo se sobrecaliente, Vulpix expulsa... por la boca.", options: ["Humo", "Vapor de agua", "Llamas", "Cenizas"], correct: 2 },
+      { question: "Su categoría Pokémon es:", options: ["Zorro", "Fuego", "Cola", "Misterio"], correct: 0 },
+      { question: "¿Cuál es la estadística base más alta de Vulpix?", options: ["Ataque Especial", "Defensa Especial", "Velocidad", "Ambas B y C"], correct: 3 },
+      { question: "En los juegos originales, Vulpix era exclusivo de Pokémon Azul y Verde (Japón). ¿Cuál era su contraparte en Rojo?", options: ["Meowth", "Growlithe", "Ekans", "Oddish"], correct: 1 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Monstruo", "Campo", "Hada", "Dragón"], correct: 1 },
+      { question: "Su tasa de captura es de:", options: ["255", "190", "120", "75"], correct: 1 },
+      { question: "¿Cuánto mide Vulpix?", options: ["0.5 m", "0.6 m", "0.7 m", "0.8 m"], correct: 1 },
+      { question: "¿Cuánto pesa Vulpix?", options: ["8.9 kg", "9.9 kg", "10.9 kg", "11.9 kg"], correct: 1 },
+      { question: "¿De qué color es un Vulpix de Kanto variocolor (shiny)?", options: ["Azul", "Blanco", "Dorado/Amarillo", "Gris"], correct: 2 },
+      { question: "El Vulpix de Alola variocolor (shiny) es de color...", options: ["Rosa", "Lavanda/Morado", "Amarillo", "Gris oscuro"], correct: 1 },
+      { question: "En el TCG, la primera carta de Vulpix apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+      { question: "El Vulpix de Kanto es débil a Agua, Tierra y...", options: ["Hielo", "Roca", "Lucha", "Volador"], correct: 1 },
+      { question: "El Vulpix de Alola evoluciona a Ninetales de Alola con una...", options: ["Piedra Fuego", "Piedra Lunar", "Piedra Eterna", "Piedra Hielo"], correct: 3 },
+      { question: "Su nombre japonés es 'Rokon', que se relaciona con el número...", options: ["Tres", "Seis", "Nueve", "Cien"], correct: 1 },
+      { question: "El valor de experiencia base que otorga Vulpix es:", options: ["60", "63", "65", "68"], correct: 0 },
+      { question: "¿Cuál es su PS base?", options: ["38", "40", "42", "45"], correct: 0 },
+      { question: "Si es atacado, puede fingir estar herido para engañar al enemigo y huir.", options: ["Verdadero", "Falso", "Siempre lucha", "Llama a su manada"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Rayo Solar por MT?", options: ["Sí", "No", "Solo como Ninetales", "Solo en Alola"], correct: 0 },
+      { question: "¿Qué movimiento de estado aprende que quema al oponente?", options: ["Tóxico", "Fuego Fatuo (Will-O-Wisp)", "Paralizador", "Onda Trueno"], correct: 1 },
+      { question: "En Pokémon GO, ¿cuántos caramelos cuesta evolucionar un Vulpix?", options: ["12", "25", "50", "100"], correct: 2 },
+      { question: "El Vulpix de Alola es inmune al tipo...", options: ["Fuego", "Hielo", "Agua", "No es inmune"], correct: 1 },
+      { question: "¿Qué movimiento aprende el Vulpix de Alola que el de Kanto no?", options: ["Rayo Confuso", "Velo Aurora", "Liofilización", "Rayo Hielo"], correct: 1 },
+      { question: "Resiste los tipos Fuego, Planta, Hielo, Bicho y...", options: ["Acero", "Hada", "Ambos", "Ninguno"], correct: 2 },
+      { question: "En el manga, ¿qué personaje importante tiene un Vulpix?", options: ["Red", "Bill", "Blaine (Blaine)", "Lt. Surge"], correct: 2 },
+      { question: "Se dice que sus seis colas se vuelven más cálidas y hermosas con la edad.", options: ["Verdadero", "Falso", "Se caen y crecen nuevas", "No cambian"], correct: 0 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["60", "65", "70", "75"], correct: 1 },
+      { question: "El aliento del Vulpix de Alola puede congelar objetos al instante.", options: ["Verdadero", "Falso", "Eso lo hace Ninetales", "Su aliento es cálido"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Energibola por MT?", options: ["Sí", "No", "Solo el de Kanto", "Solo el de Alola"], correct: 0 },
+      { question: "Su diseño está basado en el Kitsune, un zorro mitológico japonés.", options: ["Verdadero", "Falso", "Está basado en un zorro real", "Está basado en un feneco"], correct: 0 },
+      { question: "¿Qué movimiento aprende que puede confundir al rival?", options: ["Rayo Confuso", "Supersónico", "Contoneo", "Danza Caos"], correct: 0 },
+      { question: "El Vulpix de Alola se adaptó a las montañas nevadas para evitar a otros depredadores.", options: ["Verdadero", "Falso", "Siempre vivió allí", "Fue llevado por humanos"], correct: 0 },
+      { question: "La habilidad 'Sequía' invoca el clima de...", options: ["Lluvia", "Día Soleado", "Tormenta de Arena", "Granizo"], correct: 1 },
+      { question: "¿Puede aprender el movimiento Divide Dolor por tutor?", options: ["Sí", "No", "Solo como Ninetales", "Solo como movimiento huevo"], correct: 3 },
+      { question: "El Vulpix de Kanto es conocido por su inteligencia y astucia.", options: ["Verdadero", "Falso", "No es muy inteligente", "Es más fuerte que listo"], correct: 0 },
+      { question: "¿Qué movimiento de tipo Siniestro aprende por nivel?", options: ["Vendetta", "Buena Baza", "Pulso Umbrío", "Finta"], correct: 3 },
+      { question: "A menudo se encuentra en praderas y campos de hierba alta.", options: ["Verdadero", "Falso", "Prefiere las cuevas", "Prefiere las montañas"], correct: 0 },
+      { question: "El Vulpix de Alola tiene un temperamento más... que el de Kanto.", options: ["Agresivo", "Tímido", "Amable y tranquilo", "Juguetón"], correct: 2 },
+      { question: "El calor de sus colas aumenta cuando está a punto de evolucionar.", options: ["Verdadero", "Falso", "Se enfrían", "No hay cambio"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Psíquico por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo Ninetales"], correct: 1 },
+      { question: "Su principal alimento son las bayas.", options: ["Verdadero", "Falso", "Come pequeños insectos", "No necesita comer"], correct: 0 }
+    ]
+  },
+  {
+    id: 38,
+    name: "Ninetales",
+    type: ["Fuego"],
+    rarity: "Raro",
+    stats: {
+      hp: 73,
+      atk: 76,
+      def: 75,
+      spAtk: 81,
+      spDef: 100,
+      spd: 100,
+    },
+    description: "Muy inteligente y vengativo. Agarrar una de sus colas podría causar 1000 años de maldición.",
+    height: "1.1 m",
+    weight: "19.9 kg",
+    bonusQuestion: {
+    question: "En Pokémon Amarillo, un NPC en la Mansión Pokémon te habla de un Pokémon legendario. ¿Qué objeto menciona que está relacionado con Ninetales?",
+    options: ["Una foto de un Ninetales shiny", "Un diario que describe la maldición", "Una estatua de Ninetales", "Un trozo de su pelaje"],
+    correct: 0 // Hay un diario y una foto. La foto muestra un 'Pokémon de color inusual' que parece un Ninetales shiny.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Ninetales en la Pokédex?", options: ["037", "038", "039", "040"], correct: 1 },
+      { question: "Se dice que tocar una de las colas de Ninetales puede causar una maldición de...", options: ["10 años", "100 años", "1000 años", "10000 años"], correct: 2 },
+      { question: "La forma de Alola de Ninetales es de tipo Hielo y...", options: ["Agua", "Psíquico", "Fantasma", "Hada"], correct: 3 },
+      { question: "La habilidad 'Sequía' (Drought) de Ninetales fue muy importante en el competitivo porque...", options: ["Aumentaba su ataque", "Permitía usar Rayo Solar en un turno", "Lo hacía inmune al agua", "Curaba a su equipo"], correct: 1 },
+      { question: "El movimiento 'Velo Aurora' (Aurora Veil), exclusivo del Ninetales de Alola, hace que...", options: ["Suba sus defensas", "Reduzca a la mitad el daño recibido por el equipo", "Congele a todos los oponentes", "Invoque el clima de Granizo"], correct: 1 },
+      { question: "Se dice que Ninetales puede vivir hasta 1000 años.", options: ["Verdadero", "Falso", "Vive 900 años", "Es inmortal"], correct: 0 },
+      { question: "¿Cuántas colas tiene Ninetales?", options: ["Seis", "Ocho", "Nueve", "Varía"], correct: 2 },
+      { question: "En el anime, un Ninetales guardaba la ilusión de su difunta dueña por más de 200 años.", options: ["Verdadero", "Falso", "Era un Arcanine", "Era de Blaine"], correct: 0 },
+      { question: "¿Cuál es la estadística base más alta de Ninetales?", options: ["Ataque", "Ataque Especial", "Velocidad", "Defensa Especial"], correct: 3 },
+      { question: "El Ninetales de Alola es débil x4 (cuádruple) al tipo...", options: ["Fuego", "Roca", "Lucha", "Acero"], correct: 3 },
+      { question: "Es un Pokémon conocido por su alta inteligencia y por entender el lenguaje humano.", options: ["Verdadero", "Falso", "No es muy inteligente", "Solo entiende órdenes básicas"], correct: 0 },
+      { question: "Su categoría Pokémon es:", options: ["Zorro", "Místico", "Nueve Colas", "Maldición"], correct: 0 },
+      { question: "¿Cuánto mide Ninetales?", options: ["1.0 m", "1.1 m", "1.2 m", "1.3 m"], correct: 1 },
+      { question: "¿Cuánto pesa Ninetales?", options: ["19.9 kg", "25.5 kg", "29.9 kg", "32.0 kg"], correct: 0 },
+      { question: "¿De qué color es un Ninetales de Kanto variocolor (shiny)?", options: ["Blanco/Plateado", "Dorado", "Azul", "Rojo"], correct: 0 },
+      { question: "El Ninetales de Alola variocolor (shiny) es de un tono...", options: ["Rosa pálido", "Amarillo dorado", "Verde menta", "Lila/Morado oscuro"], correct: 3 },
+      { question: "Para que 'Velo Aurora' funcione, ¿qué clima debe estar activo en el campo?", options: ["Día Soleado", "Lluvia", "Tormenta de Arena", "Granizo"], correct: 3 },
+      { question: "¿Qué movimiento de estado aprende que sube mucho su Ataque Especial?", options: ["Paz Mental", "Maquinación (Nasty Plot)", "Danza Llama", "Amnesia"], correct: 1 },
+      { question: "En los juegos originales, ¿qué líder de gimnasio usa un Ninetales?", options: ["Erika", "Koga", "Sabrina", "Blaine"], correct: 3 },
+      { question: "El Ninetales de Kanto es inmune al tipo...", options: ["Normal", "Fantasma", "Tierra", "Fuego"], correct: 3 },
+      { question: "En el TCG, la primera carta de Ninetales apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 0 },
+      { question: "El valor de experiencia base que otorga Ninetales es:", options: ["177", "185", "190", "200"], correct: 0 },
+      { question: "¿Cuál es su PS base?", options: ["73", "75", "80", "83"], correct: 0 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["90", "95", "100", "105"], correct: 2 },
+      { question: "Cada una de sus nueve colas posee un poder místico diferente.", options: ["Verdadero, según la Pokédex", "Falso, es solo estético", "Todas tienen el mismo poder", "Es una leyenda"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Psíquico por MT?", options: ["Sí", "No", "Solo el de Alola", "Solo por nivel"], correct: 0 },
+      { question: "Su pelaje dorado brilla de forma hipnótica.", options: ["Verdadero", "Falso", "Su pelaje es opaco", "No tiene pelaje, son llamas"], correct: 0 },
+      { question: "El aliento del Ninetales de Alola puede crear cristales de hielo.", options: ["Verdadero", "Falso", "Eso lo hace Vulpix", "Su aliento es cálido"], correct: 0 },
+      { question: "En Pokémon GO, es un buen contraataque para Pokémon de tipo...", options: ["Roca", "Agua", "Dragón (el de Alola)", "Eléctrico"], correct: 2 },
+      { question: "El Ninetales de Alola es considerado un mensajero divino en su región.", options: ["Verdadero", "Falso", "Es temido como un demonio", "Es un Pokémon común"], correct: 0 },
+      { question: "Resiste los tipos Fuego, Planta, Hielo, Bicho, Acero y...", options: ["Hada", "Psíquico", "Normal", "Lucha"], correct: 0 },
+      { question: "El movimiento 'Liofilización' (Freeze-Dry) del Ninetales de Alola es especial porque es súper efectivo contra el tipo...", options: ["Acero", "Fuego", "Agua", "Roca"], correct: 2 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Monstruo", "Campo", "Hada", "Dragón"], correct: 1 },
+      { question: "Ninetales es la evolución de:", options: ["Fennekin", "Vulpix", "Zorua", "Eevee"], correct: 1 },
+      { question: "Su tasa de captura es de:", options: ["45", "75", "90", "120"], correct: 1 },
+      { question: "El líder del Frente de Batalla, Aniceto (Tucker), usa un Ninetales en el anime.", options: ["Verdadero", "Falso", "Usa un Arcanine y un Swampert", "Usa un Charizard y un Metagross"], correct: 1 },
+      { question: "¿Puede aprender el movimiento Energibola por MT?", options: ["Sí", "No", "Solo el de Kanto", "Solo el de Alola"], correct: 0 },
+      { question: "Es un Pokémon extremadamente vengativo si se le ofende.", options: ["Verdadero", "Falso", "Es muy pacífico", "Olvida las ofensas rápidamente"], correct: 0 },
+      { question: "¿Qué movimiento de tipo Fantasma aprende por nivel?", options: ["Bola Sombra", "Impresionar", "Infortunio (Hex)", "Rencor"], correct: 2 },
+      { question: "Su nombre japonés, 'Kyukon', combina 'Kyu' (nueve) y el sonido 'kon' (ladrido de zorro).", options: ["Verdadero", "Falso", "Viene de 'Kyuubi no Kitsune'", "Significa 'Zorro Mágico'"], correct: 0 },
+      { question: "La velocidad del Ninetales de Alola es... que la de su contraparte de Kanto.", options: ["Mayor", "Menor", "Igual", "Varía según el clima"], correct: 2 },
+      { question: "¿Qué movimiento de estado aprende para protegerse de cambios de estadísticas?", options: ["Velo Sagrado", "Manto Espejo", "Pantalla de Luz", "Conjuro"], correct: 3 },
+      { question: "Las leyendas dicen que Ninetales nació de la unión de 9 magos.", options: ["Verdadero, según una Pokédex", "Falso", "Nació de un volcán", "Es una leyenda de fans"], correct: 0 },
+      { question: "En el TCG, el Ninetales del set Base fue famoso por su ataque que...", options: ["Hacía mucho daño", "Descartaba energías", "Buscaba Pokémon", "Prevenía el daño"], correct: 1 },
+      { question: "¿Puede aprender el movimiento Fuego Fatuo?", options: ["Sí, por nivel", "No", "Solo por MT", "Solo el de Kanto"], correct: 0 },
+      { question: "El Ninetales de Alola es inmune al tipo...", options: ["Hielo", "Hada", "Dragón", "Acero"], correct: 2 },
+      { question: "Su apariencia elegante lo ha hecho popular en los Concursos Pokémon.", options: ["Verdadero", "Falso", "No es bueno en concursos", "Nunca ha aparecido en uno"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Sofoco?", options: ["Sí, por MT", "No", "Solo por nivel", "Solo el de Kanto"], correct: 0 },
+      { question: "La habilidad 'Nevada' es muy valiosa para romper 'Bandas Focus' y 'Robustez'.", options: ["Verdadero", "Falso", "No afecta a esos objetos/habilidades", "Solo el granizo lo hace"], correct: 0 },
+      { question: "El Pokémon que inspiró a Ninetales, el Kitsune, puede tener hasta... colas.", options: ["Tres", "Seis", "Nueve", "Doce"], correct: 2 }
+    ]
+  },{
+    id: 39,
+    name: "Jigglypuff",
+    type: ["Normal", "Hada"],
+    rarity: "Infrecuente",
+    stats: {
+      hp: 115,
+      atk: 45,
+      def: 20,
+      spAtk: 45,
+      spDef: 25,
+      spd: 20,
+    },
+    description: "Cuando sus ojos se iluminan, canta una secreta melodía con la que duerme a sus enemigos.",
+    height: "0.5 m",
+    weight: "5.5 kg",
+    bonusQuestion: {
+    question: "En Super Smash Bros., el movimiento 'Descanso' de Jigglypuff es famoso por su alto riesgo. ¿Qué le sucede a Jigglypuff si falla el ataque?",
+    options: ["Recibe daño a sí mismo", "Queda dormido e indefenso por unos segundos", "Pierde una vida al instante", "Su oponente se cura"],
+    correct: 1 // Si falla el 'Rest', Jigglypuff queda vulnerable, pero el movimiento en sí no lo duerme, solo tiene esa animación. El riesgo es el lag.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Jigglypuff en la Pokédex?", options: ["038", "039", "040", "041"], correct: 1 },
+      { question: "¿Cuál era el tipo de Jigglypuff antes de la Generación VI?", options: ["Psíquico", "Hada", "Normal", "Siempre fue Normal/Hada"], correct: 2 },
+      { question: "¿Con qué objeto evoluciona Jigglypuff a Wigglytuff?", options: ["Piedra Solar", "Piedra Día", "Piedra Lunar", "Piedra Amistad"], correct: 2 },
+      { question: "¿Cuál es la pre-evolución de Jigglypuff?", options: ["Cleffa", "Igglybuff", "Happiny", "Azurill"], correct: 1 },
+      { question: "En el anime, ¿qué hace el Jigglypuff recurrente cuando el público se duerme con su canto?", options: ["Se va triste", "Les pinta la cara con un rotulador", "Sigue cantando más fuerte", "Se duerme también"], correct: 1 },
+      { question: "Su habilidad principal, 'Gran Encanto' (Cute Charm), puede causar...", options: ["Sueño", "Parálisis", "Confusión", "Enamoramiento"], correct: 3 },
+      { question: "Su habilidad oculta, 'Compiescolta' (Friend Guard), reduce el daño que reciben...", options: ["El propio Jigglypuff", "Sus aliados en batallas dobles", "Los Pokémon de tipo Hada", "Los Pokémon dormidos"], correct: 1 },
+      { question: "En Super Smash Bros., Jigglypuff es un personaje jugable desde la primera entrega para Nintendo 64.", options: ["Verdadero", "Falso", "Apareció en Melee", "Apareció en Brawl"], correct: 0 },
+      { question: "El movimiento más icónico de Jigglypuff es:", options: ["Placaje", "Destructor", "Canto", "Gruñido"], correct: 2 },
+      { question: "Para cantar, Jigglypuff puede modular libremente las longitudes de onda de su voz.", options: ["Verdadero", "Falso", "Su voz no tiene nada de especial", "Solo puede cantar una nota"], correct: 0 },
+      { question: "Su cuerpo es muy elástico y puede inflarse como un globo.", options: ["Verdadero", "Falso", "Es muy rígido", "Eso es Wigglytuff"], correct: 0 },
+      { question: "Su categoría Pokémon es:", options: ["Burbuja", "Canto", "Globo", "Hada"], correct: 2 },
+      { question: "¿Cuál es la estadística base más alta de Jigglypuff?", options: ["Ataque", "Defensa", "PS", "Velocidad"], correct: 2 },
+      { question: "Sus estadísticas de Defensa y Defensa Especial son extremadamente...", options: ["Altas", "Bajas", "Promedio", "Variables"], correct: 1 },
+      { question: "Para evolucionar de Igglybuff, necesita un alto nivel de...", options: ["Ataque", "Belleza", "Amistad", "Inteligencia"], correct: 2 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Campo", "Monstruo", "Hada", "Humanoide"], correct: 2 },
+      { question: "Su tasa de captura es de:", options: ["255", "190", "170", "120"], correct: 2 },
+      { question: "¿Cuánto mide Jigglypuff?", options: ["0.4 m", "0.5 m", "0.6 m", "0.7 m"], correct: 1 },
+      { question: "¿Cuánto pesa Jigglypuff?", options: ["5.5 kg", "6.0 kg", "6.5 kg", "7.0 kg"], correct: 0 },
+      { question: "En un Jigglypuff variocolor (shiny), ¿qué parte del cuerpo cambia de color?", options: ["La piel", "Las orejas", "La boca", "Los ojos (a verde)"], correct: 3 },
+      { question: "En el anime, el rotulador de Jigglypuff funciona como su...", options: ["Varita mágica", "Micrófono", "Arma", "Tesoro"], correct: 1 },
+      { question: "En el TCG, la primera carta de Jigglypuff apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 1 },
+      { question: "Como tipo Normal/Hada, es inmune a Fantasma y...", options: ["Lucha", "Veneno", "Siniestro", "Dragón"], correct: 3 },
+      { question: "Su nombre japonés es 'Purin', que es el nombre de un postre japonés similar a un...", options: ["Pastel", "Helado", "Flan o pudin", "Caramelo"], correct: 2 },
+      { question: "El valor de experiencia base que otorga Jigglypuff es:", options: ["95", "100", "105", "110"], correct: 0 },
+      { question: "¿Cuál es su PS base?", options: ["100", "105", "110", "115"], correct: 3 },
+      { question: "Si se infla de aire, puede rebotar y ser llevado por el viento.", options: ["Verdadero", "Falso", "No puede rebotar", "Solo si está enfadado"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Rayo Hielo por MT?", options: ["Sí", "No", "Solo como Wigglytuff", "Solo en Gen I"], correct: 0 },
+      { question: "¿Qué movimiento aprende que hace más daño si el objetivo está dormido?", options: ["Come Sueños", "Pesadilla", "Ronquido", "Sonámbulo"], correct: 0 },
+      { question: "En Pokémon GO, ¿se necesita un objeto para evolucionar un Igglybuff?", options: ["Sí, una Piedra Lunar", "No, solo caramelos", "Sí, un Módulo Cebo", "No, evoluciona caminando"], correct: 1 },
+      { question: "Jigglypuff es débil a Acero y...", options: ["Fuego", "Tierra", "Psíquico", "Veneno"], correct: 3 },
+      { question: "En Super Smash Bros., su movimiento 'Rest' es uno de los más...", options: ["Débiles del juego", "Fuertes, pero difíciles de acertar", "Fáciles de usar", "Con más alcance"], correct: 1 },
+      { question: "Resiste los tipos Bicho y...", options: ["Hada", "Normal", "Siniestro", "Psíquico"], correct: 2 },
+      { question: "En el manga, ¿qué personaje principal tiene un Jigglypuff llamado 'Jiggly'?", options: ["Red", "Green", "Blue", "Yellow"], correct: 1 },
+      { question: "Una vez que empieza a cantar, no puede parar hasta quedarse sin aire.", options: ["Verdadero", "Falso", "Puede parar cuando quiera", "Solo para si le dan agua"], correct: 0 },
+      { question: "¿Qué movimiento aprende por nivel que puede enamorar al rival?", options: ["Encanto", "Beso Dulce", "Seducción", "Atracción"], correct: 0 },
+      { question: "Sus grandes ojos están siempre cubiertos por una fina capa de lágrimas para mantenerlos limpios.", options: ["Verdadero", "Falso", "No tiene lágrimas", "Eso es Marill"], correct: 0 },
+      { question: "Aparece en el Monte Moon junto a Clefairy.", options: ["Verdadero", "Falso", "Solo en la Cueva Celeste", "No aparece en cuevas"], correct: 0 },
+      { question: "La habilidad 'Competitivo' (Competitive) sube su... cuando una de sus estadísticas es bajada.", options: ["Ataque", "Defensa", "Ataque Especial", "Velocidad"], correct: 2 },
+      { question: "¿Cuál es su estadística de Velocidad base?", options: ["20", "25", "30", "35"], correct: 0 },
+      { question: "En Pokémon Snap, ¿cómo puedes hacer que los tres Jigglypuff canten en el escenario?", options: ["Tocando la Poké Flauta", "Lanzándoles comida", "Usando el radar", "Molestando a un Koffing cercano"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Lanzallamas por MT?", options: ["Sí", "No", "Solo en juegos recientes", "Solo Wigglytuff"], correct: 0 },
+      { question: "No tiene pulmones, su cuerpo entero funciona como uno.", options: ["Verdadero", "Falso", "Tiene pulmones muy grandes", "Respira por la piel"], correct: 0 },
+      { question: "¿Qué movimiento aprende que siempre va primero?", options: ["Ataque Rápido", "Sorpresa", "Voz Cautivadora", "Ninguno"], correct: 3 },
+      { question: "La melodía que canta varía ligeramente de una región a otra.", options: ["Verdadero", "Falso", "Siempre es la misma", "No puede variar su canto"], correct: 0 },
+      { question: "El pelaje de Jigglypuff es muy suave y agradable al tacto.", options: ["Verdadero", "Falso", "Es áspero", "No tiene pelaje"], correct: 0 },
+      { question: "Se le considera la contraparte de...", options: ["Clefairy", "Marill", "Snubbull", "Abra"], correct: 0 },
+      { question: "Es un Pokémon muy popular entre las entrenadoras jóvenes.", options: ["Verdadero", "Falso", "No es popular", "Es más popular entre los chicos"], correct: 0 },
+      { question: "¿Qué movimiento de tipo Normal aprende que puede golpear a Pokémon de tipo Fantasma?", options: ["Profecía", "Golpe Cuerpo", "Desenrollar", "Vozarrón"], correct: 3 },
+      { question: "En Super Smash Bros, es uno de los personajes más...", options: ["Pesados", "Ligeros y flotantes", "Rápidos en tierra", "Con más combos"], correct: 1 }
+    ]
+  },{
+    id: 40,
+    name: "Wigglytuff",
+    type: ["Normal", "Hada"],
+    rarity: "Raro",
+    stats: {
+      hp: 140,
+      atk: 70,
+      def: 45,
+      spAtk: 85,
+      spDef: 50,
+      spd: 45,
+    },
+    description: "Su cuerpo es blando y gomoso. Cuando se enfada traga aire y se hincha enormemente.",
+    height: "1.0 m",
+    weight: "12.0 kg",
+    bonusQuestion: {
+    question: "En los juegos 'Pokémon Mundo Misterioso: Exploradores', el Maestro del Gremio Wigglytuff tiene un objeto favorito. ¿Cuál es?",
+    options: ["Manzana Perfecta", "Gomi Púrpura", "Semilla Revivir", "Cinta Sol"],
+    correct: 0 // Las Manzanas Perfectas son su debilidad y una parte clave de la trama.
+},
+    quiz: [
+      { question: "¿Cuál es el número de Wigglytuff en la Pokédex?", options: ["039", "040", "041", "042"], correct: 1 },
+      { question: "Su pelaje es tan fino y lujoso que dormir sobre él es una experiencia celestial.", options: ["Verdadero", "Falso", "Su pelaje es áspero", "No tiene pelaje"], correct: 0 },
+      { question: "Cuando se enfada, Wigglytuff puede inhalar aire e hincharse hasta... su tamaño normal.", options: ["El doble", "Cinco veces", "Diez veces", "Más de veinte veces"], correct: 3 },
+      { question: "Una vez hinchado, ¿qué hace Wigglytuff?", options: ["Explota", "Se queda inmóil", "Rebota por todas partes", "Empieza a cantar"], correct: 2 },
+      { question: "La habilidad 'Competitivo' (Competitive) sube su... en dos niveles si una de sus estadísticas es bajada.", options: ["Ataque", "Defensa", "Ataque Especial", "Velocidad"], correct: 2 },
+      { question: "Su habilidad oculta, 'Cacheo' (Frisk), permite...", options: ["Robar el objeto del rival", "Ver el objeto que lleva el rival", "Anular el objeto del rival", "Usar el objeto del rival"], correct: 1 },
+      { question: "¿Cuál es la estadística base más alta de Wigglytuff?", options: ["Ataque", "Defensa Especial", "PS", "Ataque Especial"], correct: 2 },
+      { question: "En 'Pokémon Mundo Misterioso: Exploradores del Tiempo/Oscuridad/Cielo', ¿qué rol tiene un Wigglytuff?", options: ["Es el villano principal", "Es el Maestro del Gremio de exploradores", "Es el banquero del pueblo", "Es un personaje secundario"], correct: 1 },
+      { question: "Las grandes orejas de Wigglytuff son en realidad...", options: ["Antenas", "Dispositivos de ecolocalización", "Altavoces supersensibles", "Solo decorativas"], correct: 2 },
+      { question: "Nunca exhala el aire que inhala, por lo que puede seguir hinchado indefinidamente.", options: ["Verdadero", "Falso", "Se desinfla al terminar la batalla", "Se desinfla si lo pinchan"], correct: 1 },
+      { question: "Su categoría Pokémon es:", options: ["Burbuja", "Canto", "Globo", "Hada"], correct: 2 },
+      { question: "¿Cuánto mide Wigglytuff?", options: ["0.8 m", "0.9 m", "1.0 m", "1.1 m"], correct: 2 },
+      { question: "¿Cuánto pesa Wigglytuff?", options: ["10.0 kg", "12.0 kg", "15.0 kg", "18.0 kg"], correct: 1 },
+      { question: "En un Wigglytuff variocolor (shiny), ¿qué parte del cuerpo cambia de color?", options: ["La piel a un tono más lila", "Las orejas a azul", "El vientre a amarillo", "Los ojos a verde"], correct: 3 },
+      { question: "Wigglytuff es conocido por tener un 'movepool' de MT muy extenso, pudiendo aprender ataques como Rayo, Lanzallamas y Rayo Hielo.", options: ["Verdadero", "Falso", "Solo aprende ataques de Normal y Hada", "Solo aprende ataques especiales"], correct: 0 },
+      { question: "¿En qué grupos huevo se encuentra?", options: ["Campo", "Monstruo", "Hada", "Humanoide"], correct: 2 },
+      { question: "Su tasa de captura es de:", options: ["50", "75", "90", "120"], correct: 0 },
+      { question: "En el TCG, la primera carta de Wigglytuff apareció en el set:", options: ["Base Set", "Jungle", "Fossil", "Team Rocket"], correct: 1 },
+      { question: "Como tipo Normal/Hada, ¿a qué tipo de ataque es inmune?", options: ["Fantasma y Dragón", "Lucha y Psíquico", "Veneno y Siniestro", "Tierra y Bicho"], correct: 0 },
+      { question: "Su nombre japonés es 'Pukurin', una evolución del nombre de Jigglypuff, 'Purin'.", options: ["Verdadero", "Falso", "Es 'Wigglytuffu'", "Es 'Fuusen'"], correct: 0 },
+      { question: "El valor de experiencia base que otorga Wigglytuff es:", options: ["196", "201", "205", "210"], correct: 0 },
+      { question: "¿Cuál es su PS base?", options: ["120", "130", "140", "150"], correct: 2 },
+      { question: "A pesar de sus bajas defensas, su altísimo PS lo convierte en un excelente 'tanque especial'.", options: ["Verdadero", "Falso", "Es un tanque físico", "No sirve como tanque"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Hiperrayo por MT?", options: ["Sí", "No", "Solo en Gen I", "Solo si es macho"], correct: 0 },
+      { question: "El pelaje de Wigglytuff es tan suave que una vez que lo tocas, no quieres parar.", options: ["Verdadero, según la Pokédex", "Falso, es muy áspero", "Es resbaladizo", "Cambia de textura"], correct: 0 },
+      { question: "Wigglytuff es la evolución de:", options: ["Clefairy", "Audino", "Chansey", "Jigglypuff"], correct: 3 },
+      { question: "En la primera generación, ¿qué líder de la Liga Pokémon usaba un Wigglytuff?", options: ["Lorelei", "Bruno", "Agatha", "Lance"], correct: 2 },
+      { question: "¿Qué movimiento aprende por nivel que puede golpear a Pokémon de tipo Fantasma?", options: ["Vozarrón", "Golpe Cuerpo", "Doble Filo", "Todos los anteriores"], correct: 3 },
+      { question: "En Pokémon GO, es una opción decente para la Liga Super Ball por su alto aguante.", options: ["Verdadero", "Falso", "Es mejor en la Liga Master Ball", "No es útil en PvP"], correct: 0 },
+      { question: "Wigglytuff es débil a los tipos Veneno y...", options: ["Roca", "Acero", "Fuego", "Volador"], correct: 1 },
+      { question: "Una palmada de un Wigglytuff hinchado puede mandar a volar a un oponente.", options: ["Verdadero", "Falso", "No ataca cuando está hinchado", "Sus palmadas son débiles"], correct: 0 },
+      { question: "Comparado con Clefable, Wigglytuff tiene mucho más...", options: ["Ataque Especial", "Velocidad", "PS", "Defensa"], correct: 2 },
+      { question: "Resiste los tipos Bicho y...", options: ["Hada", "Normal", "Siniestro", "Psíquico"], correct: 2 },
+      { question: "En el anime, una enfermera Joy tenía un Wigglytuff como asistente en lugar de un Chansey.", options: ["Verdadero", "Falso", "Era un Blissey", "Era un Audino"], correct: 0 },
+      { question: "No le gusta luchar en lugares estrechos porque no puede hincharse a gusto.", options: ["Verdadero", "Falso", "Le encantan los lugares estrechos", "No le importa el espacio"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Bola Sombra por MT?", options: ["Sí", "No", "Solo en ciertos juegos", "Solo si es shiny"], correct: 0 },
+      { question: "Sus ojos están siempre brillantes y parecen contener el reflejo de las estrellas.", options: ["Verdadero", "Falso", "Sus ojos son opacos", "No se mencionan sus ojos"], correct: 0 },
+      { question: "En 'Pokémon Mundo Misterioso', el Maestro del Gremio Wigglytuff es conocido por su personalidad...", options: ["Seria y estricta", "Infantil y despreocupada, pero secretamente sabio", "Malvada y calculadora", "Tímida y miedosa"], correct: 1 },
+      { question: "¿Qué movimiento aprende que hace más daño cuantas más estadísticas tenga aumentadas el usuario?", options: ["Poder Reserva", "Buena Baza", "Acoso", "Eco Voz"], correct: 0 },
+      { question: "¿Cuál es su estadística de Ataque Especial base?", options: ["75", "80", "85", "90"], correct: 2 },
+      { question: "A pesar de su apariencia adorable, puede ser un oponente formidable si se le subestima.", options: ["Verdadero", "Falso", "Es muy débil", "Es solo para concursos"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Hierba Lazo por MT?", options: ["Sí", "No", "Solo Jigglypuff", "Solo si es de tipo Planta"], correct: 0 },
+      { question: "Para intimidar a sus rivales, inhala aire y se hace ver lo más grande posible.", options: ["Verdadero", "Falso", "Usa su canto para intimidar", "No intimida, ataca directamente"], correct: 0 },
+      { question: "¿Qué movimiento de tipo Hada aprende que nunca falla?", options: ["Fuerza Lunar", "Beso Drenaje", "Voz Cautivadora", "Brillo Mágico"], correct: 2 },
+      { question: "El pelaje de Wigglytuff crece continuamente y debe ser recortado.", options: ["Verdadero", "Falso", "Su pelaje no crece", "Muda su pelaje una vez al año"], correct: 1 },
+      { question: "Prefiere resolver los conflictos con su encanto en lugar de la fuerza.", options: ["Verdadero", "Falso", "Siempre usa la fuerza", "Huye de los conflictos"], correct: 0 },
+      { question: "En la primera generación, era uno de los Pokémon con más PS, solo superado por Chansey.", options: ["Verdadero", "Falso", "Snorlax tenía más", "Varios Pokémon lo superaban"], correct: 0 },
+      { question: "¿Puede aprender el movimiento Puño Fuego por tutor?", options: ["Sí", "No", "Solo Puño Hielo", "Solo Puño Trueno"], correct: 0 },
+      { question: "Wigglytuff y Clefable son rivales naturales en la naturaleza.", options: ["Verdadero", "Falso", "Son indiferentes el uno del otro", "A menudo se ayudan mutuamente"], correct: 1 },
+      { question: "Su cuerpo elástico le permite soportar grandes impactos sin recibir mucho daño.", options: ["Verdadero", "Falso", "Su elasticidad es solo para hincharse", "Es muy frágil"], correct: 1 }
+    ]
   }
 ];
 
@@ -1377,25 +2962,25 @@ const TYPES = [
 ];
 
 const TYPE_ICONS = {
-  "Todos": "⭐",
-  "Fuego": "🔥",
-  "Agua": "💧",
-  "Planta": "🌿",
-  "Eléctrico": "⚡",
-  "Normal": "⚪",
-  "Hielo": "❄️",
-  "Lucha": "👊",
-  "Veneno": "☠️",
-  "Tierra": "🌍",
-  "Volador": "🦅",
-  "Psíquico": "🔮",
-  "Bicho": "🐛",
-  "Roca": "🪨",
-  "Fantasma": "👻",
-  "Dragón": "🐉",
-  "Siniestro": "🌙",
-  "Acero": "⚙️",
-  "Hada": "✨"
+  "Todos": "/icons/types/todos.png",
+  "Normal": "/icons/types/normal.svg",
+  "Fuego": "/icons/types/fuego.svg",
+  "Agua": "/icons/types/agua.svg",
+  "Planta": "/icons/types/planta.svg",
+  "Eléctrico": "/icons/types/electrico.svg",
+  "Hielo": "/icons/types/hielo.svg",
+  "Lucha": "/icons/types/lucha.svg",
+  "Veneno": "/icons/types/veneno.svg",
+  "Tierra": "/icons/types/tierra.svg",
+  "Volador": "/icons/types/volador.svg",
+  "Psíquico": "/icons/types/psíquico.svg",
+  "Bicho": "/icons/types/bicho.svg",
+  "Roca": "/icons/types/roca.svg",
+  "Fantasma": "/icons/types/fantasma.svg",
+  "Dragón": "/icons/types/dragon.svg",
+  "Siniestro": "/icons/types/siniestro.svg",
+  "Acero": "/icons/types/acero.svg",
+  "Hada": "/icons/types/hada.svg"
 };
 
 const RARITY_COLORS = {
@@ -1429,38 +3014,37 @@ export default function PokemonQuiz() {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [captureAttempt, setCaptureAttempt] = useState(null);
+  const [isShiny, setIsShiny] = useState(false);
+  const [playShinyAnim, setPlayShinyAnim] = useState(false);
+  const [activeTab, setActiveTab] = useState('Estadísticas');
+  const [inBonusRound, setInBonusRound] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
 
   const filteredPokemon = selectedType === "Todos"
-  ? POKEMON_DATA
-  : POKEMON_DATA.filter(p => p.type.includes(selectedType));
+    ? POKEMON_DATA
+    : POKEMON_DATA.filter(p => p.type.includes(selectedType));
 
   const capturedCount = Object.keys(captured).length;
   const totalPokemon = POKEMON_DATA.length;
 
-  const [userAnswers, setUserAnswers] = useState([]);
-
-  // Función para seleccionar 15 preguntas aleatorias de las 50
   const selectRandomQuestions = (allQuestions) => {
     const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 15);
   };
 
-  // Función para mezclar las opciones de respuesta
   const shuffleOptions = (question) => {
+    if (!question || !question.options) return { options: [], correct: 0 }; // Salvaguarda
     const correctAnswer = question.options[question.correct];
     const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
     const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
-    
-    return {
-      ...question,
-      options: shuffledOptions,
-      correct: newCorrectIndex
-    };
+    return { ...question, options: shuffledOptions, correct: newCorrectIndex };
   };
 
   const handlePokemonClick = (pokemon) => {
     if (captured[pokemon.id]) {
       setSelectedPokemon(pokemon);
+      setActiveTab('Stats');
+      setIsShiny(false);
     } else {
       setSelectedPokemon(pokemon);
       setQuizMode(true);
@@ -1469,17 +3053,67 @@ export default function PokemonQuiz() {
       setUserAnswers([]);
       setShowResult(false);
       setCaptureAttempt(null);
-      // Seleccionar 15 preguntas aleatorias y mezclar sus opciones
+      setInBonusRound(false);
       const randomQuestions = selectRandomQuestions(pokemon.quiz);
       const questionsWithShuffledOptions = randomQuestions.map(q => shuffleOptions(q));
       setQuizQuestions(questionsWithShuffledOptions);
     }
   };
 
+  const handleShinyToggle = () => {
+  // Si ya es shiny, lo volvemos normal. Si no, activamos el shiny y la animación.
+  if (isShiny) {
+    setIsShiny(false);
+  } else {
+    setIsShiny(true);
+    setPlayShinyAnim(true); // Activa la animación
+    
+    // Desactiva la animación después de que termine (1000ms = 1s)
+    // para que pueda volver a activarse la próxima vez.
+    setTimeout(() => {
+      setPlayShinyAnim(false);
+    }, 2000);
+  }
+};
+
+    const attemptCapture = (finalScore) => {
+  // La captura garantizada con puntuación perfecta se mantiene igual.
+    if (finalScore === quizQuestions.length) {
+    setCaptureAttempt({ success: true, probability: 1.0 });
+    setCaptured(prev => ({ ...prev, [selectedPokemon.id]: true }));
+    return;
+  }
+
+      // Ahora, para cualquier otra puntuación, la probabilidad es siempre la base.
+      const baseCaptureRate = RARITY_CAPTURE_RATES[selectedPokemon.rarity];
+      const finalCaptureRate = baseCaptureRate; // <-- ¡SIN BONUS ADICIONAL!
+
+      const random = Math.random();
+      const success = random < finalCaptureRate;
+      setCaptureAttempt({ success, probability: finalCaptureRate });
+      if (success) {
+      setCaptured(prev => ({ ...prev, [selectedPokemon.id]: true }));
+    }
+  };
+
+  // --- ¡CORRECCIÓN CLAVE! ---
+  // handleBonusAnswer está AHORA fuera de handleAnswer, y ANTES que handleAnswer
+    const handleBonusAnswer = (selectedIndex) => {
+    const isCorrect = selectedIndex === selectedPokemon.bonusQuestion.correct;
+
+    if (isCorrect) {
+    // 1. Actualizamos el score a 10 para que la UI de resultados funcione
+    setScore(10); 
+    // 2. Llamamos a attemptCapture. Como ya la arreglamos, no dará bonus.
+    attemptCapture(10); 
+    }
+
+    setShowResult(true);
+    setInBonusRound(false);
+  };
+  
   const handleAnswer = (selectedIndex) => {
     const isCorrect = selectedIndex === quizQuestions[currentQuestion].correct;
-    
-    // Guardar la respuesta del usuario
     const newAnswers = [...userAnswers, isCorrect];
     setUserAnswers(newAnswers);
 
@@ -1487,32 +3121,20 @@ export default function PokemonQuiz() {
       setTimeout(() => setCurrentQuestion(currentQuestion + 1), 500);
     } else {
       setTimeout(() => {
-        // Calcular el puntaje final basado en todas las respuestas
-        const finalScore = newAnswers.filter(answer => answer === true).length;
+        const finalScore = newAnswers.filter(Boolean).length;
         setScore(finalScore);
-        setShowResult(true);
-        const percentage = (finalScore / quizQuestions.length) * 100;
-        if (percentage >= 75) {
-          attemptCapture();
+        if (finalScore === 9) {
+          setInBonusRound(true);
+        } else {
+          setShowResult(true);
+          if (finalScore >= 10) {
+            attemptCapture(finalScore);
+          }
         }
       }, 500);
     }
   };
 
-  const attemptCapture = () => {
-  // 1. Obtiene la rareza del Pokémon seleccionado (ej. "Infrecuente")
-  const rarity = selectedPokemon.rarity;
-  
-  // 2. Usa esa rareza para buscar la probabilidad en tu nuevo objeto (ej. 0.65)
-  const captureRate = RARITY_CAPTURE_RATES[rarity];
-
-  const random = Math.random();
-  const success = random < captureRate;
-  setCaptureAttempt({ success, probability: captureRate });
-  if (success) {
-    setCaptured({ ...captured, [selectedPokemon.id]: true });
-  }
-};
   const closeModal = () => {
     setSelectedPokemon(null);
     setQuizMode(false);
@@ -1520,122 +3142,58 @@ export default function PokemonQuiz() {
     setCaptureAttempt(null);
     setUserAnswers([]);
     setScore(0);
+    setIsShiny(false);
+    setActiveTab('Estadísticas');
+    setInBonusRound(false);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-            <Award className="w-8 h-8" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Pokédex Quiz</h1>
-            <p className="text-sm text-gray-400">Región Kanto</p>
-          </div>
-        </div>
-        <div className="text-right">
-          <p className="text-sm text-gray-400">Capturados</p>
-          <p className="text-3xl font-bold">{capturedCount}/{totalPokemon}</p>
-        </div>
-      </div>
-
+      {/* Header, Sidebar, Pokemon Grid (sin cambios) */}
+      <div className="flex items-center justify-between mb-8"><div className="flex items-center gap-3"><div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center"><Award className="w-8 h-8" /></div><div><h1 className="text-2xl font-bold">Pokédex Quiz</h1><p className="text-sm text-gray-400">Región Kanto</p></div></div><div className="text-right"><p className="text-sm text-gray-400">Capturados</p><p className="text-3xl font-bold">{capturedCount}/{totalPokemon}</p></div></div>
       <div className="flex gap-6">
-        {/* Sidebar */}
-        <div className="w-64 space-y-2">
-          {TYPES.map(type => (
-            <button
-              key={type}
-              onClick={() => setSelectedType(type)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                selectedType === type 
-                  ? 'bg-blue-600 shadow-lg shadow-blue-500/50' 
-                  : 'bg-slate-800/50 hover:bg-slate-700/50'
-              }`}
-            >
-              <span className="text-2xl">{TYPE_ICONS[type]}</span>
-              <span className="font-medium">{type}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Pokemon Grid */}
-        <div className="flex-1">
-          <div className="grid grid-cols-4 gap-4">
-            {filteredPokemon.map(pokemon => (
-              <div
-                key={pokemon.id}
-                onClick={() => handlePokemonClick(pokemon)}
-                className="relative bg-slate-800/50 rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all group"
-              >
-                <div className="aspect-square p-4 flex items-center justify-center bg-gradient-to-br from-slate-700/50 to-slate-800/50">
-                  {captured[pokemon.id] ? (
-                    <img 
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-                      alt={pokemon.name}
-                      className="w-full h-full object-contain"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center opacity-30">
-                      <img 
-                      src={`/assets/Pokedex_silueta/${pokemon.id}.png`} 
-                      alt="Silueta de Pokémon" 
-                      className="w-full h-full object-contain" 
-                    />
-                </div>
-                  )}
-                </div>
-                <div className="p-3 text-center border-t border-slate-700">
-                  <p className="font-bold text-lg">{captured[pokemon.id] ? pokemon.name : '???'}</p>
-                  <p className="text-xs text-gray-400">#{String(pokemon.id).padStart(3, '0')}</p>
-                  <div className="flex gap-1 justify-center mt-1">
-                    {[...Array(RARITY_STARS[pokemon.rarity] || 1)].map((_, i) => (
-                    <span key={i} className={`text-xs ${RARITY_COLORS[pokemon.rarity]}`}>★</span>
-                    ))}
-                  </div>
-                </div>
-                {!captured[pokemon.id] && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="bg-blue-600 px-4 py-2 rounded-lg font-bold">Iniciar Quiz</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="w-64 space-y-2">{TYPES.map(type => (<button key={type} onClick={() => setSelectedType(type)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${selectedType === type ? 'bg-blue-600 shadow-lg shadow-blue-500/50' : 'bg-slate-800/50 hover:bg-slate-700/50'}`}><img src={TYPE_ICONS[type]} alt={type} className="w-6 h-6 object-contain" /><span className="font-medium">{type}</span></button>))}</div>
+        <div className="flex-1"><div className="grid grid-cols-4 gap-4">{filteredPokemon.map(pokemon => (<div key={pokemon.id} onClick={() => handlePokemonClick(pokemon)} className="relative bg-slate-800/50 rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all group"><div className="aspect-square p-4 flex items-center justify-center bg-gradient-to-br from-slate-700/50 to-slate-800/50">{captured[pokemon.id] ? (<img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name} className="w-full h-full object-contain" />) : (<div className="w-full h-full flex items-center justify-center opacity-30"><img src={`/assets/Pokedex_silueta/${pokemon.id}.png`} alt="Silueta de Pokémon" className="w-full h-full object-contain" /></div>)}</div><div className="p-3 text-center border-t border-slate-700"><p className="font-bold text-lg">{captured[pokemon.id] ? pokemon.name : '???'}</p><p className="text-xs text-gray-400">#{String(pokemon.id).padStart(3, '0')}</p><div className="flex gap-1 justify-center mt-1">{Array.from({ length: RARITY_STARS[pokemon.rarity] || 1 }).map((_, i) => (<span key={i} className={`text-xs ${RARITY_COLORS[pokemon.rarity] || 'text-gray-400'}`}>★</span>))}</div></div>{!captured[pokemon.id] && (<div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity"><span className="bg-blue-600 px-4 py-2 rounded-lg font-bold">Iniciar Quiz</span></div>)}</div>))}</div></div>
       </div>
 
-      {/* Modal */}
+      {/* MODAL CORREGIDO */}
       {selectedPokemon && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6">
           <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto relative">
-            <button onClick={closeModal} className="absolute top-4 right-4 p-2 hover:bg-slate-700 rounded-lg">
-              <X className="w-6 h-6" />
-            </button>
-
-            {quizMode && !showResult ? (
+            <button onClick={closeModal} className="absolute top-4 right-4 p-2 hover:bg-slate-700 rounded-lg z-20"><X className="w-6 h-6" /></button>
+            
+            {/* CORRECCIÓN: La estructura condicional ahora está bien anidada */}
+            {inBonusRound ? (
+              <div className="p-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-bold mb-2 text-yellow-400 animate-pulse">¡Pregunta de redención!</h2>
+                  <p className="text-gray-400">¡Te ha faltado una respuesta correcta para alcanzar el porcentaje necesario de captura! ¡Acierta para obtener una chance final!</p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="text-xl mb-6 text-center">{selectedPokemon.bonusQuestion.question}</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {selectedPokemon.bonusQuestion.options.map((option, idx) => (
+                      <button key={idx} onClick={() => handleBonusAnswer(idx)} className="p-4 bg-slate-700 hover:bg-yellow-600 rounded-lg font-medium transition-all">
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : quizMode && !showResult ? (
               <div className="p-8">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold mb-2">Quiz - {selectedPokemon.name}</h2>
                   <p className="text-gray-400">Pregunta {currentQuestion + 1} de {quizQuestions.length}</p>
                   <div className="w-full bg-slate-700 h-2 rounded-full mt-4">
-                    <div 
-                      className="bg-blue-500 h-full rounded-full transition-all"
-                      style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
-                    />
+                    <div className="bg-blue-500 h-full rounded-full transition-all" style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }} />
                   </div>
                 </div>
-
                 <div className="mb-8">
-                  <h3 className="text-xl mb-6 text-center">{quizQuestions[currentQuestion].question}</h3>
+                  <h3 className="text-xl mb-6 text-center">{quizQuestions[currentQuestion]?.question}</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    {quizQuestions[currentQuestion].options.map((option, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleAnswer(idx)}
-                        className="p-4 bg-slate-700 hover:bg-blue-600 rounded-lg font-medium transition-all"
-                      >
+                    {quizQuestions[currentQuestion]?.options.map((option, idx) => (
+                      <button key={idx} onClick={() => handleAnswer(idx)} className="p-4 bg-slate-700 hover:bg-blue-600 rounded-lg font-medium transition-all">
                         {option}
                       </button>
                     ))}
@@ -1646,227 +3204,133 @@ export default function PokemonQuiz() {
               <div className="p-8 text-center">
                 <h2 className="text-3xl font-bold mb-4">¡Quiz Completado!</h2>
                 <p className="text-xl mb-2">Puntuación: {score}/{quizQuestions.length}</p>
-                <p className="text-lg mb-6">{(score / quizQuestions.length * 100).toFixed(0)}% correctas</p>
-
-                {score / quizQuestions.length >= 0.75 ? (
+                {score === quizQuestions.length && (<p className="text-lg text-yellow-400 font-bold mb-4">¡Puntuación Perfecta! ¡Captura garantizada!</p>)}
+                <p className="text-lg mb-6">{(score / (quizQuestions.length || 15) * 100).toFixed(0)}% correctas</p>
+                {score >= 10 ? (
                   captureAttempt ? (
                     <div>
                       {captureAttempt.success ? (
-                        <div className="bg-green-900/50 p-8 rounded-xl">
-                          <p className="text-3xl mb-4">🎉</p>
-                          <p className="text-2xl font-bold mb-2">¡Captura Exitosa!</p>
-                          <p className="text-gray-300">Has capturado a {selectedPokemon.name}</p>
-                        </div>
+                        <div className="bg-green-900/50 p-8 rounded-xl"><p className="text-3xl mb-4">🎉</p><p className="text-2xl font-bold mb-2">¡Captura Exitosa!</p><p className="text-gray-300">Has capturado a {selectedPokemon.name}</p></div>
                       ) : (
-                        <div className="bg-red-900/50 p-8 rounded-xl">
-                          <p className="text-3xl mb-4">💨</p>
-                          <p className="text-2xl font-bold mb-2">¡El {selectedPokemon.name} salvaje ha huido del combate!</p>
-                          <p className="text-gray-300">¡Inténtalo de nuevo!</p>
-                          <p className="text-sm text-gray-400 mt-2">Probabilidad de captura: {(captureAttempt.probability * 100).toFixed(0)}%</p>
-                        </div>
+                        <div className="bg-red-900/50 p-8 rounded-xl"><p className="text-3xl mb-4">💨</p><p className="text-2xl font-bold mb-2">¡El {selectedPokemon.name} salvaje ha huido!</p><p className="text-gray-300">¡Inténtalo de nuevo!</p><p className="text-sm text-gray-400 mt-2">Probabilidad de captura: {(captureAttempt.probability * 100).toFixed(0)}%</p></div>
                       )}
                     </div>
-                  ) : (
-                    <p className="text-green-400">Intentando capturar...</p>
-                  )
+                  ) : (<p className="text-green-400">Intentando capturar...</p>)
                 ) : (
-                  <div className="bg-red-900/50 p-8 rounded-xl">
-                    <p className="text-xl">Necesitas al menos 75% de respuestas correctas para intentar capturar</p>
-                  </div>
+                  <div className="bg-red-900/50 p-8 rounded-xl"><p className="text-xl">Necesitas al menos 10 aciertos para un intento de captura.</p></div>
                 )}
               </div>
             ) : (
               <div className="p-0 h-[90vh] flex">
-                {/* Left Sidebar */}
                 <div className="w-64 bg-slate-900/80 p-6 space-y-4">
                   <div className="flex items-center gap-3 mb-8">
                     <div className="w-12 h-12 bg-slate-700 rounded-full flex items-center justify-center">
-                      <span className="text-2xl">📋</span>
+                      <span className="text-2xl">🌍</span>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400">Detalles</p>
-                      <p className="font-bold">{selectedPokemon.type} / {selectedPokemon.name}</p>
+                      {/* CAMBIO: Título del panel ahora es "Localización" */}
+                      <p className="font-bold text-lg">Localización</p>
+                      <p className="text-xs text-gray-400">Región de Kanto</p>
+                    </div>
+                  </div>
+                  
+                  {/* NUEVA SECCIÓN: Mapa de Kanto */}
+                  <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-3 relative">
+                    <p className="text-xs text-gray-400 mb-2">UBICACIÓN EN EL MAPA</p>
+                    <div className="aspect-video relative rounded overflow-hidden">
+                      <img src="/kanto-map.png" alt="Mapa de Kanto" className="w-full h-full object-cover" />
+                      {selectedPokemon.locations && selectedPokemon.locations.map((loc, index) => (
+                        <div key={index} className="absolute w-3 h-3 rounded-full bg-red-500 animate-ping" style={{ top: loc.top, left: loc.left }}></div>
+                      ))}
                     </div>
                   </div>
 
-                  <button className="w-full text-left px-4 py-3 bg-blue-600 rounded-lg flex items-center gap-3">
-                    <span className="text-xl">📊</span>
-                    <span className="font-medium">Detalles</span>
-                  </button>
-
-                  <div className="pt-4 border-t border-slate-700">
-                    <p className="text-xs text-gray-400 mb-2">CATEGORÍAS</p>
-                    <button className="w-full text-left px-4 py-2 hover:bg-slate-800 rounded-lg flex items-center gap-3 text-gray-300">
-                      <span>❄️</span>
-                      <span className="text-sm">Light Cone</span>
-                    </button>
-                    <button className="w-full text-left px-4 py-2 hover:bg-slate-800 rounded-lg flex items-center gap-3 text-gray-300">
-                      <span>✨</span>
-                      <span className="text-sm">Eidolons</span>
-                    </button>
+                  {/* NUEVA SECCIÓN: Lista de juegos y localizaciones */}
+                  <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-3">
+                     <p className="text-xs text-gray-400 mb-2">APARICIONES EN JUEGOS</p>
+                     <div className="space-y-2 text-sm max-h-48 overflow-y-auto">
+                        {selectedPokemon.gameLocations && selectedPokemon.gameLocations.map((gameLoc, index) => (
+                            <div key={index}>
+                                <p className="font-bold text-blue-300">{gameLoc.game}</p>
+                                <p className="text-gray-300 text-xs">{gameLoc.location}</p>
+                            </div>
+                        ))}
+                     </div>
                   </div>
                 </div>
 
-                {/* Main Content */}
+                {/* ===================================================== */}
+                {/* PANEL CENTRAL - IMAGEN DEL POKÉMON                    */}
+                {/* ===================================================== */}
                 <div className="flex-1 relative overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
-                  {/* Character Display */}
+                  <img src={selectedPokemon.background} alt="Hábitat" className="absolute inset-0 w-full h-full object-cover opacity-20 blur-sm" />
+                  <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-start z-10">
+                    <div className="flex gap-3">
+                      <div onClick={() => handleShinyToggle(false)} className={`w-12 h-12 rounded-full bg-slate-700 overflow-hidden cursor-pointer ${!isShiny ? 'border-2 border-blue-400' : 'border-2 border-slate-600 opacity-50'}`}>
+                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`} alt={selectedPokemon.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div onClick={() => handleShinyToggle(true)} className={`w-12 h-12 rounded-full bg-slate-700 overflow-hidden cursor-pointer ${isShiny ? 'border-2 border-yellow-400' : 'border-2 border-slate-600 opacity-50'}`}>
+                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${selectedPokemon.id}.png`} alt={`${selectedPokemon.name} Shiny`} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
                   <div className="absolute inset-0 flex items-end justify-center pb-20">
                     <div className="relative">
-                      <img 
-                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${selectedPokemon.id}.png`}
-                        alt={selectedPokemon.name}
-                        className="h-[500px] object-contain drop-shadow-2xl"
-                      />
-                      {/* Circular platform */}
+                      <img src={isShiny ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${selectedPokemon.id}.png` : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${selectedPokemon.id}.png`} alt={selectedPokemon.name} className="h-[500px] object-contain drop-shadow-2xl transition-all" />
+                      {playShinyAnim && <ShinyAnimation />}
+                      
+                      {/* ELIMINADO: Se han quitado las líneas decorativas de abajo */}
                       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-24">
                         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-blue-500/20 to-transparent blur-xl"></div>
-                        <div className="absolute inset-0 rounded-full border-2 border-blue-400/30"></div>
-                        <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Top Info */}
-                  <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-start">
-                    <div className="flex gap-3">
-                      <div className="w-12 h-12 rounded-full bg-slate-700 border-2 border-blue-400 overflow-hidden">
-                        <img 
-                          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`}
-                          alt={selectedPokemon.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="w-12 h-12 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden opacity-50">
-                        <img 
-                          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
-                          alt="Other"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Left - Additional Info */}
-                  <div className="absolute bottom-6 left-6">
-                    <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 w-64">
-                      <p className="text-xs text-gray-400 mb-2">INFORMACIÓN</p>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Altura:</span>
-                          <span className="font-medium">{selectedPokemon.height}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Peso:</span>
-                          <span className="font-medium">{selectedPokemon.weight}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Tipo:</span>
-                          <span className="font-medium">{selectedPokemon.type.join(' / ')}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Rareza:</span>
-                          <span className={`font-medium ${RARITY_COLORS[selectedPokemon.rarity]}`}>
-                            {selectedPokemon.rarity}
-                          </span>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Right Stats Panel */}
+                {/* ===================================================== */}
+                {/* CAMBIO: PANEL DERECHO - ESTADÍSTICAS Y MOVIMIENTOS    */}
+                {/* ===================================================== */}
                 <div className="w-80 bg-slate-900/80 p-6">
-                  <div className="mb-6">
-                    <h2 className="text-3xl font-bold mb-1">{selectedPokemon.name}</h2>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span className="text-blue-400">⚡</span>
-                      <span>{selectedPokemon.type.join(' / ')}</span>
-                    </div>
-                    <div className="flex gap-2 mt-3">
-                      {[...Array(4)].map((_, i) => ( // <-- Cambiado a 4
-                      <div key={i} className={`w-3 h-3 rounded-sm ${
-                      i < RARITY_STARS[selectedPokemon.rarity]
-                      ? 'bg-blue-400' 
-                      : 'bg-slate-700'
-                      }`}></div>
-                      ))}
-                      </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm text-gray-400">Lv.</span>
-                      <span className="text-2xl font-bold">1/80</span>
-                    </div>
-                  </div>
-
+                  <div className="mb-6"><h2 className="text-3xl font-bold mb-1">{selectedPokemon.name}</h2><div className="flex items-center gap-2 text-sm text-gray-400"><span>{selectedPokemon.type.join(' / ')}</span></div><div className="flex gap-2 mt-3">{[...Array(4)].map((_, i) => (<div key={i} className={`w-3 h-3 rounded-sm ${i < RARITY_STARS[selectedPokemon.rarity] ? 'bg-blue-400' : 'bg-slate-700'}`}></div>))}</div></div>
+                  
+                  {/* CAMBIO: Botones de navegación para el panel derecho */}
                   <div className="flex gap-2 mb-6">
-                    <button className="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-medium text-sm transition-colors">
-                      Stats
-                    </button>
-                    <button className="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded-lg font-medium text-sm transition-colors">
-                      Skill
-                    </button>
+                    <button onClick={() => setActiveTab('Estadísticas')} className={`flex-1 py-2 rounded-lg font-medium text-sm transition-colors ${activeTab === 'Estadísticas' ? 'bg-blue-600' : 'bg-slate-700 hover:bg-slate-600'}`}>Estadísticas</button>
+                    <button onClick={() => setActiveTab('Movimientos')} className={`flex-1 py-2 rounded-lg font-medium text-sm transition-colors ${activeTab === 'Movimientos' ? 'bg-blue-600' : 'bg-slate-700 hover:bg-slate-600'}`}>Movimientos</button>
                   </div>
 
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                        <span className="text-red-400">❤️</span>
+                  {/* CONTENIDO CONDICIONAL DEL PANEL DERECHO */}
+                  {activeTab === 'Estadísticas' ? (
+                    <>
+                      {/* NUEVO: La descripción ahora está aquí */}
+                      <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 mb-6">
+                        <p className="text-xs text-gray-400 mb-2">DESCRIPCIÓN DE LA POKÉDEX</p>
+                        <p className="text-sm">{selectedPokemon.description}</p>
                       </div>
-                      <span className="text-sm text-gray-400 flex-1">HP</span>
-                      <span className="font-bold text-lg">{selectedPokemon.stats.hp}</span>
-                    </div>
 
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                        <span className="text-orange-400">⚔️</span>
+                      {/* Lista de estadísticas */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-red-400">❤️</span></div><span className="text-sm text-gray-400 flex-1">HP</span><span className="font-bold text-lg">{selectedPokemon.stats.hp}</span></div>
+                        <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-orange-400">⚔️</span></div><span className="text-sm text-gray-400 flex-1">Ataque</span><span className="font-bold text-lg">{selectedPokemon.stats.atk}</span></div>
+                        <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-blue-400">🛡️</span></div><span className="text-sm text-gray-400 flex-1">Defensa</span><span className="font-bold text-lg">{selectedPokemon.stats.def}</span></div>
+                        <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-purple-400">✨</span></div><span className="text-sm text-gray-400 flex-1">Ataque Esp.</span><span className="font-bold text-lg">{selectedPokemon.stats.spAtk}</span></div>
+                        <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-green-400">🧿</span></div><span className="text-sm text-gray-400 flex-1">Defensa Esp.</span><span className="font-bold text-lg">{selectedPokemon.stats.spDef}</span></div>
+                        <div className="flex items-center gap-3"><div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-yellow-400">⚡</span></div><span className="text-sm text-gray-400 flex-1">Velocidad</span><span className="font-bold text-lg">{selectedPokemon.stats.spd}</span></div>
                       </div>
-                      <span className="text-sm text-gray-400 flex-1">ATK</span>
-                      <span className="font-bold text-lg">{selectedPokemon.stats.atk}</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                        <span className="text-blue-400">🛡️</span>
+                    </>
+                  ) : (
+                    // NUEVA SECCIÓN: Lista de movimientos
+                    <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4">
+                      <p className="text-xs text-gray-400 mb-3">MOVIMIENTOS APRENDIBLES</p>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm max-h-80 overflow-y-auto">
+                        {selectedPokemon.moves && selectedPokemon.moves.map((move, index) => (
+                          <p key={index} className="truncate">{move}</p>
+                        ))}
                       </div>
-                      <span className="text-sm text-gray-400 flex-1">DEF</span>
-                      <span className="font-bold text-lg">{selectedPokemon.stats.def}</span>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                        <span className="text-green-400">⚡</span>
-                      </div>
-                      <span className="text-sm text-gray-400 flex-1">SPD</span>
-                      <span className="font-bold text-lg">{selectedPokemon.stats.spd}</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                        <span className="text-yellow-400">✨</span>
-                      </div>
-                      <span className="text-sm text-gray-400 flex-1">CRIT Rate</span>
-                      <span className="font-bold text-lg">{selectedPokemon.stats.critRate}%</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                        <span className="text-purple-400">💥</span>
-                      </div>
-                      <span className="text-sm text-gray-400 flex-1">CRIT DMG</span>
-                      <span className="font-bold text-lg">{selectedPokemon.stats.critDmg}%</span>
-                    </div>
-                  </div>
-
-                  <button className="w-full mt-6 bg-slate-700 hover:bg-slate-600 py-3 rounded-lg font-medium transition-colors">
-                    More Stats
-                  </button>
-
-                  <button className="w-full mt-3 bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-medium transition-colors">
-                    Level Up
-                  </button>
+                  )}
                 </div>
+
               </div>
             )}
           </div>
